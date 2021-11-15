@@ -26,7 +26,7 @@ composer: ## Installs the latest Composer dependencies within running instance
 	@echo "Found GitHub access token, configuring composer"
 	@$(APP) composer config -g http-basic.github.com x-access-token ${GITHUB_TOKEN}
   endif
-	$(APP) composer install --no-interaction --no-ansi
+	$(APP) composer install --ignore-platform-reqs --no-interaction --no-ansi
 	$(APP) bin/phpunit --version # ensure PHPUnit is installed
 
 ##@ Running Instance
