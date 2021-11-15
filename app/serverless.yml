@@ -1,0 +1,50 @@
+service: our-wedding
+
+custom:
+    tags:
+        Service: OurWedding
+        Stage: ${self:provider.stage}
+
+provider:
+    name: aws
+    region: ${opt:region}
+    stage: ${opt:stage}
+    runtime: provided.al2
+    memorySize: 512
+    tags: ${self:custom.tags}
+    stackTags: ${self:custom.tags}
+    endpointType: regional # not fronted by CloudFront
+    deploymentBucket:
+        tags: ${self:custom.tags}
+        blockPublicAccess: true
+    environment:
+        APP_ENV: prod
+
+plugins:
+    - ./vendor/bref/bref
+
+functions:
+    web:
+        handler: public/index.php
+        timeout: 29
+        layers:
+            - ${bref:layer.php-81-fpm}
+        events:
+            - httpApi: '*'
+    console:
+        handler: bin/console
+        timeout: 120
+        layers:
+            - ${bref:layer.php-81}
+            - ${bref:layer.console}
+
+package:
+    patterns:
+        - '!assets/**'
+        - '!node_modules/**'
+        - '!public/build/**'
+        - '!tests/**'
+        - '!var/**'
+        - 'var/cache/prod/**'
+        - 'public/build/entrypoints.json'
+        - 'public/build/manifest.json'
