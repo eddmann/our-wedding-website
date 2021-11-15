@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  web:
+    image: docker.io/bref/fpm-dev-gateway:1.3.2
+    container_name: our-wedding-web
+    ports:
+      - 8080:80
+    volumes:
+      - ../app:/var/task
+    depends_on:
+      - php
+    networks:
+      - app
+    environment:
+      HANDLER: public/index.php
+      DOCUMENT_ROOT: public
+
+  php:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    container_name: our-wedding-php
+    volumes:
+      - ../app:/var/task
+    depends_on:
+      - postgres
+    networks:
+      - app
+    environment:
+      APP_ENV: dev
+      APP_SECRET: secret
+      APP_DEBUG: 1
+
+  postgres:
+    image: docker.io/postgres:14.1-alpine3.14
+    container_name: our-wedding-postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - app
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+      TZ: Europe/London
+
+volumes:
+  postgres:
+    driver: local
+
+networks:
+  app:
