@@ -1,9 +1,9 @@
-FROM bref/php-81-fpm-dev:1.3.5
+FROM docker.io/bref/php-81-fpm-dev:1.3.5
 
 USER root
 
 # PHP Tooling
-COPY --from=jakzal/phpqa:1.60.6-php8.0-alpine \
+COPY --from=docker.io/jakzal/phpqa:1.60.6-php8.0-alpine \
   /tools/deptrac \
   /tools/psalm \
   /tools/infection \
@@ -17,7 +17,7 @@ COPY --from=jakzal/phpqa:1.60.6-php8.0-alpine \
 # Composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV COMPOSER_HOME=/tmp/.composer
-COPY --from=composer:2.1.12 /usr/bin/composer /usr/bin/
+COPY --from=docker.io/composer:2.1.12 /usr/bin/composer /usr/bin/
 
 # Node/Yarn
 RUN curl -sL https://rpm.nodesource.com/setup_16.x | bash -
