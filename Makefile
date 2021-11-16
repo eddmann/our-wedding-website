@@ -41,6 +41,31 @@ test-db: ## (Re)creates the test database (with migrations)
 	$(APP) bin/console doctrine:database:create -n --env=test
 	$(APP) bin/console doctrine:migrations:migrate -n --allow-no-migration --quiet --env=test
 
+##@ Testing/Linting
+
+.PHONY: test
+test: test-db ## Runs the entire test-suite (test/* for specific filter)
+	$(APP) bin/phpunit
+
+test/%:
+	$(APP) bin/phpunit --filter $*
+
+.PHONY: test-domain
+test-domain: ## Runs the domain tests
+	$(APP) bin/phpunit --testsuite=domain
+
+.PHONY: test-application
+test-application: ## Runs the application tests
+	$(APP) bin/phpunit --testsuite=application
+
+.PHONY: test-infrastructure
+test-infrastructure: test-db ## Runs the infrastructure tests
+	$(APP) bin/phpunit --testsuite=infrastructure
+
+.PHONY: test-ui
+test-ui: test-db ## Runs the ui tests
+	$(APP) bin/phpunit --testsuite=ui
+
 ##@ Running Instance
 
 .PHONY: shell
