@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/healthz', name: 'health')]
-class HealthController
+final class HealthController
 {
     public function __invoke(Connection $connection): Response
     {

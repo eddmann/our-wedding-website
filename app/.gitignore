@@ -19,3 +19,4 @@
 ###< bref/symfony-bridge ###
 
 .deptrac.cache
+.php-cs-fixer.cache
