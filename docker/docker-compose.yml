@@ -7,7 +7,7 @@ services:
     ports:
       - 8080:80
     volumes:
-      - ../app:/var/task
+      - ../app/public:/var/task/public
     depends_on:
       - php
     networks:
