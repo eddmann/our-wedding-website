@@ -30,7 +30,7 @@ services:
     environment:
       APP_ENV: dev
       APP_SECRET: secret
-      APP_DEBUG: 1
+      DATABASE_URL: 'postgresql://user:password@postgres:5432/db?serverVersion=14.1&charset=utf8'
 
   postgres:
     image: docker.io/postgres:14.1-alpine3.14
@@ -45,6 +45,7 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: db
+      POSTGRES_INITDB_ARGS: '--auth-host=md5'
       TZ: Europe/London
 
 volumes:
