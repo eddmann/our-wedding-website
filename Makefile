@@ -7,7 +7,7 @@ APP := $(COMPOSE) exec -T php
 ##@ Setup
 
 .PHONY: start
-start: up composer ## Boots the application in development mode
+start: up composer db test-db ## Boots the application in development mode
 
 up:
 	$(COMPOSE) build
@@ -28,6 +28,18 @@ composer: ## Installs the latest Composer dependencies within running instance
   endif
 	$(APP) composer install --ignore-platform-reqs --no-interaction --no-ansi
 	$(APP) bin/phpunit --version # ensure PHPUnit is installed
+
+.PHONY: db
+db: ## (Re)creates the development database (with migrations)
+	$(APP) bin/console doctrine:database:drop --force --if-exists
+	$(APP) bin/console doctrine:database:create -n
+	$(APP) bin/console doctrine:migrations:migrate -n --allow-no-migration
+
+.PHONY: test-db
+test-db: ## (Re)creates the test database (with migrations)
+	$(APP) bin/console doctrine:database:drop --force --if-exists --env=test
+	$(APP) bin/console doctrine:database:create -n --env=test
+	$(APP) bin/console doctrine:migrations:migrate -n --allow-no-migration --quiet --env=test
 
 ##@ Running Instance
 
