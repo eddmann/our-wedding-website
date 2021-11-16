@@ -66,6 +66,14 @@ test-infrastructure: test-db ## Runs the infrastructure tests
 test-ui: test-db ## Runs the ui tests
 	$(APP) bin/phpunit --testsuite=ui
 
+.PHONY: security
+security: ## Checks if we are running any dependencies with known security vulnerabilities
+	$(APP) local-php-security-checker
+
+.PHONY: lint
+lint: ## Runs the lint tools we have configured for the application
+	$(APP) deptrac --no-interaction --no-progress
+
 ##@ Running Instance
 
 .PHONY: shell

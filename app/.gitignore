@@ -17,3 +17,5 @@
 ###> bref/symfony-bridge ###
 /.serverless/
 ###< bref/symfony-bridge ###
+
+.deptrac.cache
