@@ -7,7 +7,7 @@ APP := $(COMPOSE) exec -T php
 ##@ Setup
 
 .PHONY: start
-start: up composer db test-db ## Boots the application in development mode
+start: up composer yarn db test-db ## Boots the application in development mode
 
 up:
 	$(COMPOSE) build
@@ -28,6 +28,14 @@ composer: ## Installs the latest Composer dependencies within running instance
   endif
 	$(APP) composer install --ignore-platform-reqs --no-interaction --no-ansi
 	$(APP) bin/phpunit --version # ensure PHPUnit is installed
+
+.PHONY: yarn
+yarn: ## Installs and builds the latest Yarn dependencies within running instance
+	$(APP) bash -c "yarn && yarn build"
+
+.PHONY: encore
+encore: yarn ## Watches for CSS/JS changes and auto-transpiles them
+	$(APP) yarn watch
 
 .PHONY: db
 db: ## (Re)creates the development database (with migrations)
