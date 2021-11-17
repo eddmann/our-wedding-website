@@ -17,9 +17,10 @@ services:
       DOCUMENT_ROOT: public
 
   php:
-    build:
-      context: ../
-      dockerfile: docker/Dockerfile
+    image: ghcr.io/eddmann/our-wedding-app:dev-f2eff04
+    #build:
+    #  context: ../
+    #  dockerfile: docker/Dockerfile
     container_name: our-wedding-php
     volumes:
       - ../app:/var/task
