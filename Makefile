@@ -87,6 +87,9 @@ lint: ## Runs the lint tools we have configured for the application
 cs-fix: ## Auto-fixes any code-styling related code violations
 	$(COMPOSE) exec -e PHP_CS_FIXER_IGNORE_ENV=1 -T php php-cs-fixer fix
 
+.PHONY: can-release
+can-release: security lint test ## Execute all the checks run by CI to ensure the application can be released
+
 ##@ Running Instance
 
 .PHONY: shell
