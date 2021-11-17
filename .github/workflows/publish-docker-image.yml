@@ -1,0 +1,23 @@
+name: Publish Docker image
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'docker/Dockerfile'
+      - '.github/workflows/publish-docker-image.yml'
+
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Publish image
+        run: |
+          TAG_NAME=${GITHUB_SHA::7}
+          echo ${{ secrets.OUR_WEDDING_APP_GHCR_WRITE }} | docker login ghcr.io -u irrelevant-user --password-stdin
+          docker build -f docker/Dockerfile -t ghcr.io/eddmann/our-wedding-app:dev-$TAG_NAME .
+          docker push ghcr.io/eddmann/our-wedding-app:dev-$TAG_NAME
