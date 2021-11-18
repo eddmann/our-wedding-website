@@ -18,7 +18,7 @@ final class Kernel extends BrefKernel
         $container->import($confDir . '/{packages}/*.yaml');
         $container->import($confDir . '/{packages}/' . $this->environment . '/*.yaml');
 
-        if (is_file($confDir . '/services.yaml')) {
+        if (\is_file($confDir . '/services.yaml')) {
             $container->import($confDir . '/services.yaml');
             $container->import($confDir . '/{services}_' . $this->environment . '.yaml');
         } else {
@@ -33,7 +33,7 @@ final class Kernel extends BrefKernel
         $routes->import($confDir . '/{routes}/' . $this->environment . '/*.yaml');
         $routes->import($confDir . '/{routes}/*.yaml');
 
-        if (is_file($confDir . '/routes.yaml')) {
+        if (\is_file($confDir . '/routes.yaml')) {
             $routes->import('../config/routes.yaml');
         } else {
             $routes->import($confDir . '/{routes}.php');

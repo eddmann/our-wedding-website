@@ -76,8 +76,6 @@ return $config
         'explicit_string_variable' => true,
         // All classes must be final, except abstract ones and Doctrine entities.
         'final_class' => true,
-        // All `public` methods of `abstract` classes should be `final`.
-        'final_public_method_for_abstract_class' => true,
         // PHP code must use the long `<?php` tags or short-echo `<?=` tags and not other tag variations.
         'full_opening_tag' => true,
         // Transforms imported FQCN parameters and return types in function arguments to short version.
@@ -147,7 +145,7 @@ return $config
         // Function defined by PHP should be called using the correct casing.
         'native_function_casing' => true,
         // Add leading `\` before function invocation to speed up resolving.
-        'native_function_invocation' => true,
+        'native_function_invocation' => ['include' => ['@all']],
         // Native type hints for functions should use the correct case.
         'native_function_type_declaration_casing' => true,
         // All instances created with new keyword must be followed by braces.
