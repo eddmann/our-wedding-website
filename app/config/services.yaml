@@ -10,6 +10,18 @@ services:
         exclude:
             - '../src/**/{Migrations}'
 
+    App\Infrastructure\SymfonyCommandBus:
+        arguments: ['@command.bus']
+        lazy: true
+
+    App\Infrastructure\SymfonyAggregateEventsBus:
+        arguments: ['@aggregate_event.bus']
+        lazy: true
+
+    App\Infrastructure\SymfonyDomainEventBus:
+        arguments: ['@domain_event.bus']
+        lazy: true
+
     App\Ui\Cli\Command\:
         resource: '../src/Ui/Cli/Command'
 

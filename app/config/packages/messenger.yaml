@@ -1,14 +1,15 @@
 framework:
     messenger:
-        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
-        # failure_transport: failed
-
+        default_bus: command.bus
+        buses:
+            command.bus:
+            aggregate_event.bus:
+                default_middleware: allow_no_handlers
+            domain_event.bus:
+                default_middleware: allow_no_handlers
         transports:
-            # https://symfony.com/doc/current/messenger.html#transport-configuration
-            # async: '%env(MESSENGER_TRANSPORT_DSN)%'
-            # failed: 'doctrine://default?queue_name=failed'
-            # sync: 'sync://'
-
+            sync: 'sync://'
         routing:
-            # Route your messages to the transports
-            # 'App\Message\YourMessage': async
+            App\Application\Command\Command: sync
+            App\Domain\Helpers\AggregateEvents: sync
+            App\Domain\Helpers\DomainEvent: sync
