@@ -9,6 +9,7 @@ services:
         resource: '../src/'
         exclude:
             - '../src/**/{Migrations}'
+            - '../src/helpers.php'
 
     App\Infrastructure\SymfonyCommandBus:
         arguments: ['@command.bus']
