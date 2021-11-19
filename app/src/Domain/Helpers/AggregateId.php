@@ -5,7 +5,7 @@ namespace App\Domain\Helpers;
 use Symfony\Component\Uid\Uuid;
 
 /** @psalm-immutable */
-abstract class AggregateId
+abstract class AggregateId implements \Stringable
 {
     private const NIL = '00000000-0000-0000-0000-000000000000';
 
@@ -18,6 +18,11 @@ abstract class AggregateId
         }
 
         $this->id = $id;
+    }
+
+    public function __toString(): string
+    {
+        return $this->id;
     }
 
     /** @psalm-suppress UnsafeInstantiation */
@@ -36,11 +41,6 @@ abstract class AggregateId
     public static function nil(): static
     {
         return new static(self::NIL);
-    }
-
-    public function toString(): string
-    {
-        return $this->id;
     }
 
     public function equals(self $that): bool

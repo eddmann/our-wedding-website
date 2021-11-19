@@ -3,7 +3,7 @@
 namespace App\Domain\Helpers;
 
 /** @psalm-immutable */
-final class AggregateName
+final class AggregateName implements \Stringable
 {
     private string $name;
 
@@ -16,15 +16,15 @@ final class AggregateName
         $this->name = $name;
     }
 
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
     /** @psalm-mutation-free */
     public static function fromString(string $name): self
     {
         return new self($name);
-    }
-
-    public function toString(): string
-    {
-        return $this->name;
     }
 
     public function equals(self $that): bool
