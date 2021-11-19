@@ -5,14 +5,11 @@ USER root
 # PHP Tooling
 COPY --from=docker.io/jakzal/phpqa:1.60.6-php8.0-alpine \
   /tools/deptrac \
-  /tools/psalm \
-  /tools/infection \
   /tools/php-cs-fixer \
-  /tools/phpcs \
-  /tools/phpcbf \
-  /tools/phpmd \
   /tools/local-php-security-checker \
   /usr/bin/
+RUN curl -sL https://github.com/vimeo/psalm/releases/download/4.12.0/psalm.phar -o /usr/bin/psalm \
+ && chmod +x /usr/bin/psalm
 
 # Composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
