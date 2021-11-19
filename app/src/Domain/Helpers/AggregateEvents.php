@@ -18,7 +18,7 @@ final class AggregateEvents implements \IteratorAggregate
 
     public function add(AggregateEvent $event): self
     {
-        return new self(\array_merge($this->events, [$event]));
+        return new self([...$this->events, $event]);
     }
 
     public static function make(): self
@@ -28,7 +28,7 @@ final class AggregateEvents implements \IteratorAggregate
 
     public function merge(self $that): self
     {
-        return new self(\array_merge($this->events, $that->events));
+        return new self([...$this->events, ...$that->events]);
     }
 
     public function isEmpty(): bool
