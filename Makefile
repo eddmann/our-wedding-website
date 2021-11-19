@@ -82,6 +82,7 @@ security: ## Checks if we are running any dependencies with known security vulne
 lint: ## Runs the lint tools we have configured for the application
 	$(COMPOSE) exec -e PHP_CS_FIXER_IGNORE_ENV=1 -T php php-cs-fixer fix --dry-run --diff
 	$(APP) deptrac --no-interaction --no-progress
+	$(APP) psalm --no-progress --monochrome --show-info=true --threads=4 --diff
 
 .PHONY: cs-fix
 cs-fix: ## Auto-fixes any code-styling related code violations

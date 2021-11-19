@@ -51,6 +51,6 @@ final class AggregateEvents implements \IteratorAggregate
      */
     public function reduce(callable $function, $initial)
     {
-        return \array_reduce(\iterator_to_array($this), $function, $initial);
+        return \array_reduce($this->events, $function, $initial);
     }
 }

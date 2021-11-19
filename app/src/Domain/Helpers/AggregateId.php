@@ -20,16 +20,19 @@ abstract class AggregateId
         $this->id = $id;
     }
 
+    /** @psalm-suppress UnsafeInstantiation */
     public static function generate(): static
     {
         return new static(Uuid::v4()->toRfc4122());
     }
 
+    /** @psalm-suppress UnsafeInstantiation */
     public static function fromString(string $id): static
     {
         return new static($id);
     }
 
+    /** @psalm-suppress UnsafeInstantiation */
     public static function nil(): static
     {
         return new static(self::NIL);

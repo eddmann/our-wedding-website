@@ -31,6 +31,7 @@ abstract class Aggregate
         return $events;
     }
 
+    /** @psalm-suppress UnsafeInstantiation */
     public static function buildFrom(AggregateEvents $events): static
     {
         $aggregate = new static();
