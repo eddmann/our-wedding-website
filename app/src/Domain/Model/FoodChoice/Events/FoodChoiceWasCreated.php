@@ -3,7 +3,7 @@
 namespace App\Domain\Model\FoodChoice\Events;
 
 use App\Domain\Helpers\{AggregateEvent, AggregateName, AggregateVersion};
-use App\Domain\Model\FoodChoice\{FoodChoiceId, FoodChoiceName, FoodCourse};
+use App\Domain\Model\FoodChoice\{FoodChoice, FoodChoiceId, FoodChoiceName, FoodCourse};
 use App\Domain\Model\Shared\GuestType;
 
 /** @psalm-immutable */
@@ -25,7 +25,7 @@ final class FoodChoiceWasCreated implements AggregateEvent
         FoodChoiceName $name,
         \DateTimeImmutable $occurredAt
     ) {
-        $this->aggregateName = AggregateName::fromString('food_choice');
+        $this->aggregateName = AggregateName::fromString(FoodChoice::AGGREGATE_NAME);
         $this->id = $id;
         $this->aggregateVersion = $aggregateVersion;
         $this->guestType = $guestType;
