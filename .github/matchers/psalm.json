@@ -1,0 +1,15 @@
+{
+    "problemMatcher": [
+        {
+            "owner": "psalm",
+            "pattern": [
+                {
+                    "regexp": "ERROR.+-\\s(.+?):(\\d+).+-\\s(.+)$",
+                    "message": 3,
+                    "file": 1,
+                    "line": 2
+                }
+            ]
+        }
+    ]
+}
