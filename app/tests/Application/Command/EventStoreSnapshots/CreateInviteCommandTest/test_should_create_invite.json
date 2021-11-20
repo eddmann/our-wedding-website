@@ -1,0 +1,38 @@
+{
+    "generated": "2021-11-20 19:49:38.935420 +0000",
+    "events": [
+        {
+            "name": "App\\Domain\\Model\\Invite\\Events\\InviteWasCreated",
+            "data": {
+                "aggregateVersion": 0,
+                "id": "61671cde-58bd-40b7-b404-7ea50e92f03b",
+                "inviteCode": "D9Q6",
+                "inviteType": "day",
+                "invitedGuests": [
+                    {
+                        "id": "48cfe5c2-1825-48ae-86c8-2d16955b0bce",
+                        "inviteType": "day",
+                        "guestType": "adult",
+                        "name": "Adult",
+                        "hasFoodChoices": true
+                    },
+                    {
+                        "id": "ec34229e-7219-41c0-9023-de53ff183a95",
+                        "inviteType": "day",
+                        "guestType": "child",
+                        "name": "Child",
+                        "hasFoodChoices": true
+                    },
+                    {
+                        "id": "e53a4815-ce47-4020-8cc9-2d0bd4d3201e",
+                        "inviteType": "day",
+                        "guestType": "baby",
+                        "name": "Baby",
+                        "hasFoodChoices": false
+                    }
+                ],
+                "occurredAt": "2021-11-20 19:49:38.926900 +0000"
+            }
+        }
+    ]
+}
