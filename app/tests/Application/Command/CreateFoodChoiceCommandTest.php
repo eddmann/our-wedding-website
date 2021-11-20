@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Tests\Application;
+namespace App\Tests\Application\Command;
 
 use App\Application\Command\CreateFoodChoice\{CreateFoodChoiceCommand, CreateFoodChoiceCommandHandler};
 use App\Domain\Model\FoodChoice\{FoodChoiceName, FoodChoiceRepository, FoodCourse};
