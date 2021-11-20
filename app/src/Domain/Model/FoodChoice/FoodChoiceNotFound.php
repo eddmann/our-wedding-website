@@ -6,6 +6,6 @@ final class FoodChoiceNotFound extends \DomainException
 {
     public function __construct(FoodChoiceId $id)
     {
-        parent::__construct(\sprintf("Unable to find food choice with id '%s'", (string) $id));
+        parent::__construct(\sprintf("Unable to find food choice with id '%s'", $id->toString()));
     }
 }

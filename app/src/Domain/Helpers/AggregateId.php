@@ -5,7 +5,7 @@ namespace App\Domain\Helpers;
 use Symfony\Component\Uid\Uuid;
 
 /** @psalm-immutable */
-abstract class AggregateId implements \Stringable
+abstract class AggregateId
 {
     private const NIL = '00000000-0000-0000-0000-000000000000';
 
@@ -20,7 +20,7 @@ abstract class AggregateId implements \Stringable
         $this->id = $id;
     }
 
-    public function __toString(): string
+    public function toString(): string
     {
         return $this->id;
     }

@@ -270,8 +270,6 @@ return $config
         'php_unit_no_expectation_annotation' => true,
         // Changes the visibility of the `setUp()` and `tearDown()` functions of PHPUnit to `protected`, to match the PHPUnit TestCase.
         'php_unit_set_up_tear_down_visibility' => true,
-        // PHPUnit methods like `assertSame` should be used instead of `assertEquals`.
-        'php_unit_strict' => true,
         // Adds or removes @test annotations from tests, following configuration.
         'php_unit_test_annotation' => true,
         // Calls to `PHPUnit\Framework\TestCase` static methods must all be of the same type, either `$this->`, `self::` or `static::`.

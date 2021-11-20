@@ -9,34 +9,19 @@ use App\Domain\Model\Shared\GuestType;
 /** @psalm-immutable */
 final class FoodChoiceWasCreated implements AggregateEvent
 {
-    private AggregateName $aggregateName;
-    private FoodChoiceId $id;
-    private AggregateVersion $aggregateVersion;
-    private GuestType $guestType;
-    private FoodCourse $course;
-    private FoodChoiceName $name;
-    private \DateTimeImmutable $occurredAt;
-
     public function __construct(
-        FoodChoiceId $id,
-        AggregateVersion $aggregateVersion,
-        GuestType $guestType,
-        FoodCourse $course,
-        FoodChoiceName $name,
-        \DateTimeImmutable $occurredAt
+        private FoodChoiceId $id,
+        private AggregateVersion $aggregateVersion,
+        private GuestType $guestType,
+        private FoodCourse $course,
+        private FoodChoiceName $name,
+        private \DateTimeImmutable $occurredAt
     ) {
-        $this->aggregateName = AggregateName::fromString(FoodChoice::AGGREGATE_NAME);
-        $this->id = $id;
-        $this->aggregateVersion = $aggregateVersion;
-        $this->guestType = $guestType;
-        $this->course = $course;
-        $this->name = $name;
-        $this->occurredAt = $occurredAt;
     }
 
     public function getAggregateName(): AggregateName
     {
-        return $this->aggregateName;
+        return AggregateName::fromString(FoodChoice::AGGREGATE_NAME);
     }
 
     public function getAggregateId(): FoodChoiceId
@@ -73,10 +58,10 @@ final class FoodChoiceWasCreated implements AggregateEvent
     {
         return \json_encode_array([
             'aggregateVersion' => $this->aggregateVersion->toInt(),
-            'id' => (string) $this->id,
+            'id' => $this->id->toString(),
             'guestType' => $this->guestType->toString(),
             'course' => $this->course->toString(),
-            'name' => (string) $this->name,
+            'name' => $this->name->toString(),
             'occurredAt' => \datetime_timestamp($this->occurredAt),
         ]);
     }

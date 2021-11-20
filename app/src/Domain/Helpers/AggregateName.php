@@ -3,7 +3,7 @@
 namespace App\Domain\Helpers;
 
 /** @psalm-immutable */
-final class AggregateName implements \Stringable
+final class AggregateName
 {
     private string $name;
 
@@ -16,7 +16,7 @@ final class AggregateName implements \Stringable
         $this->name = $name;
     }
 
-    public function __toString(): string
+    public function toString(): string
     {
         return $this->name;
     }

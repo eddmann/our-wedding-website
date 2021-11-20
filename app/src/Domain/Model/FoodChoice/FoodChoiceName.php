@@ -3,7 +3,7 @@
 namespace App\Domain\Model\FoodChoice;
 
 /** @psalm-immutable */
-final class FoodChoiceName implements \Stringable
+final class FoodChoiceName
 {
     public function __construct(private string $name)
     {
@@ -12,7 +12,7 @@ final class FoodChoiceName implements \Stringable
         }
     }
 
-    public function __toString(): string
+    public function toString(): string
     {
         return $this->name;
     }
