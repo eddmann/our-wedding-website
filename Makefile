@@ -51,6 +51,19 @@ test-db: ## (Re)creates the test database (with migrations)
 
 ##@ Testing/Linting
 
+.PHONY: can-release
+can-release: security lint test ## Execute all the checks run by CI to ensure the application can be released
+
+.PHONY: security
+security: ## Checks if we are running any dependencies with known security vulnerabilities
+	$(APP) local-php-security-checker
+
+.PHONY: lint
+lint: ## Runs the lint tools we have configured for the application
+	$(COMPOSE) exec -e PHP_CS_FIXER_IGNORE_ENV=1 -T php php-cs-fixer fix --dry-run --diff
+	$(APP) deptrac --no-interaction --no-progress
+	$(APP) psalm --no-progress --monochrome --show-info=true --threads=4 --diff
+
 .PHONY: test
 test: test-db ## Runs the entire test-suite (test/* for specific filter)
 	$(APP) bin/phpunit
@@ -74,22 +87,13 @@ test-infrastructure: test-db ## Runs the infrastructure tests
 test-ui: test-db ## Runs the ui tests
 	$(APP) bin/phpunit --testsuite=ui
 
-.PHONY: security
-security: ## Checks if we are running any dependencies with known security vulnerabilities
-	$(APP) local-php-security-checker
-
-.PHONY: lint
-lint: ## Runs the lint tools we have configured for the application
-	$(COMPOSE) exec -e PHP_CS_FIXER_IGNORE_ENV=1 -T php php-cs-fixer fix --dry-run --diff
-	$(APP) deptrac --no-interaction --no-progress
-	$(APP) psalm --no-progress --monochrome --show-info=true --threads=4 --diff
-
 .PHONY: cs-fix
 cs-fix: ## Auto-fixes any code-styling related code violations
 	$(COMPOSE) exec -e PHP_CS_FIXER_IGNORE_ENV=1 -T php php-cs-fixer fix
 
-.PHONY: can-release
-can-release: security lint test ## Execute all the checks run by CI to ensure the application can be released
+.PHONY: update-snapshots
+update-snapshots: ## Updates event store snapshots that are mismatches
+	$(APP) bash -c "UPDATE_EVENT_STORE_SNAPSHOT_MISMATCHES=true bin/phpunit --testsuite=application"
 
 ##@ Running Instance
 
