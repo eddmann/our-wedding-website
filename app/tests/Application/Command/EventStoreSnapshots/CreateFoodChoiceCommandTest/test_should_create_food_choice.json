@@ -1,0 +1,16 @@
+{
+    "generated": "2021-11-20 15:50:28.135891 +0000",
+    "events": [
+        {
+            "name": "App\\Domain\\Model\\FoodChoice\\Events\\FoodChoiceWasCreated",
+            "data": {
+                "aggregateVersion": 0,
+                "id": "7b2c981e-0784-4203-9ff9-2b258f2190fe",
+                "guestType": "adult",
+                "course": "starter",
+                "name": "Name",
+                "occurredAt": "2021-11-20 15:50:28.126459 +0000"
+            }
+        }
+    ]
+}

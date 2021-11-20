@@ -2,9 +2,10 @@
 
 namespace App\Tests\Doubles;
 
-use App\Domain\Helpers\{AggregateEvent, AggregateEventStream, AggregateEvents, AggregateId, AggregateName, EventStore, EventStreamPointer};
+use App\Domain\Helpers\{AggregateEvent, AggregateEventStream, AggregateEvents, AggregateId, AggregateName, EventStreamPointer};
+use App\Tests\SerializableEventStore;
 
-final class InMemoryEventStore implements EventStore
+final class InMemoryEventStore implements SerializableEventStore
 {
     private AggregateEvents $events;
 
@@ -42,6 +43,15 @@ final class InMemoryEventStore implements EventStore
                 static fn (AggregateEvents $events, AggregateEvent $event) => $events->add($event),
                 AggregateEvents::make()
             )
+        );
+    }
+
+    public function toArray(): array
+    {
+        return $this->events->reduce(
+            static fn (array $events, AggregateEvent $event)
+                => [...$events, ['name' => \get_class($event), 'data' => \json_decode_array($event->serialize())]],
+            []
         );
     }
 

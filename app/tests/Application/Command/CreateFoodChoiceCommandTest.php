@@ -5,18 +5,19 @@ namespace App\Tests\Application\Command;
 use App\Application\Command\CreateFoodChoice\{CreateFoodChoiceCommand, CreateFoodChoiceCommandHandler};
 use App\Domain\Model\FoodChoice\{FoodChoiceName, FoodChoiceRepository, FoodCourse};
 use App\Domain\Model\Shared\GuestType;
-use App\Tests\Doubles\InMemoryEventStore;
-use PHPUnit\Framework\TestCase;
+use App\Tests\CommandTestCase;
 
-final class CreateFoodChoiceCommandTest extends TestCase
+final class CreateFoodChoiceCommandTest extends CommandTestCase
 {
     private CreateFoodChoiceCommandHandler $handler;
     private FoodChoiceRepository $repository;
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->handler = new CreateFoodChoiceCommandHandler(
-            $this->repository = new FoodChoiceRepository(new InMemoryEventStore())
+            $this->repository = new FoodChoiceRepository($this->eventStore)
         );
     }
 
