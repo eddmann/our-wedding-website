@@ -10,5 +10,17 @@ jobs:
       - uses: actions/checkout@v2
       - name: Login to GHCR
         run: echo ${{ secrets.OUR_WEDDING_APP_GHCR_WRITE }} | docker login ghcr.io -u irrelevant-user --password-stdin
+      - name: Restore Composer cache
+        uses: actions/cache@v2
+        with:
+          path: ./app/vendor
+          key: our-wedding-test-composer-${{ hashFiles('./app/composer.lock') }}
+          restore-keys: our-wedding-test-composer-
+      - name: Restore Yarn cache
+        uses: actions/cache@v2
+        with:
+          path: ./app/node_modules
+          key: our-wedding-test-yarn-${{ hashFiles('./app/yarn.lock') }}
+          restore-keys: our-wedding-test-yarn-
       - name: Test
         run: make start can-release
