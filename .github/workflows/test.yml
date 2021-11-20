@@ -1,0 +1,14 @@
+name: Test
+
+on: push
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login to GHCR
+        run: echo ${{ secrets.OUR_WEDDING_APP_GHCR_WRITE }} | docker login ghcr.io -u irrelevant-user --password-stdin
+      - name: Test
+        run: make start can-release
