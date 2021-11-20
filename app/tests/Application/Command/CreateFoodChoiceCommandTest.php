@@ -5,7 +5,6 @@ namespace App\Tests\Application\Command;
 use App\Application\Command\CreateFoodChoice\{CreateFoodChoiceCommand, CreateFoodChoiceCommandHandler};
 use App\Domain\Model\FoodChoice\{FoodChoiceName, FoodChoiceRepository, FoodCourse};
 use App\Domain\Model\Shared\GuestType;
-use App\Tests\CommandTestCase;
 
 final class CreateFoodChoiceCommandTest extends CommandTestCase
 {

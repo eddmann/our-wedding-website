@@ -1,13 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace App\Tests;
+namespace App\Tests\Application\Command;
 
+use App\Domain\Helpers\{AggregateEvent, EventStore, EventStreamPointer};
 use App\Tests\Doubles\InMemoryEventStore;
 use PHPUnit\Framework\TestCase;
 
 abstract class CommandTestCase extends TestCase
 {
-    protected SerializableEventStore $eventStore;
+    protected EventStore $eventStore;
     private bool $skipEventStoreSnapshotAssertion = false;
 
     protected function setUp(): void
@@ -43,7 +44,7 @@ abstract class CommandTestCase extends TestCase
         $snapshotDirectory = $directoryPath . '/EventStoreSnapshots/' . $className;
         $snapshotFilePath = $snapshotDirectory . '/' . $testName . '.json';
 
-        $events = $this->eventStore->toArray();
+        $events = $this->allStoreEventsAsArray();
 
         if (\is_file($snapshotFilePath)) {
             $snapshot = \json_decode_array(\file_get_contents($snapshotFilePath));
@@ -57,7 +58,7 @@ abstract class CommandTestCase extends TestCase
 
                 return;
             } catch (\Exception $e) {
-                if (false === ($_ENV['UPDATE_EVENT_STORE_SNAPSHOT_MISMATCHES'] ?? false)) {
+                if (! ($_ENV['UPDATE_EVENT_STORE_SNAPSHOT_MISMATCHES'] ?? false)) {
                     throw $e;
                 }
             }
@@ -67,7 +68,7 @@ abstract class CommandTestCase extends TestCase
             return;
         }
 
-        if (false === \is_dir($snapshotDirectory)) {
+        if (! \is_dir($snapshotDirectory)) {
             \mkdir($snapshotDirectory, 0o755, true);
         }
 
@@ -86,5 +87,22 @@ abstract class CommandTestCase extends TestCase
 
             return $event;
         }, [...$events]);
+    }
+
+    private function allStoreEventsAsArray(): array
+    {
+        $events = [];
+
+        $stream = $this->eventStore->stream(EventStreamPointer::beginning(), 100);
+        while (! $stream->getEvents()->isEmpty()) {
+            $newEvents = $stream->getEvents()->reduce(
+                static fn (array $events, AggregateEvent $event) => [...$events, ['name' => \get_class($event), 'data' => \json_decode_array($event->serialize())]],
+                []
+            );
+            $events = [...$events, ...$newEvents];
+            $stream = $this->eventStore->stream($stream->getNextPointer(), 100);
+        }
+
+        return $events;
     }
 }
