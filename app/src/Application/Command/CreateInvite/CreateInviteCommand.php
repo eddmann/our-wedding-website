@@ -21,6 +21,7 @@ final class CreateInviteCommand implements Command
         $this->id = InviteId::generate();
         $this->code = InviteCode::generate();
         $this->type = InviteType::fromString($type);
+        /** @psalm-suppress ImpureFunctionCall */
         $this->invitedGuests = \array_map(function (array $guest) {
             return InvitedGuest::createForInvite(
                 $this->type,

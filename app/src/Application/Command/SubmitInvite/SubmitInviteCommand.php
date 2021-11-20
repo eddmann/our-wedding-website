@@ -15,6 +15,7 @@ final class SubmitInviteCommand implements Command
     /** @var SongChoice[] */
     private array $songChoices;
 
+    /** @psalm-suppress ImpureFunctionCall */
     public function __construct(
         string $id,
         array $chosenFoodChoices,
