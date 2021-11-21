@@ -82,19 +82,8 @@ abstract class CommandTestCase extends TestCase
 
     private function ignoreKnownDifferentEventAttributes(array $events): array
     {
-        $recursiveUnset = static function (array $keys, & $array) use (&$recursiveUnset): void {
-            foreach ($keys as $key) {
-                unset($array[$key]);
-            }
-            foreach ($array as &$value) {
-                if (\is_array($value)) {
-                    $recursiveUnset($keys, $value);
-                }
-            }
-        };
-
         return \array_map(
-            static fn (array $event) => $recursiveUnset(['id', 'occurredAt'], $event),
+            static fn (array $event) => array_nullify($event, ['id', 'occurredAt', 'inviteCode']),
             [...$events]
         );
     }
@@ -115,4 +104,17 @@ abstract class CommandTestCase extends TestCase
 
         return $events;
     }
+}
+
+function array_nullify(array $array, array $keys)
+{
+    foreach ($array as $key => $value) {
+        if (\is_array($value)) {
+            $array[$key] = array_nullify($value, $keys);
+        } elseif (\in_array($key, $keys, true)) {
+            $array[$key] = null;
+        }
+    }
+
+    return $array;
 }
