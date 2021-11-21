@@ -8,11 +8,18 @@ use App\Domain\Model\Invite\{Invite, InviteId};
 /** @psalm-immutable */
 final class InviteWasAuthenticated implements AggregateEvent
 {
+    public const EVENT_NAME = 'invite.authenticated';
+
     public function __construct(
         private InviteId $id,
         private AggregateVersion $aggregateVersion,
         private \DateTimeImmutable $occurredAt
     ) {
+    }
+
+    public function getEventName(): string
+    {
+        return self::EVENT_NAME;
     }
 
     public function getAggregateName(): AggregateName

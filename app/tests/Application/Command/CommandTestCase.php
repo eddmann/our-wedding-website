@@ -106,7 +106,7 @@ abstract class CommandTestCase extends TestCase
         $stream = $this->eventStore->stream(EventStreamPointer::beginning(), 100);
         while (! $stream->getEvents()->isEmpty()) {
             $newEvents = $stream->getEvents()->reduce(
-                static fn (array $events, AggregateEvent $event) => [...$events, ['name' => \get_class($event), 'data' => \json_decode_array($event->serialize())]],
+                static fn (array $events, AggregateEvent $event) => [...$events, ['name' => $event->getEventName(), 'data' => \json_decode_array($event->serialize())]],
                 []
             );
             $events = [...$events, ...$newEvents];

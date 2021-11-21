@@ -5,6 +5,8 @@ namespace App\Domain\Helpers;
 /** @psalm-immutable */
 interface AggregateEvent
 {
+    public function getEventName(): string;
+
     public function getAggregateName(): AggregateName;
 
     public function getAggregateId(): AggregateId;

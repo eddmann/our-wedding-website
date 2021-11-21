@@ -9,6 +9,8 @@ use App\Domain\Model\Invite\{Invite, InviteCode, InviteId, InviteType};
 /** @psalm-immutable */
 final class InviteWasCreated implements AggregateEvent
 {
+    public const EVENT_NAME = 'invite.created';
+
     /** @param InvitedGuest[] $invitedGuests */
     public function __construct(
         private InviteId $id,
@@ -18,6 +20,11 @@ final class InviteWasCreated implements AggregateEvent
         private array $invitedGuests,
         private \DateTimeImmutable $occurredAt
     ) {
+    }
+
+    public function getEventName(): string
+    {
+        return self::EVENT_NAME;
     }
 
     public function getAggregateName(): AggregateName

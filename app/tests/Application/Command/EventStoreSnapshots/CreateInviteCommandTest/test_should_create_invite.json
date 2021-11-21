@@ -1,37 +1,37 @@
 {
-    "generated": "2021-11-20 19:49:38.935420 +0000",
+    "generated": "2021-11-21 16:32:55.953164 +0000",
     "events": [
         {
-            "name": "App\\Domain\\Model\\Invite\\Events\\InviteWasCreated",
+            "name": "invite.created",
             "data": {
                 "aggregateVersion": 0,
-                "id": "61671cde-58bd-40b7-b404-7ea50e92f03b",
-                "inviteCode": "D9Q6",
+                "id": "93d673ee-4923-4180-8261-0a5944c780dd",
+                "inviteCode": "A5V4",
                 "inviteType": "day",
                 "invitedGuests": [
                     {
-                        "id": "48cfe5c2-1825-48ae-86c8-2d16955b0bce",
+                        "id": "93513f38-4495-46cf-a381-f16d0d30101d",
                         "inviteType": "day",
                         "guestType": "adult",
                         "name": "Adult",
                         "hasFoodChoices": true
                     },
                     {
-                        "id": "ec34229e-7219-41c0-9023-de53ff183a95",
+                        "id": "de38bc68-0686-43ac-926d-a99c0e912b63",
                         "inviteType": "day",
                         "guestType": "child",
                         "name": "Child",
                         "hasFoodChoices": true
                     },
                     {
-                        "id": "e53a4815-ce47-4020-8cc9-2d0bd4d3201e",
+                        "id": "25a5ed58-f211-47f0-9b9c-f42b1356430c",
                         "inviteType": "day",
                         "guestType": "baby",
                         "name": "Baby",
                         "hasFoodChoices": false
                     }
                 ],
-                "occurredAt": "2021-11-20 19:49:38.926900 +0000"
+                "occurredAt": "2021-11-21 16:32:55.946250 +0000"
             }
         }
     ]

@@ -3,6 +3,7 @@
 namespace App\Infrastructure;
 
 use App\Domain\Helpers\{AggregateEvent, AggregateEventStream, AggregateEvents, AggregateEventsBus, AggregateId, AggregateName, EventStore, EventStreamPointer};
+use App\Domain\Model\Shared\AggregateEventFactory;
 use Doctrine\DBAL\Connection;
 
 final class DBALEventStore implements EventStore
@@ -28,14 +29,14 @@ final class DBALEventStore implements EventStore
                 'name' => $event->getAggregateName()->toString(),
                 'id' => $event->getAggregateId()->toString(),
                 'version' => $event->getAggregateVersion()->toInt(),
-                'event' => \get_class($event),
+                'event' => $event->getEventName(),
                 'data' => $event->serialize(),
             ]);
         }
 
-        $this->connection->commit();
-
         $this->eventsBus->publish($events);
+
+        $this->connection->commit();
     }
 
     public function get(AggregateName $name, AggregateId $id): AggregateEvents
@@ -55,7 +56,7 @@ final class DBALEventStore implements EventStore
 
         return \array_reduce(
             $result->fetchAllAssociative(),
-            fn (AggregateEvents $events, array $event) => $events->add($this->deserializer($event['name'], $event['data'])),
+            static fn (AggregateEvents $events, array $event) => $events->add(AggregateEventFactory::fromSerialized($event['name'], $event['data'])),
             AggregateEvents::make()
         );
     }
@@ -79,15 +80,9 @@ final class DBALEventStore implements EventStore
             EventStreamPointer::fromInt($start->toInt() + $result->rowCount()),
             \array_reduce(
                 $result->fetchAllAssociative(),
-                fn (AggregateEvents $events, array $event) => $events->add($this->deserializer($event['name'], $event['data'])),
+                static fn (AggregateEvents $events, array $event) => $events->add(AggregateEventFactory::fromSerialized($event['name'], $event['data'])),
                 AggregateEvents::make()
             )
         );
-    }
-
-    /** @psalm-param class-string $eventName */
-    private function deserializer(string $eventName, string $eventData): AggregateEvent
-    {
-        return $eventName::deserialize($eventData);
     }
 }

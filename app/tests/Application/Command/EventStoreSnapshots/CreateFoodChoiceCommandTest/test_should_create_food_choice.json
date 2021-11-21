@@ -1,15 +1,15 @@
 {
-    "generated": "2021-11-20 15:50:28.135891 +0000",
+    "generated": "2021-11-21 16:32:55.922794 +0000",
     "events": [
         {
-            "name": "App\\Domain\\Model\\FoodChoice\\Events\\FoodChoiceWasCreated",
+            "name": "food_choice.created",
             "data": {
                 "aggregateVersion": 0,
-                "id": "7b2c981e-0784-4203-9ff9-2b258f2190fe",
+                "id": "6e4e0cbf-73cf-4f2f-aa6f-192ad09478ee",
                 "guestType": "adult",
                 "course": "starter",
                 "name": "Name",
-                "occurredAt": "2021-11-20 15:50:28.126459 +0000"
+                "occurredAt": "2021-11-21 16:32:55.901038 +0000"
             }
         }
     ]

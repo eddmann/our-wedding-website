@@ -3,6 +3,7 @@
 namespace App\Tests\Doubles;
 
 use App\Domain\Helpers\{AggregateEvent, AggregateEventStream, AggregateEvents, AggregateId, AggregateName, EventStore, EventStreamPointer};
+use App\Domain\Model\Shared\AggregateEventFactory;
 
 final class InMemoryEventStore implements EventStore
 {
@@ -51,6 +52,6 @@ final class InMemoryEventStore implements EventStore
      */
     private function toSerializedAndBack(AggregateEvent $event): AggregateEvent
     {
-        return $event::deserialize($event->serialize());
+        return AggregateEventFactory::fromSerialized($event->getEventName(), $event->serialize());
     }
 }

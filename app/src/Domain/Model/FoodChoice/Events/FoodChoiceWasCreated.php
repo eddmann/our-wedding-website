@@ -9,6 +9,8 @@ use App\Domain\Model\Shared\GuestType;
 /** @psalm-immutable */
 final class FoodChoiceWasCreated implements AggregateEvent
 {
+    public const EVENT_NAME = 'food_choice.created';
+
     public function __construct(
         private FoodChoiceId $id,
         private AggregateVersion $aggregateVersion,
@@ -17,6 +19,11 @@ final class FoodChoiceWasCreated implements AggregateEvent
         private FoodChoiceName $name,
         private \DateTimeImmutable $occurredAt
     ) {
+    }
+
+    public function getEventName(): string
+    {
+        return self::EVENT_NAME;
     }
 
     public function getAggregateName(): AggregateName
