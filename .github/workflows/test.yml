@@ -22,5 +22,7 @@ jobs:
           path: ./app/node_modules
           key: our-wedding-test-yarn-${{ hashFiles('./app/yarn.lock') }}
           restore-keys: our-wedding-test-yarn-
+      - name: Start
+        run: make start
       - name: Test
-        run: make start can-release
+        run: make can-release
