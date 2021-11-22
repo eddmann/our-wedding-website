@@ -2,10 +2,13 @@
 
 namespace App\Tests\Doubles;
 
+use App\Application\Command\AuthenticateInvite\{InviteCodeNotFound, InviteCodeToIdFinder};
 use App\Domain\Helpers\{AggregateEvent, AggregateEventStream, AggregateEvents, AggregateId, AggregateName, EventStore, EventStreamPointer};
+use App\Domain\Model\Invite\Events\InviteWasCreated;
+use App\Domain\Model\Invite\{InviteCode, InviteId};
 use App\Domain\Model\Shared\AggregateEventFactory;
 
-final class InMemoryEventStore implements EventStore
+final class InMemoryEventStore implements EventStore, InviteCodeToIdFinder
 {
     private AggregateEvents $events;
 
@@ -44,6 +47,19 @@ final class InMemoryEventStore implements EventStore
                 AggregateEvents::make()
             )
         );
+    }
+
+    public function find(InviteCode $code): InviteId
+    {
+        foreach ($this->events as $event) {
+            if ($event instanceof InviteWasCreated) {
+                if ($event->getInviteCode()->equals($code)) {
+                    return $event->getAggregateId();
+                }
+            }
+        }
+
+        throw new InviteCodeNotFound($code);
     }
 
     /**

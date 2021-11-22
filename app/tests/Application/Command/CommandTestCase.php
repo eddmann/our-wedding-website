@@ -2,13 +2,13 @@
 
 namespace App\Tests\Application\Command;
 
-use App\Domain\Helpers\{AggregateEvent, EventStore, EventStreamPointer};
+use App\Domain\Helpers\{AggregateEvent, EventStreamPointer};
 use App\Tests\Doubles\InMemoryEventStore;
 use PHPUnit\Framework\TestCase;
 
 abstract class CommandTestCase extends TestCase
 {
-    protected EventStore $eventStore;
+    protected InMemoryEventStore $eventStore;
     private bool $skipEventStoreSnapshotAssertion = false;
 
     protected function setUp(): void
