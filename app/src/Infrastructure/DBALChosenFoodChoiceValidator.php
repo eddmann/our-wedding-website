@@ -4,12 +4,41 @@ namespace App\Infrastructure;
 
 use App\Domain\Model\Invite\Guest\{ChosenFoodChoiceValidator, ChosenFoodChoices};
 use App\Domain\Model\Shared\GuestType;
+use Doctrine\DBAL\Connection;
 
 final class DBALChosenFoodChoiceValidator implements ChosenFoodChoiceValidator
 {
-    /** @psalm-mutation-free */
+    public function __construct(private Connection $connection)
+    {
+    }
+
+    /**
+     * @psalm-mutation-free
+     * @psalm-suppress ImpureMethodCall
+     */
     public function isValid(GuestType $type, ChosenFoodChoices $choices): bool
     {
-        return true;
+        $sql = "
+            SELECT COUNT(*) = 3
+            FROM available_food_choice_projection
+            WHERE guest_type = :type
+            AND (
+                course = 'starter' AND id = :starterId OR
+                course = 'main' AND id = :mainId OR
+                course = 'dessert' AND id = :dessertId
+            )
+        ";
+
+        $result = $this->connection->executeQuery(
+            $sql,
+            [
+                'type' => $type->toString(),
+                'starterId' => $choices->getStarterId()?->toString(),
+                'mainId' => $choices->getMainId()?->toString(),
+                'dessertId' => $choices->getDessertId()?->toString(),
+            ]
+        );
+
+        return (bool) $result->fetchOne();
     }
 }
