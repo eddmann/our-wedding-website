@@ -10,7 +10,7 @@ final class ChosenFoodChoices
     private function __construct(
         private ?FoodChoiceId $starterId,
         private ?FoodChoiceId $mainId,
-        private ?FoodChoiceId $desertId,
+        private ?FoodChoiceId $dessertId,
         private string $dietaryRequirements
     ) {
     }
@@ -25,9 +25,9 @@ final class ChosenFoodChoices
         return $this->mainId;
     }
 
-    public function getDesertId(): ?FoodChoiceId
+    public function getDessertId(): ?FoodChoiceId
     {
-        return $this->desertId;
+        return $this->dessertId;
     }
 
     public function getDietaryRequirements(): string
@@ -41,7 +41,7 @@ final class ChosenFoodChoices
         return [
             'starterId' => $this->getStarterId()?->toString(),
             'mainId' => $this->getMainId()?->toString(),
-            'desertId' => $this->getDesertId()?->toString(),
+            'dessertId' => $this->getDessertId()?->toString(),
             'dietaryRequirements' => $this->getDietaryRequirements(),
         ];
     }
@@ -52,7 +52,7 @@ final class ChosenFoodChoices
         return
             $this->starterId === null
             && $this->mainId === null
-            && $this->desertId === null
+            && $this->dessertId === null
             && $this->dietaryRequirements === '';
     }
 
@@ -66,7 +66,7 @@ final class ChosenFoodChoices
         return new self(
             isset($choices['starterId']) ? FoodChoiceId::fromString($choices['starterId']) : null,
             isset($choices['mainId']) ? FoodChoiceId::fromString($choices['mainId']) : null,
-            isset($choices['desertId']) ? FoodChoiceId::fromString($choices['desertId']) : null,
+            isset($choices['dessertId']) ? FoodChoiceId::fromString($choices['dessertId']) : null,
             $choices['dietaryRequirements'] ?? ''
         );
     }
