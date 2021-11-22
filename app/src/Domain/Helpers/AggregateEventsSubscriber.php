@@ -2,7 +2,7 @@
 
 namespace App\Domain\Helpers;
 
-final class AggregateEventsSubscriber
+abstract class AggregateEventsSubscriber
 {
     public function __invoke(AggregateEvents $events): void
     {
