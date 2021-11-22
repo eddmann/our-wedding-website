@@ -1,0 +1,24 @@
+{
+    "generated": "2021-11-22 18:37:40.202647 +0000",
+    "events": [
+        {
+            "name": "invite.created",
+            "data": {
+                "aggregateVersion": 0,
+                "id": "d2f29fdc-9320-4f60-aa7e-2e3a115aac0f",
+                "inviteCode": "B9W3",
+                "inviteType": "day",
+                "invitedGuests": [
+                    {
+                        "id": "89d90c31-355b-4dd5-9d59-8e2baa9b3969",
+                        "inviteType": "day",
+                        "guestType": "adult",
+                        "name": "Adult Name",
+                        "hasFoodChoices": true
+                    }
+                ],
+                "occurredAt": "2021-11-22 18:37:40.201070 +0000"
+            }
+        }
+    ]
+}

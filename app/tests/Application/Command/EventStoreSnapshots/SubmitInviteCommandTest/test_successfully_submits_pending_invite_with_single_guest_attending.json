@@ -1,0 +1,61 @@
+{
+    "generated": "2021-11-22 18:37:40.184149 +0000",
+    "events": [
+        {
+            "name": "invite.created",
+            "data": {
+                "aggregateVersion": 0,
+                "id": "e6f686b1-0c1d-4530-a146-6ab52f1d17b9",
+                "inviteCode": "Q5G8",
+                "inviteType": "evening",
+                "invitedGuests": [
+                    {
+                        "id": "797c41df-8908-481d-b62f-b90b74dc0037",
+                        "inviteType": "evening",
+                        "guestType": "adult",
+                        "name": "Adult Name",
+                        "hasFoodChoices": false
+                    },
+                    {
+                        "id": "cc583bfb-be85-4025-81da-8a33e11dbbd1",
+                        "inviteType": "evening",
+                        "guestType": "child",
+                        "name": "Child Name",
+                        "hasFoodChoices": false
+                    },
+                    {
+                        "id": "5bf53180-bdf8-4396-967d-811bf6b50b57",
+                        "inviteType": "evening",
+                        "guestType": "baby",
+                        "name": "Baby Name",
+                        "hasFoodChoices": false
+                    }
+                ],
+                "occurredAt": "2021-11-22 18:37:40.182413 +0000"
+            }
+        },
+        {
+            "name": "invite.submitted",
+            "data": {
+                "aggregateVersion": 1,
+                "id": "e6f686b1-0c1d-4530-a146-6ab52f1d17b9",
+                "attendingGuests": [
+                    {
+                        "id": "797c41df-8908-481d-b62f-b90b74dc0037",
+                        "inviteType": "evening",
+                        "guestType": "adult",
+                        "name": "Adult Name",
+                        "chosenFoodChoices": {
+                            "starterId": null,
+                            "mainId": null,
+                            "dessertId": null,
+                            "dietaryRequirements": ""
+                        }
+                    }
+                ],
+                "songChoices": [],
+                "occurredAt": "2021-11-22 18:37:40.182550 +0000"
+            }
+        }
+    ]
+}

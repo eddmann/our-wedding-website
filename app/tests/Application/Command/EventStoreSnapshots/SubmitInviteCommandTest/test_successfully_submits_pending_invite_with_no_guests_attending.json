@@ -1,0 +1,48 @@
+{
+    "generated": "2021-11-22 18:37:40.191711 +0000",
+    "events": [
+        {
+            "name": "invite.created",
+            "data": {
+                "aggregateVersion": 0,
+                "id": "7aac47a3-0952-4423-a7bd-d30c12cf3b7f",
+                "inviteCode": "U4P7",
+                "inviteType": "evening",
+                "invitedGuests": [
+                    {
+                        "id": "25858508-ea60-4d4f-9df1-1b8fa1124b9c",
+                        "inviteType": "evening",
+                        "guestType": "adult",
+                        "name": "Adult Name",
+                        "hasFoodChoices": false
+                    },
+                    {
+                        "id": "7ce3fb22-fb12-4813-9520-85efb1b6500c",
+                        "inviteType": "evening",
+                        "guestType": "child",
+                        "name": "Child Name",
+                        "hasFoodChoices": false
+                    },
+                    {
+                        "id": "6ac4ad37-13a3-44a9-908e-b64641c05e73",
+                        "inviteType": "evening",
+                        "guestType": "baby",
+                        "name": "Baby Name",
+                        "hasFoodChoices": false
+                    }
+                ],
+                "occurredAt": "2021-11-22 18:37:40.187686 +0000"
+            }
+        },
+        {
+            "name": "invite.submitted",
+            "data": {
+                "aggregateVersion": 1,
+                "id": "7aac47a3-0952-4423-a7bd-d30c12cf3b7f",
+                "attendingGuests": [],
+                "songChoices": [],
+                "occurredAt": "2021-11-22 18:37:40.187859 +0000"
+            }
+        }
+    ]
+}

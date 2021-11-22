@@ -1,0 +1,47 @@
+{
+    "generated": "2021-11-22 18:37:40.179024 +0000",
+    "events": [
+        {
+            "name": "invite.created",
+            "data": {
+                "aggregateVersion": 0,
+                "id": "a30f7c03-6998-41a3-83dd-22ce757f9797",
+                "inviteCode": "V6B2",
+                "inviteType": "evening",
+                "invitedGuests": [
+                    {
+                        "id": "485f3bee-a3f3-4b8e-9344-51568a0aaa59",
+                        "inviteType": "evening",
+                        "guestType": "adult",
+                        "name": "Adult Name",
+                        "hasFoodChoices": false
+                    }
+                ],
+                "occurredAt": "2021-11-22 18:37:40.176834 +0000"
+            }
+        },
+        {
+            "name": "invite.submitted",
+            "data": {
+                "aggregateVersion": 1,
+                "id": "a30f7c03-6998-41a3-83dd-22ce757f9797",
+                "attendingGuests": [
+                    {
+                        "id": "485f3bee-a3f3-4b8e-9344-51568a0aaa59",
+                        "inviteType": "evening",
+                        "guestType": "adult",
+                        "name": "Adult Name",
+                        "chosenFoodChoices": {
+                            "starterId": null,
+                            "mainId": null,
+                            "dessertId": null,
+                            "dietaryRequirements": ""
+                        }
+                    }
+                ],
+                "songChoices": [],
+                "occurredAt": "2021-11-22 18:37:40.176988 +0000"
+            }
+        }
+    ]
+}

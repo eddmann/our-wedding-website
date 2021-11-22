@@ -1,0 +1,24 @@
+{
+    "generated": "2021-11-22 18:37:40.227978 +0000",
+    "events": [
+        {
+            "name": "invite.created",
+            "data": {
+                "aggregateVersion": 0,
+                "id": "8daf714a-70c8-4911-b0ad-db896e0418ff",
+                "inviteCode": "J4K6",
+                "inviteType": "evening",
+                "invitedGuests": [
+                    {
+                        "id": "9e4a1f78-2458-477d-a4fa-1e77991b4fcd",
+                        "inviteType": "evening",
+                        "guestType": "adult",
+                        "name": "Adult Name",
+                        "hasFoodChoices": false
+                    }
+                ],
+                "occurredAt": "2021-11-22 18:37:40.226206 +0000"
+            }
+        }
+    ]
+}

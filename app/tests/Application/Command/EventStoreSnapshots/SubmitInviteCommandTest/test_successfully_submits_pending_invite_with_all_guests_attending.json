@@ -1,0 +1,85 @@
+{
+    "generated": "2021-11-22 18:37:40.173310 +0000",
+    "events": [
+        {
+            "name": "invite.created",
+            "data": {
+                "aggregateVersion": 0,
+                "id": "05fb4550-a6ac-4371-9e33-3075b984d6bd",
+                "inviteCode": "A2G4",
+                "inviteType": "evening",
+                "invitedGuests": [
+                    {
+                        "id": "2858f321-60c0-49d5-a3c1-cb53eb6f28fb",
+                        "inviteType": "evening",
+                        "guestType": "adult",
+                        "name": "Adult Name",
+                        "hasFoodChoices": false
+                    },
+                    {
+                        "id": "341e0ea0-3db2-45c1-a98b-928fe61777f8",
+                        "inviteType": "evening",
+                        "guestType": "child",
+                        "name": "Child Name",
+                        "hasFoodChoices": false
+                    },
+                    {
+                        "id": "81917f68-3bdf-42ac-a3e4-8e17b7a70f22",
+                        "inviteType": "evening",
+                        "guestType": "baby",
+                        "name": "Baby Name",
+                        "hasFoodChoices": false
+                    }
+                ],
+                "occurredAt": "2021-11-22 18:37:40.164106 +0000"
+            }
+        },
+        {
+            "name": "invite.submitted",
+            "data": {
+                "aggregateVersion": 1,
+                "id": "05fb4550-a6ac-4371-9e33-3075b984d6bd",
+                "attendingGuests": [
+                    {
+                        "id": "2858f321-60c0-49d5-a3c1-cb53eb6f28fb",
+                        "inviteType": "evening",
+                        "guestType": "adult",
+                        "name": "Adult Name",
+                        "chosenFoodChoices": {
+                            "starterId": null,
+                            "mainId": null,
+                            "dessertId": null,
+                            "dietaryRequirements": ""
+                        }
+                    },
+                    {
+                        "id": "341e0ea0-3db2-45c1-a98b-928fe61777f8",
+                        "inviteType": "evening",
+                        "guestType": "child",
+                        "name": "Child Name",
+                        "chosenFoodChoices": {
+                            "starterId": null,
+                            "mainId": null,
+                            "dessertId": null,
+                            "dietaryRequirements": ""
+                        }
+                    },
+                    {
+                        "id": "81917f68-3bdf-42ac-a3e4-8e17b7a70f22",
+                        "inviteType": "evening",
+                        "guestType": "baby",
+                        "name": "Baby Name",
+                        "chosenFoodChoices": {
+                            "starterId": null,
+                            "mainId": null,
+                            "dessertId": null,
+                            "dietaryRequirements": ""
+                        }
+                    }
+                ],
+                "songChoices": [],
+                "occurredAt": "2021-11-22 18:37:40.167787 +0000"
+            }
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "generated": "2021-11-22 18:37:40.209090 +0000",
+    "events": [
+        {
+            "name": "invite.created",
+            "data": {
+                "aggregateVersion": 0,
+                "id": "555f816e-4e17-409f-a247-1e0081b7f0cf",
+                "inviteCode": "K5V1",
+                "inviteType": "day",
+                "invitedGuests": [
+                    {
+                        "id": "aefc2c05-8f92-41a1-9aea-8f57c88f9b82",
+                        "inviteType": "day",
+                        "guestType": "adult",
+                        "name": "Adult Name",
+                        "hasFoodChoices": true
+                    }
+                ],
+                "occurredAt": "2021-11-22 18:37:40.206368 +0000"
+            }
+        }
+    ]
+}
