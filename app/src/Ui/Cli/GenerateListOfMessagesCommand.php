@@ -17,7 +17,7 @@ final class GenerateListOfMessagesCommand extends Command
         AggregateEvent::class,
         DomainEvent::class,
     ];
-    public static $defaultName = 'documentation:message-list';
+    protected static $defaultName = 'documentation:message-list';
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -29,7 +29,7 @@ final class GenerateListOfMessagesCommand extends Command
         \sort($declaredClasses);
 
         foreach (self::MESSAGE_TYPES as $messageType) {
-            $io->section('Message Type: ' . $this->getClassName($messageType));
+            $io->section('Message Type: ' . $this->getShortClassName($messageType));
 
             $table = new Table($output);
             $table->setHeaders(['Name', 'Attributes']);
@@ -37,7 +37,7 @@ final class GenerateListOfMessagesCommand extends Command
             foreach ($declaredClasses as $fqcnClassName) {
                 if (\in_array($messageType, \class_implements($fqcnClassName), true)) {
                     $table->addRow([
-                        $this->getClassName($fqcnClassName),
+                        $this->getShortClassName($fqcnClassName),
                         $this->getMessageAttributes($fqcnClassName),
                     ]);
                 }
@@ -64,7 +64,7 @@ final class GenerateListOfMessagesCommand extends Command
         }
     }
 
-    private function getClassName(string $fqcnClassName): string
+    private function getShortClassName(string $fqcnClassName): string
     {
         $separated = \explode('\\', $fqcnClassName);
 
