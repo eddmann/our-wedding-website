@@ -1,0 +1,38 @@
+
+All Messages
+============
+
+Message Type: Command
+---------------------
+
++---------------------------+------------------------------------+
+| Name                      | Attributes                         |
++---------------------------+------------------------------------+
+| AuthenticateInviteCommand | code                               |
+| CreateFoodChoiceCommand   | guestType, course, name            |
+| CreateInviteCommand       | type, invitedGuests                |
+| SubmitInviteCommand       | id, chosenFoodChoices, songChoices |
++---------------------------+------------------------------------+
+
+Message Type: AggregateEvent
+----------------------------
+
++------------------------+-------------------------------------------------------------------------+
+| Name                   | Attributes                                                              |
++------------------------+-------------------------------------------------------------------------+
+| FoodChoiceWasCreated   | id, aggregateVersion, guestType, course, name, occurredAt               |
+| InviteWasAuthenticated | id, aggregateVersion, occurredAt                                        |
+| InviteWasCreated       | id, aggregateVersion, inviteCode, inviteType, invitedGuests, occurredAt |
+| InviteWasSubmitted     | id, aggregateVersion, attendingGuests, songChoices, occurredAt          |
++------------------------+-------------------------------------------------------------------------+
+
+Message Type: DomainEvent
+-------------------------
+
++-----------------+------------+
+| Name            | Attributes |
++-----------------+------------+
+| InviteCreated   | id         |
+| InviteSubmitted | id, guests |
++-----------------+------------+
+

@@ -3,6 +3,7 @@
 SHELL := /bin/bash
 COMPOSE := docker-compose -f docker/docker-compose.yml -p our-wedding
 APP := $(COMPOSE) exec -T php
+GRAPHVIZ := docker run --rm -i docker.io/minidocks/graphviz dot -Tsvg
 
 ##@ Setup
 
@@ -94,6 +95,12 @@ cs-fix: ## Auto-fixes any code-styling related code violations
 .PHONY: update-snapshots
 update-snapshots: ## Updates event store snapshots that are mismatches
 	$(APP) bash -c "UPDATE_EVENT_STORE_SNAPSHOT_MISMATCHES=true bin/phpunit --testsuite=application"
+
+.PHONY: documentation
+documentation: ## (Re)generates the dynamic event diagrams and message listings
+	@echo "Generating documentation..."
+	@$(APP) bash -c "bin/console documentation:event-diagram" | $(GRAPHVIZ) > documentation/event-digram.svg
+	@$(APP) bash -c "bin/console documentation:message-list" > documentation/message-list.txt
 
 ##@ Running Instance
 
