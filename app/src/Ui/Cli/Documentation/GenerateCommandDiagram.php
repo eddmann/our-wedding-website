@@ -85,7 +85,7 @@ final class GenerateCommandDiagram extends Command
 
         $domainEvents = \array_filter(
             $matches[1] ?? [],
-            static fn (string $className) => \in_array(DomainEvent::class, \class_parents($className), true)
+            static fn (string $className) => \in_array(DomainEvent::class, \class_implements($className), true)
         );
 
         return \array_map(function (string $className) {
