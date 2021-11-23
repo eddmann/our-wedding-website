@@ -4,8 +4,11 @@ namespace App\Application\Command\SubmitInvite;
 
 use App\Application\Command\CommandHandler;
 use App\Domain\Helpers\DomainEventBus;
-use App\Domain\Model\Invite\Guest\{ChosenFoodChoiceValidator, GuestId, InvitedGuest};
-use App\Domain\Model\Invite\{Invite, InviteRepository};
+use App\Domain\Model\Invite\Guest\ChosenFoodChoiceValidator;
+use App\Domain\Model\Invite\Guest\GuestId;
+use App\Domain\Model\Invite\Guest\InvitedGuest;
+use App\Domain\Model\Invite\Invite;
+use App\Domain\Model\Invite\InviteRepository;
 
 final class SubmitInviteCommandHandler implements CommandHandler
 {

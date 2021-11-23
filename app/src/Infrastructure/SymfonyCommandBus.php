@@ -2,8 +2,11 @@
 
 namespace App\Infrastructure;
 
-use App\Application\Command\{Command, CommandBus, CommandNotRegistered};
-use Symfony\Component\Messenger\Exception\{HandlerFailedException, NoHandlerForMessageException};
+use App\Application\Command\Command;
+use App\Application\Command\CommandBus;
+use App\Application\Command\CommandNotRegistered;
+use Symfony\Component\Messenger\Exception\HandlerFailedException;
+use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 final class SymfonyCommandBus implements CommandBus

@@ -3,7 +3,8 @@
 namespace App\Application\Command\CreateFoodChoice;
 
 use App\Application\Command\CommandHandler;
-use App\Domain\Model\FoodChoice\{FoodChoice, FoodChoiceRepository};
+use App\Domain\Model\FoodChoice\FoodChoice;
+use App\Domain\Model\FoodChoice\FoodChoiceRepository;
 
 final class CreateFoodChoiceCommandHandler implements CommandHandler
 {

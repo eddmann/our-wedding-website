@@ -2,9 +2,13 @@
 
 namespace App\Domain\Model\Invite\Events;
 
-use App\Domain\Helpers\{AggregateEvent, AggregateName, AggregateVersion};
+use App\Domain\Helpers\AggregateEvent;
+use App\Domain\Helpers\AggregateName;
+use App\Domain\Helpers\AggregateVersion;
 use App\Domain\Model\Invite\Guest\AttendingGuest;
-use App\Domain\Model\Invite\{Invite, InviteId, SongChoice};
+use App\Domain\Model\Invite\Invite;
+use App\Domain\Model\Invite\InviteId;
+use App\Domain\Model\Invite\SongChoice;
 
 /** @psalm-immutable */
 final class InviteWasSubmitted implements AggregateEvent

@@ -2,7 +2,8 @@
 
 namespace App\Infrastructure;
 
-use App\Domain\Helpers\{AggregateEvents, AggregateEventsBus};
+use App\Domain\Helpers\AggregateEvents;
+use App\Domain\Helpers\AggregateEventsBus;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 final class SymfonyAggregateEventsBus implements AggregateEventsBus

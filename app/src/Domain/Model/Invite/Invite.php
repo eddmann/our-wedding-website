@@ -2,9 +2,13 @@
 
 namespace App\Domain\Model\Invite;
 
-use App\Domain\Helpers\{Aggregate, AggregateName};
+use App\Domain\Helpers\Aggregate;
+use App\Domain\Helpers\AggregateName;
 use App\Domain\Model\Invite\Events as Events;
-use App\Domain\Model\Invite\Guest\{AttendingGuest, ChosenFoodChoiceValidator, ChosenFoodChoices, InvitedGuest};
+use App\Domain\Model\Invite\Guest\AttendingGuest;
+use App\Domain\Model\Invite\Guest\ChosenFoodChoices;
+use App\Domain\Model\Invite\Guest\ChosenFoodChoiceValidator;
+use App\Domain\Model\Invite\Guest\InvitedGuest;
 
 final class Invite extends Aggregate
 {

@@ -4,7 +4,8 @@ namespace App\Application\Command\SubmitInvite;
 
 use App\Application\Command\Command;
 use App\Domain\Model\Invite\Guest\ChosenFoodChoices;
-use App\Domain\Model\Invite\{InviteId, SongChoice};
+use App\Domain\Model\Invite\InviteId;
+use App\Domain\Model\Invite\SongChoice;
 
 /** @psalm-immutable */
 final class SubmitInviteCommand implements Command

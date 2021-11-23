@@ -2,7 +2,9 @@
 
 namespace App\Infrastructure;
 
-use App\Domain\Projection\SentInvite\{SentInvite, SentInviteNotFound, SentInviteRepository};
+use App\Domain\Projection\SentInvite\SentInvite;
+use App\Domain\Projection\SentInvite\SentInviteNotFound;
+use App\Domain\Projection\SentInvite\SentInviteRepository;
 use Doctrine\DBAL\Connection;
 
 final class DBALSentInviteRepository implements SentInviteRepository

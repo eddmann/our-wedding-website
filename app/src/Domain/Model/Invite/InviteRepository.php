@@ -2,7 +2,8 @@
 
 namespace App\Domain\Model\Invite;
 
-use App\Domain\Helpers\{AggregateName, EventStore};
+use App\Domain\Helpers\AggregateName;
+use App\Domain\Helpers\EventStore;
 
 final class InviteRepository
 {

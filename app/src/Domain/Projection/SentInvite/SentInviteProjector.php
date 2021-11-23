@@ -3,7 +3,9 @@
 namespace App\Domain\Projection\SentInvite;
 
 use App\Domain\Helpers\AggregateEventsSubscriber;
-use App\Domain\Model\Invite\Events\{InviteWasAuthenticated, InviteWasCreated, InviteWasSubmitted};
+use App\Domain\Model\Invite\Events\InviteWasAuthenticated;
+use App\Domain\Model\Invite\Events\InviteWasCreated;
+use App\Domain\Model\Invite\Events\InviteWasSubmitted;
 use App\Domain\Model\Invite\Guest\InvitedGuest;
 
 final class SentInviteProjector extends AggregateEventsSubscriber

@@ -2,8 +2,10 @@
 
 namespace App\Infrastructure;
 
-use App\Application\Command\AuthenticateInvite\{InviteCodeNotFound, InviteCodeToIdFinder};
-use App\Domain\Model\Invite\{InviteCode, InviteId};
+use App\Application\Command\AuthenticateInvite\InviteCodeNotFound;
+use App\Application\Command\AuthenticateInvite\InviteCodeToIdFinder;
+use App\Domain\Model\Invite\InviteCode;
+use App\Domain\Model\Invite\InviteId;
 use Doctrine\DBAL\Connection;
 
 final class DBALInviteCodeToIdFinder implements InviteCodeToIdFinder

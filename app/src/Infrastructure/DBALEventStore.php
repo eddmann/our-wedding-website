@@ -2,7 +2,13 @@
 
 namespace App\Infrastructure;
 
-use App\Domain\Helpers\{AggregateEvent, AggregateEventStream, AggregateEvents, AggregateEventsBus, AggregateId, AggregateName, EventStore, EventStreamPointer};
+use App\Domain\Helpers\AggregateEvents;
+use App\Domain\Helpers\AggregateEventsBus;
+use App\Domain\Helpers\AggregateEventStream;
+use App\Domain\Helpers\AggregateId;
+use App\Domain\Helpers\AggregateName;
+use App\Domain\Helpers\EventStore;
+use App\Domain\Helpers\EventStreamPointer;
 use App\Domain\Model\Shared\AggregateEventFactory;
 use Doctrine\DBAL\Connection;
 

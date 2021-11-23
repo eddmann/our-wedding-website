@@ -3,7 +3,9 @@
 namespace App\Application\Command\CreateFoodChoice;
 
 use App\Application\Command\Command;
-use App\Domain\Model\FoodChoice\{FoodChoiceId, FoodChoiceName, FoodCourse};
+use App\Domain\Model\FoodChoice\FoodChoiceId;
+use App\Domain\Model\FoodChoice\FoodChoiceName;
+use App\Domain\Model\FoodChoice\FoodCourse;
 use App\Domain\Model\Shared\GuestType;
 
 final class CreateFoodChoiceCommand implements Command

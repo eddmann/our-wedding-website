@@ -2,7 +2,9 @@
 
 namespace App\Infrastructure;
 
-use App\Domain\Projection\SubmittedAttendingGuest\{SubmittedAttendingGuest, SubmittedAttendingGuestNotFound, SubmittedAttendingGuestRepository};
+use App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuest;
+use App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuestNotFound;
+use App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuestRepository;
 use Doctrine\DBAL\Connection;
 
 final class DBALSubmittedAttendingGuestRepository implements SubmittedAttendingGuestRepository

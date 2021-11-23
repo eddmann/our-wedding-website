@@ -90,8 +90,6 @@ return $config
         'general_phpdoc_annotation_remove' => true,
         // Renames PHPDoc tags.
         'general_phpdoc_tag_rename' => true,
-        // There MUST be group use for the same namespaces.
-        'group_import' => true,
         // Heredoc/nowdoc content must be properly indented. Requires PHP >= 7.3.
         'heredoc_indentation' => true,
         // Convert `heredoc` to `nowdoc` where possible.

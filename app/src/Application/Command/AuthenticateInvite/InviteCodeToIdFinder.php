@@ -2,7 +2,8 @@
 
 namespace App\Application\Command\AuthenticateInvite;
 
-use App\Domain\Model\Invite\{InviteCode, InviteId};
+use App\Domain\Model\Invite\InviteCode;
+use App\Domain\Model\Invite\InviteId;
 
 interface InviteCodeToIdFinder
 {

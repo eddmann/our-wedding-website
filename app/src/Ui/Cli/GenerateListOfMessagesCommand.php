@@ -3,7 +3,8 @@
 namespace App\Ui\Cli;
 
 use App\Application\Command\Command as ApplicationCommand;
-use App\Domain\Helpers\{AggregateEvent, DomainEvent};
+use App\Domain\Helpers\AggregateEvent;
+use App\Domain\Helpers\DomainEvent;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;

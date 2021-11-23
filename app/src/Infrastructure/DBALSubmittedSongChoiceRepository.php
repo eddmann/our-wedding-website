@@ -2,7 +2,8 @@
 
 namespace App\Infrastructure;
 
-use App\Domain\Projection\SubmittedSongChoice\{SubmittedSongChoice, SubmittedSongChoiceRepository};
+use App\Domain\Projection\SubmittedSongChoice\SubmittedSongChoice;
+use App\Domain\Projection\SubmittedSongChoice\SubmittedSongChoiceRepository;
 use Doctrine\DBAL\Connection;
 
 final class DBALSubmittedSongChoiceRepository implements SubmittedSongChoiceRepository

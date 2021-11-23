@@ -4,7 +4,9 @@ namespace App\Domain\Model\Shared;
 
 use App\Domain\Helpers\AggregateEvent;
 use App\Domain\Model\FoodChoice\Events\FoodChoiceWasCreated;
-use App\Domain\Model\Invite\Events\{InviteWasAuthenticated, InviteWasCreated, InviteWasSubmitted};
+use App\Domain\Model\Invite\Events\InviteWasAuthenticated;
+use App\Domain\Model\Invite\Events\InviteWasCreated;
+use App\Domain\Model\Invite\Events\InviteWasSubmitted;
 
 final class AggregateEventFactory
 {

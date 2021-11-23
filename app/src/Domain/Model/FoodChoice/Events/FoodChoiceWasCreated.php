@@ -2,8 +2,13 @@
 
 namespace App\Domain\Model\FoodChoice\Events;
 
-use App\Domain\Helpers\{AggregateEvent, AggregateName, AggregateVersion};
-use App\Domain\Model\FoodChoice\{FoodChoice, FoodChoiceId, FoodChoiceName, FoodCourse};
+use App\Domain\Helpers\AggregateEvent;
+use App\Domain\Helpers\AggregateName;
+use App\Domain\Helpers\AggregateVersion;
+use App\Domain\Model\FoodChoice\FoodChoice;
+use App\Domain\Model\FoodChoice\FoodChoiceId;
+use App\Domain\Model\FoodChoice\FoodChoiceName;
+use App\Domain\Model\FoodChoice\FoodCourse;
 use App\Domain\Model\Shared\GuestType;
 
 /** @psalm-immutable */

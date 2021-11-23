@@ -7,7 +7,8 @@ use App\Application\Command\CreateFoodChoice\CreateFoodChoiceCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\{ChoiceQuestion, Question};
+use Symfony\Component\Console\Question\ChoiceQuestion;
+use Symfony\Component\Console\Question\Question;
 
 final class CreateNewFoodChoiceCommand extends Command
 {

@@ -2,7 +2,8 @@
 
 namespace App\Domain\Model\FoodChoice;
 
-use App\Domain\Helpers\{Aggregate, AggregateName};
+use App\Domain\Helpers\Aggregate;
+use App\Domain\Helpers\AggregateName;
 use App\Domain\Model\FoodChoice\Events\FoodChoiceWasCreated;
 use App\Domain\Model\Shared\GuestType;
 

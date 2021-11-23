@@ -2,7 +2,9 @@
 
 namespace App\Infrastructure;
 
-use App\Domain\Projection\AvailableFoodChoice\{AvailableFoodChoice, AvailableFoodChoiceNotFound, AvailableFoodChoiceRepository};
+use App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoice;
+use App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoiceNotFound;
+use App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoiceRepository;
 use Doctrine\DBAL\Connection;
 
 final class DBALAvailableFoodChoiceRepository implements AvailableFoodChoiceRepository

@@ -2,7 +2,8 @@
 
 namespace App\Infrastructure;
 
-use App\Domain\Helpers\{DomainEvent, DomainEventBus};
+use App\Domain\Helpers\DomainEvent;
+use App\Domain\Helpers\DomainEventBus;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 final class SymfonyDomainEventBus implements DomainEventBus

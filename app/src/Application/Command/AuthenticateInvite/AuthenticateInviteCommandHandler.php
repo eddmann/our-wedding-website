@@ -3,7 +3,8 @@
 namespace App\Application\Command\AuthenticateInvite;
 
 use App\Application\Command\CommandHandler;
-use App\Domain\Model\Invite\{InviteAuthenticator, InviteRepository};
+use App\Domain\Model\Invite\InviteAuthenticator;
+use App\Domain\Model\Invite\InviteRepository;
 
 final class AuthenticateInviteCommandHandler implements CommandHandler
 {

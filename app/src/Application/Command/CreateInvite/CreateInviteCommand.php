@@ -3,8 +3,10 @@
 namespace App\Application\Command\CreateInvite;
 
 use App\Application\Command\Command;
-use App\Domain\Model\Invite\Guest\{GuestId, GuestName, InvitedGuest};
-use App\Domain\Model\Invite\{InviteCode, InviteId, InviteType};
+use App\Domain\Model\Invite\Guest\InvitedGuest;
+use App\Domain\Model\Invite\InviteCode;
+use App\Domain\Model\Invite\InviteId;
+use App\Domain\Model\Invite\InviteType;
 use App\Domain\Model\Shared\GuestType;
 
 /** @psalm-immutable */

@@ -3,7 +3,8 @@
 namespace App\Infrastructure;
 
 use App\Application\Command\CommandHandler;
-use App\Domain\Helpers\{AggregateEventsSubscriber, DomainEventSubscriber};
+use App\Domain\Helpers\AggregateEventsSubscriber;
+use App\Domain\Helpers\DomainEventSubscriber;
 use Bref\SymfonyBridge\BrefKernel;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

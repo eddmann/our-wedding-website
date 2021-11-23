@@ -4,7 +4,8 @@ namespace App\Application\Command\CreateInvite;
 
 use App\Application\Command\CommandHandler;
 use App\Domain\Helpers\DomainEventBus;
-use App\Domain\Model\Invite\{Invite, InviteRepository};
+use App\Domain\Model\Invite\Invite;
+use App\Domain\Model\Invite\InviteRepository;
 
 final class CreateInviteCommandHandler implements CommandHandler
 {
