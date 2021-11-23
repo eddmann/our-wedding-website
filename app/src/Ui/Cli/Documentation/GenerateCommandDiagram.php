@@ -52,6 +52,7 @@ final class GenerateCommandDiagram extends Command
         return Command::SUCCESS;
     }
 
+    /** @psalm-suppress UnresolvableInclude */
     private function getAllDeclaredCommandHandlers(): array
     {
         $srcPath = \realpath(__DIR__ . '/../../../');
@@ -75,6 +76,7 @@ final class GenerateCommandDiagram extends Command
         return $handlers;
     }
 
+    /** @psalm-suppress UndefinedMethod, PossiblyNullReference */
     private function getDomainEvents(\ReflectionClass $handlerClass): array
     {
         $matches = [];
@@ -97,12 +99,13 @@ final class GenerateCommandDiagram extends Command
                         'name' => $parameter->getName(),
                         'type' => $this->getShortClassName($parameter->getType()->getName()),
                     ],
-                    $class->getConstructor()->getParameters()
+                    $class->getConstructor()?->getParameters() ?: []
                 ),
             ];
         }, $domainEvents);
     }
 
+    /** @psalm-suppress UndefinedMethod, PossiblyNullReference */
     private function getCommandDetails(\ReflectionClass $handlerClass): array
     {
         $command = (new \ReflectionMethod($handlerClass->getName(), '__invoke'))
@@ -116,7 +119,7 @@ final class GenerateCommandDiagram extends Command
                     'name' => $parameter->getName(),
                     'type' => $this->getShortClassName($parameter->getType()->getName()),
                 ],
-                $command->getConstructor()->getParameters()
+                $command->getConstructor()?->getParameters() ?: []
             ),
         ];
     }

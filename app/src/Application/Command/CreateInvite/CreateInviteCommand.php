@@ -3,6 +3,8 @@
 namespace App\Application\Command\CreateInvite;
 
 use App\Application\Command\Command;
+use App\Domain\Model\Invite\Guest\GuestId;
+use App\Domain\Model\Invite\Guest\GuestName;
 use App\Domain\Model\Invite\Guest\InvitedGuest;
 use App\Domain\Model\Invite\InviteCode;
 use App\Domain\Model\Invite\InviteId;
@@ -24,14 +26,15 @@ final class CreateInviteCommand implements Command
         $this->code = InviteCode::generate();
         $this->type = InviteType::fromString($type);
         /** @psalm-suppress ImpureFunctionCall */
-        $this->invitedGuests = \array_map(function (array $guest) {
-            return InvitedGuest::createForInvite(
+        $this->invitedGuests = \array_map(
+            fn (array $guest) => InvitedGuest::createForInvite(
                 $this->type,
                 GuestId::generate(),
                 GuestType::fromString($guest['type']),
                 GuestName::fromString($guest['name'])
-            );
-        }, $invitedGuests);
+            ),
+            $invitedGuests
+        );
     }
 
     public function getId(): InviteId

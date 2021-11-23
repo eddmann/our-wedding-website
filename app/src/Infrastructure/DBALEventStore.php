@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure;
 
+use App\Domain\Helpers\AggregateEvent;
 use App\Domain\Helpers\AggregateEvents;
 use App\Domain\Helpers\AggregateEventsBus;
 use App\Domain\Helpers\AggregateEventStream;

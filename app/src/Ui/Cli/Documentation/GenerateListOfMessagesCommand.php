@@ -51,6 +51,7 @@ final class GenerateListOfMessagesCommand extends Command
         return Command::SUCCESS;
     }
 
+    /** @psalm-suppress UnresolvableInclude */
     private function requireAllSrc(): void
     {
         $srcPath = \realpath(__DIR__ . '/../../../');
@@ -72,11 +73,12 @@ final class GenerateListOfMessagesCommand extends Command
         return $separated[\count($separated) - 1];
     }
 
+    /** @psalm-param class-string $fqcnClassName */
     private function getMessageAttributes(string $fqcnClassName): string
     {
         $attributes = \array_map(
             static fn (\ReflectionParameter $parameter) => $parameter->getName(),
-            (new \ReflectionClass($fqcnClassName))->getConstructor()->getParameters()
+            (new \ReflectionClass($fqcnClassName))->getConstructor()?->getParameters() ?: []
         );
 
         return \implode(', ', $attributes);

@@ -3,6 +3,8 @@ paths:
   - ./tests
 
 exclude_files:
+  - GenerateListOfMessagesCommand.php
+  - GenerateCommandDiagram.php
 
 layers:
   - name: Domain
