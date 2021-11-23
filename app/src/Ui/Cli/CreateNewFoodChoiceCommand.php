@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Ui\Cli\Command;
+namespace App\Ui\Cli;
 
 use App\Application\Command\CommandBus;
 use App\Application\Command\CreateFoodChoice\CreateFoodChoiceCommand;

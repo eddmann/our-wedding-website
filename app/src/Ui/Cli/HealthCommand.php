@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Ui\Cli\Command;
+namespace App\Ui\Cli;
 
 use Doctrine\DBAL\Connection;
 use Symfony\Component\Console\Command\Command;
