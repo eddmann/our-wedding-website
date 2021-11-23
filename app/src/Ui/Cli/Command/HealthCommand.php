@@ -24,6 +24,6 @@ final class HealthCommand extends Command
 
         $output->writeln($isConnected ? 'Up' : 'Down');
 
-        return $isConnected ? 0 : 1;
+        return $isConnected ? Command::SUCCESS : Command::FAILURE;
     }
 }
