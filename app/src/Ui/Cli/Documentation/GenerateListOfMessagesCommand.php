@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Ui\Cli;
+namespace App\Ui\Cli\Documentation;
 
 use App\Application\Command\Command as ApplicationCommand;
 use App\Domain\Helpers\AggregateEvent;
@@ -53,7 +53,7 @@ final class GenerateListOfMessagesCommand extends Command
 
     private function requireAllSrc(): void
     {
-        $srcPath = \realpath(__DIR__ . '/../../');
+        $srcPath = \realpath(__DIR__ . '/../../../');
 
         $phpFiles = new \RegexIterator(
             new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($srcPath)),
