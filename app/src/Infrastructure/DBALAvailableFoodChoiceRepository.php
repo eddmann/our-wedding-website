@@ -60,7 +60,7 @@ final class DBALAvailableFoodChoiceRepository implements AvailableFoodChoiceRepo
                 ...$acc,
                 $row['course'] => [...$acc[$row['course']], $this->toAvailableFoodChoice($row)],
             ],
-            ['starter' => [], 'main' => [], 'desert' => []]
+            ['starter' => [], 'main' => [], 'dessert' => []]
         );
     }
 
