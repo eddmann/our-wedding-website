@@ -11,4 +11,8 @@ final class SymfonyInviteAuthenticator implements InviteAuthenticator
     public function login(InviteId $id, InviteType $type): void
     {
     }
+
+    public function logout(): void
+    {
+    }
 }
