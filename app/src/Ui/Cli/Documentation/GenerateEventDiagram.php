@@ -10,8 +10,7 @@ final class GenerateEventDiagram extends Command
 {
     private const SNAPSHOT_FILES = [
         __DIR__ . '/../../../../tests/Application/Command/EventStoreSnapshots/CreateFoodChoiceCommandTest/test_should_create_food_choice.json',
-        __DIR__ . '/../../../../tests/Application/Command/EventStoreSnapshots/AuthenticateInviteCommandTest/test_it_authenticates_an_invite_login.json',
-        __DIR__ . '/../../../../tests/Application/Command/EventStoreSnapshots/SubmitInviteCommandTest/test_successfully_submits_day_invite_with_guest_food_choices.json',
+        __DIR__ . '/../../../../tests/Application/Command/EventStoreSnapshots/SubmitInviteCommandTest/test_successfully_submits_pending_invite_with_all_guests_attending.json',
     ];
     public static $defaultName = 'documentation:event-diagram';
 

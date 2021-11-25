@@ -2,22 +2,21 @@
 
 namespace App\Tests\Application\Command;
 
+use App\Application\Command\AuthenticateInvite\AuthenticateInviteCommand;
+use App\Application\Command\AuthenticateInvite\AuthenticateInviteCommandHandler;
+use App\Application\Command\CreateInvite\CreateInviteCommand;
+use App\Application\Command\CreateInvite\CreateInviteCommandHandler;
 use App\Application\Command\SubmitInvite\InviteSubmitted;
 use App\Application\Command\SubmitInvite\SubmitInviteCommand;
 use App\Application\Command\SubmitInvite\SubmitInviteCommandHandler;
 use App\Domain\Model\FoodChoice\FoodChoiceId;
-use App\Domain\Model\Invite\Guest\GuestId;
-use App\Domain\Model\Invite\Guest\GuestName;
-use App\Domain\Model\Invite\Guest\InvitedGuest;
 use App\Domain\Model\Invite\Invite;
-use App\Domain\Model\Invite\InviteCode;
-use App\Domain\Model\Invite\InviteId;
 use App\Domain\Model\Invite\InviteRepository;
-use App\Domain\Model\Invite\InviteType;
 use App\Domain\Model\Invite\SongChoice;
-use App\Domain\Model\Shared\GuestType;
 use App\Tests\Doubles\ChosenFoodChoiceValidatorStub;
+use App\Tests\Doubles\DomainEventBusDummy;
 use App\Tests\Doubles\DomainEventBusSpy;
+use App\Tests\Doubles\InviteAuthenticatorDummy;
 
 final class SubmitInviteCommandTest extends CommandTestCase
 {
@@ -42,21 +41,21 @@ final class SubmitInviteCommandTest extends CommandTestCase
 
     public function test_successfully_submits_pending_invite_with_all_guests_attending(): void
     {
-        $invite = Invite::create(
-            $id = InviteId::generate(),
-            InviteCode::generate(),
-            $inviteType = InviteType::Evening,
-            [
-                $adult = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Adult, GuestName::fromString('Adult Name')),
-                $child = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Child, GuestName::fromString('Child Name')),
-                $baby = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Baby, GuestName::fromString('Baby Name')),
-            ]
+        $invite = $this->createInvite(
+            new CreateInviteCommand(
+                'evening',
+                [
+                    ['type' => 'adult', 'name' => 'Adult'],
+                    ['type' => 'child', 'name' => 'Child'],
+                    ['type' => 'baby', 'name' => 'Baby'],
+                ]
+            )
         );
-
-        $this->repository->store($invite);
+        $this->authenticateInvite(new AuthenticateInviteCommand($invite->getInviteCode()->toString()));
+        [$adult, $child, $baby] = $invite->getInvitedGuests();
 
         $command = new SubmitInviteCommand(
-            $id->toString(),
+            $invite->getAggregateId()->toString(),
             [
                 $adult->getId()->toString() => self::NO_FOOD_CHOICES,
                 $child->getId()->toString() => self::NO_FOOD_CHOICES,
@@ -71,11 +70,17 @@ final class SubmitInviteCommandTest extends CommandTestCase
 
         self::assertTrue($invite->isSubmitted());
         self::assertCount(3, $invite->getAttendingGuests());
-        self::assertEquals(new InviteSubmitted($id->toString(), [
-            ['name' => 'Adult Name', 'attending' => true],
-            ['name' => 'Child Name', 'attending' => true],
-            ['name' => 'Baby Name', 'attending' => true],
-        ]), $this->eventBus->getLastEvent());
+        self::assertEquals(
+            new InviteSubmitted(
+                $invite->getAggregateId()->toString(),
+                [
+                    ['name' => 'Adult', 'attending' => true],
+                    ['name' => 'Child', 'attending' => true],
+                    ['name' => 'Baby', 'attending' => true],
+                ]
+            ),
+            $this->eventBus->getLastEvent()
+        );
     }
 
     public function test_unable_to_submit_invite_more_than_once(): void
@@ -83,19 +88,19 @@ final class SubmitInviteCommandTest extends CommandTestCase
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessage('This invite has already been submitted');
 
-        $invite = Invite::create(
-            $id = InviteId::generate(),
-            InviteCode::generate(),
-            $inviteType = InviteType::Evening,
-            [
-                $adult = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Adult, GuestName::fromString('Adult Name')),
-            ]
+        $invite = $this->createInvite(
+            new CreateInviteCommand(
+                'evening',
+                [
+                    ['type' => 'adult', 'name' => 'Adult'],
+                ]
+            )
         );
-
-        $this->repository->store($invite);
+        $this->authenticateInvite(new AuthenticateInviteCommand($invite->getInviteCode()->toString()));
+        [$adult] = $invite->getInvitedGuests();
 
         $command = new SubmitInviteCommand(
-            $id->toString(),
+            $invite->getAggregateId()->toString(),
             [$adult->getId()->toString() => self::NO_FOOD_CHOICES],
             self::NO_SONG_CHOICES
         );
@@ -106,21 +111,21 @@ final class SubmitInviteCommandTest extends CommandTestCase
 
     public function test_successfully_submits_pending_invite_with_single_guest_attending(): void
     {
-        $invite = Invite::create(
-            $id = InviteId::generate(),
-            InviteCode::generate(),
-            $inviteType = InviteType::Evening,
-            [
-                $adult = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Adult, GuestName::fromString('Adult Name')),
-                InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Child, GuestName::fromString('Child Name')),
-                InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Baby, GuestName::fromString('Baby Name')),
-            ]
+        $invite = $this->createInvite(
+            new CreateInviteCommand(
+                'evening',
+                [
+                    ['type' => 'adult', 'name' => 'Adult'],
+                    ['type' => 'child', 'name' => 'Child'],
+                    ['type' => 'baby', 'name' => 'Baby'],
+                ]
+            )
         );
-
-        $this->repository->store($invite);
+        $this->authenticateInvite(new AuthenticateInviteCommand($invite->getInviteCode()->toString()));
+        [$adult] = $invite->getInvitedGuests();
 
         $command = new SubmitInviteCommand(
-            $id->toString(),
+            $invite->getAggregateId()->toString(),
             [$adult->getId()->toString() => self::NO_FOOD_CHOICES],
             self::NO_SONG_CHOICES
         );
@@ -131,30 +136,35 @@ final class SubmitInviteCommandTest extends CommandTestCase
 
         self::assertTrue($invite->isSubmitted());
         self::assertCount(1, $invite->getAttendingGuests());
-        self::assertEquals(new InviteSubmitted($id->toString(), [
-            ['name' => 'Adult Name', 'attending' => true],
-            ['name' => 'Child Name', 'attending' => false],
-            ['name' => 'Baby Name', 'attending' => false],
-        ]), $this->eventBus->getLastEvent());
+        self::assertEquals(
+            new InviteSubmitted(
+                $invite->getAggregateId()->toString(),
+                [
+                    ['name' => 'Adult', 'attending' => true],
+                    ['name' => 'Child', 'attending' => false],
+                    ['name' => 'Baby', 'attending' => false],
+                ]
+            ),
+            $this->eventBus->getLastEvent()
+        );
     }
 
     public function test_successfully_submits_pending_invite_with_no_guests_attending(): void
     {
-        $invite = Invite::create(
-            $id = InviteId::generate(),
-            InviteCode::generate(),
-            $inviteType = InviteType::Evening,
-            [
-                InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Adult, GuestName::fromString('Adult Name')),
-                InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Child, GuestName::fromString('Child Name')),
-                InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Baby, GuestName::fromString('Baby Name')),
-            ]
+        $invite = $this->createInvite(
+            new CreateInviteCommand(
+                'evening',
+                [
+                    ['type' => 'adult', 'name' => 'Adult'],
+                    ['type' => 'child', 'name' => 'Child'],
+                    ['type' => 'baby', 'name' => 'Baby'],
+                ]
+            )
         );
-
-        $this->repository->store($invite);
+        $this->authenticateInvite(new AuthenticateInviteCommand($invite->getInviteCode()->toString()));
 
         $command = new SubmitInviteCommand(
-            $id->toString(),
+            $invite->getAggregateId()->toString(),
             [],
             self::NO_SONG_CHOICES
         );
@@ -165,28 +175,34 @@ final class SubmitInviteCommandTest extends CommandTestCase
 
         self::assertTrue($invite->isSubmitted());
         self::assertEmpty($invite->getAttendingGuests());
-        self::assertEquals(new InviteSubmitted($id->toString(), [
-            ['name' => 'Adult Name', 'attending' => false],
-            ['name' => 'Child Name', 'attending' => false],
-            ['name' => 'Baby Name', 'attending' => false],
-        ]), $this->eventBus->getLastEvent());
+        self::assertEquals(
+            new InviteSubmitted(
+                $invite->getAggregateId()->toString(),
+                [
+                    ['name' => 'Adult', 'attending' => false],
+                    ['name' => 'Child', 'attending' => false],
+                    ['name' => 'Baby', 'attending' => false],
+                ]
+            ),
+            $this->eventBus->getLastEvent()
+        );
     }
 
     public function test_successfully_submits_day_invite_with_guest_food_choices(): void
     {
-        $invite = Invite::create(
-            $id = InviteId::generate(),
-            InviteCode::generate(),
-            $inviteType = InviteType::Day,
-            [
-                $adult = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Adult, GuestName::fromString('Adult Name')),
-            ]
+        $invite = $this->createInvite(
+            new CreateInviteCommand(
+                'day',
+                [
+                    ['type' => 'adult', 'name' => 'Adult'],
+                ]
+            )
         );
-
-        $this->repository->store($invite);
+        $this->authenticateInvite(new AuthenticateInviteCommand($invite->getInviteCode()->toString()));
+        [$adult] = $invite->getInvitedGuests();
 
         $command = new SubmitInviteCommand(
-            $id->toString(),
+            $invite->getAggregateId()->toString(),
             [
                 $adult->getId()->toString() => [
                     'starterId' => $starterId = '98704d73-9bca-40a4-8411-d77e57e91f22',
@@ -207,29 +223,63 @@ final class SubmitInviteCommandTest extends CommandTestCase
         self::assertTrue(FoodChoiceId::fromString($starterId)->equals($chosenFoodChoices->getStarterId()));
         self::assertTrue(FoodChoiceId::fromString($mainId)->equals($chosenFoodChoices->getMainId()));
         self::assertTrue(FoodChoiceId::fromString($dessertId)->equals($chosenFoodChoices->getDessertId()));
-        self::assertEquals(new InviteSubmitted($id->toString(), [
-            ['name' => 'Adult Name', 'attending' => true],
-        ]), $this->eventBus->getLastEvent());
+        self::assertEquals(
+            new InviteSubmitted(
+                $invite->getAggregateId()->toString(),
+                [
+                    ['name' => 'Adult', 'attending' => true],
+                ]
+            ),
+            $this->eventBus->getLastEvent()
+        );
+    }
+
+    public function test_fails_to_submit_invite_without_authentication(): void
+    {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('Invite must be authenticated for submission');
+
+        $invite = $this->createInvite(
+            new CreateInviteCommand(
+                'evening',
+                [
+                    ['type' => 'adult', 'name' => 'Adult'],
+                ]
+            )
+        );
+        [$adult] = $invite->getInvitedGuests();
+
+        $this->repository->store($invite);
+
+        $command = new SubmitInviteCommand(
+            $invite->getAggregateId()->toString(),
+            [$adult->getId()->toString() => self::NO_FOOD_CHOICES],
+            self::NO_SONG_CHOICES
+        );
+
+        ($this->handler)($command);
     }
 
     public function test_fails_to_submit_day_invite_with_empty_required_guest_food_choices(): void
     {
         $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage("Adult Name's food choices do not meet the specified requirements");
+        $this->expectExceptionMessage("Adult's food choices do not meet the specified requirements");
 
-        $invite = Invite::create(
-            $id = InviteId::generate(),
-            InviteCode::generate(),
-            $inviteType = InviteType::Day,
-            [
-                $adult = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Adult, GuestName::fromString('Adult Name')),
-            ]
+        $invite = $this->createInvite(
+            new CreateInviteCommand(
+                'day',
+                [
+                    ['type' => 'adult', 'name' => 'Adult'],
+                ]
+            )
         );
+        $this->authenticateInvite(new AuthenticateInviteCommand($invite->getInviteCode()->toString()));
+        [$adult] = $invite->getInvitedGuests();
 
         $this->repository->store($invite);
 
         $command = new SubmitInviteCommand(
-            $id->toString(),
+            $invite->getAggregateId()->toString(),
             [$adult->getId()->toString() => self::NO_FOOD_CHOICES],
             self::NO_SONG_CHOICES
         );
@@ -240,23 +290,23 @@ final class SubmitInviteCommandTest extends CommandTestCase
     public function test_fails_to_submit_day_invite_with_invalid_guest_food_choices(): void
     {
         $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage("Adult Name's food choices do not meet the adult type requirements");
+        $this->expectExceptionMessage("Adult's food choices do not meet the adult type requirements");
 
         $this->foodMenuValidator->failing();
 
-        $invite = Invite::create(
-            $id = InviteId::generate(),
-            InviteCode::generate(),
-            $inviteType = InviteType::Day,
-            [
-                $adult = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Adult, GuestName::fromString('Adult Name')),
-            ]
+        $invite = $this->createInvite(
+            new CreateInviteCommand(
+                'day',
+                [
+                    ['type' => 'adult', 'name' => 'Adult'],
+                ]
+            )
         );
-
-        $this->repository->store($invite);
+        $this->authenticateInvite(new AuthenticateInviteCommand($invite->getInviteCode()->toString()));
+        [$adult] = $invite->getInvitedGuests();
 
         $command = new SubmitInviteCommand(
-            $id->toString(),
+            $invite->getAggregateId()->toString(),
             [
                 $adult->getId()->toString() => [
                     'starterId' => '98704d73-9bca-40a4-8411-d77e57e91f22',
@@ -274,21 +324,21 @@ final class SubmitInviteCommandTest extends CommandTestCase
     public function test_fails_to_submit_evening_invite_with_food_choices_present(): void
     {
         $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage("Adult Name's food choices do not meet the specified requirements");
+        $this->expectExceptionMessage("Adult's food choices do not meet the specified requirements");
 
-        $invite = Invite::create(
-            $id = InviteId::generate(),
-            InviteCode::generate(),
-            $inviteType = InviteType::Evening,
-            [
-                $adult = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Adult, GuestName::fromString('Adult Name')),
-            ]
+        $invite = $this->createInvite(
+            new CreateInviteCommand(
+                'evening',
+                [
+                    ['type' => 'adult', 'name' => 'Adult'],
+                ]
+            )
         );
-
-        $this->repository->store($invite);
+        $this->authenticateInvite(new AuthenticateInviteCommand($invite->getInviteCode()->toString()));
+        [$adult] = $invite->getInvitedGuests();
 
         $command = new SubmitInviteCommand(
-            $id->toString(),
+            $invite->getAggregateId()->toString(),
             [
                 $adult->getId()->toString() => [
                     'starterId' => '98704d73-9bca-40a4-8411-d77e57e91f22',
@@ -305,20 +355,20 @@ final class SubmitInviteCommandTest extends CommandTestCase
 
     public function test_successfully_submits_invite_with_song_choices(): void
     {
-        $invite = Invite::create(
-            $id = InviteId::generate(),
-            InviteCode::generate(),
-            $inviteType = InviteType::Evening,
-            [
-                $adult = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Adult, GuestName::fromString('Adult Name')),
-            ]
+        $invite = $this->createInvite(
+            new CreateInviteCommand(
+                'evening',
+                [
+                    ['type' => 'adult', 'name' => 'Adult'],
+                ]
+            )
         );
-
-        $this->repository->store($invite);
+        $this->authenticateInvite(new AuthenticateInviteCommand($invite->getInviteCode()->toString()));
+        [$adult] = $invite->getInvitedGuests();
 
         $command = new SubmitInviteCommand(
-            $id->toString(),
-            [$adult->getId()->toString() => []],
+            $invite->getAggregateId()->toString(),
+            [$adult->getId()->toString() => self::NO_FOOD_CHOICES],
             [
                 ['artist' => 'ARTIST_1', 'track' => 'TRACK_1'],
                 ['artist' => 'ARTIST_2', 'track' => 'TRACK_2'],
@@ -329,10 +379,13 @@ final class SubmitInviteCommandTest extends CommandTestCase
 
         $invite = $this->repository->get($invite->getAggregateId());
 
-        self::assertEquals([
-            SongChoice::fromString('ARTIST_1', 'TRACK_1'),
-            SongChoice::fromString('ARTIST_2', 'TRACK_2'),
-        ], $invite->getSongChoices());
+        self::assertEquals(
+            [
+                SongChoice::fromString('ARTIST_1', 'TRACK_1'),
+                SongChoice::fromString('ARTIST_2', 'TRACK_2'),
+            ],
+            $invite->getSongChoices()
+        );
     }
 
     public function test_fails_to_submit_invite_with_too_many_song_choices(): void
@@ -340,20 +393,22 @@ final class SubmitInviteCommandTest extends CommandTestCase
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessage('Only two song choices allowed per invite');
 
-        $invite = Invite::create(
-            $id = InviteId::generate(),
-            InviteCode::generate(),
-            $inviteType = InviteType::Evening,
-            [
-                $adult = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Adult, GuestName::fromString('Adult Name')),
-            ]
+        $invite = $this->createInvite(
+            new CreateInviteCommand(
+                'evening',
+                [
+                    ['type' => 'adult', 'name' => 'Adult'],
+                ]
+            )
         );
+        $this->authenticateInvite(new AuthenticateInviteCommand($invite->getInviteCode()->toString()));
+        [$adult] = $invite->getInvitedGuests();
 
         $this->repository->store($invite);
 
         $command = new SubmitInviteCommand(
-            $id->toString(),
-            [$adult->getId()->toString() => []],
+            $invite->getAggregateId()->toString(),
+            [$adult->getId()->toString() => self::NO_FOOD_CHOICES],
             [
                 ['artist' => 'ARTIST_1', 'track' => 'TRACK_1'],
                 ['artist' => 'ARTIST_2', 'track' => 'TRACK_2'],
@@ -362,5 +417,25 @@ final class SubmitInviteCommandTest extends CommandTestCase
         );
 
         ($this->handler)($command);
+    }
+
+    private function createInvite(CreateInviteCommand $command): Invite
+    {
+        $handler = new CreateInviteCommandHandler($this->repository, new DomainEventBusDummy());
+
+        $handler($command);
+
+        return $this->repository->get($command->getId());
+    }
+
+    private function authenticateInvite(AuthenticateInviteCommand $command): void
+    {
+        $handler = new AuthenticateInviteCommandHandler(
+            $this->repository,
+            $this->eventStore,
+            new InviteAuthenticatorDummy()
+        );
+
+        $handler($command);
     }
 }

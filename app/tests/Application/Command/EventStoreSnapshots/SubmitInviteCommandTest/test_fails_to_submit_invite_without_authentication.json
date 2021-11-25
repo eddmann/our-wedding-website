@@ -1,0 +1,24 @@
+{
+    "generated": "2021-11-25 08:29:05.448892 +0000",
+    "events": [
+        {
+            "name": "invite.created",
+            "data": {
+                "aggregateVersion": 0,
+                "id": "8ee3a46c-2518-424a-9916-c7d9741c472c",
+                "inviteCode": "P2G2",
+                "inviteType": "evening",
+                "invitedGuests": [
+                    {
+                        "id": "00cea6fb-76b7-4b50-a049-0deb022de85e",
+                        "inviteType": "evening",
+                        "guestType": "adult",
+                        "name": "Adult",
+                        "hasFoodChoices": false
+                    }
+                ],
+                "occurredAt": "2021-11-25 08:29:05.447746 +0000"
+            }
+        }
+    ]
+}

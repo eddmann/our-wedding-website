@@ -1,23 +1,31 @@
 {
-    "generated": "2021-11-22 18:37:40.227978 +0000",
+    "generated": "2021-11-25 08:29:05.472338 +0000",
     "events": [
         {
             "name": "invite.created",
             "data": {
                 "aggregateVersion": 0,
-                "id": "8daf714a-70c8-4911-b0ad-db896e0418ff",
-                "inviteCode": "J4K6",
+                "id": "76cd9ee4-c6ff-4533-9510-6fdfd7a9dc19",
+                "inviteCode": "R7P2",
                 "inviteType": "evening",
                 "invitedGuests": [
                     {
-                        "id": "9e4a1f78-2458-477d-a4fa-1e77991b4fcd",
+                        "id": "abfc6c6c-9987-43c8-b348-b2f3292ef35a",
                         "inviteType": "evening",
                         "guestType": "adult",
-                        "name": "Adult Name",
+                        "name": "Adult",
                         "hasFoodChoices": false
                     }
                 ],
-                "occurredAt": "2021-11-22 18:37:40.226206 +0000"
+                "occurredAt": "2021-11-25 08:29:05.471031 +0000"
+            }
+        },
+        {
+            "name": "invite.authenticated",
+            "data": {
+                "aggregateVersion": 1,
+                "id": "76cd9ee4-c6ff-4533-9510-6fdfd7a9dc19",
+                "occurredAt": "2021-11-25 08:29:05.471276 +0000"
             }
         }
     ]

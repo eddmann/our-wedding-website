@@ -5,15 +5,12 @@ namespace App\Tests\Application\Command;
 use App\Application\Command\AuthenticateInvite\AuthenticateInviteCommand;
 use App\Application\Command\AuthenticateInvite\AuthenticateInviteCommandHandler;
 use App\Application\Command\AuthenticateInvite\InviteCodeNotFound;
-use App\Domain\Model\Invite\Guest\GuestId;
-use App\Domain\Model\Invite\Guest\GuestName;
-use App\Domain\Model\Invite\Guest\InvitedGuest;
+use App\Application\Command\CreateInvite\CreateInviteCommand;
+use App\Application\Command\CreateInvite\CreateInviteCommandHandler;
 use App\Domain\Model\Invite\Invite;
 use App\Domain\Model\Invite\InviteCode;
-use App\Domain\Model\Invite\InviteId;
 use App\Domain\Model\Invite\InviteRepository;
-use App\Domain\Model\Invite\InviteType;
-use App\Domain\Model\Shared\GuestType;
+use App\Tests\Doubles\DomainEventBusDummy;
 use App\Tests\Doubles\InviteAuthenticatorSpy;
 
 final class AuthenticateInviteCommandTest extends CommandTestCase
@@ -35,27 +32,25 @@ final class AuthenticateInviteCommandTest extends CommandTestCase
 
     public function test_it_authenticates_an_invite_login(): void
     {
-        $invite = Invite::create(
-            $id = InviteId::generate(),
-            $code = InviteCode::generate(),
-            $inviteType = InviteType::Evening,
-            [
-                InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Adult, GuestName::fromString('Adult Name')),
-                InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Child, GuestName::fromString('Child Name')),
-                InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Baby, GuestName::fromString('Baby Name')),
-            ]
+        $invite = $this->createInvite(
+            new CreateInviteCommand(
+                'day',
+                [
+                    ['type' => 'adult', 'name' => 'Adult'],
+                    ['type' => 'child', 'name' => 'Child'],
+                    ['type' => 'baby', 'name' => 'Baby'],
+                ]
+            )
         );
 
-        $this->repository->store($invite);
-
-        $command = new AuthenticateInviteCommand($code->toString());
+        $command = new AuthenticateInviteCommand($invite->getInviteCode()->toString());
 
         ($this->handler)($command);
 
-        $invite = $this->repository->get($id);
+        $invite = $this->repository->get($invite->getAggregateId());
 
         self::assertNotNull($invite->getLastAuthenticatedAt());
-        self::assertTrue($id->equals($this->authenticator->getLastLoginInviteId()));
+        self::assertTrue($invite->getAggregateId()->equals($this->authenticator->getLastLoginInviteId()));
     }
 
     public function test_it_is_unable_to_authenticate_invite_with_invalid_code(): void
@@ -65,5 +60,14 @@ final class AuthenticateInviteCommandTest extends CommandTestCase
         $command = new AuthenticateInviteCommand(InviteCode::generate()->toString());
 
         ($this->handler)($command);
+    }
+
+    private function createInvite(CreateInviteCommand $command): Invite
+    {
+        $handler = new CreateInviteCommandHandler($this->repository, new DomainEventBusDummy());
+
+        $handler($command);
+
+        return $this->repository->get($command->getId());
     }
 }

@@ -136,6 +136,10 @@ final class Invite extends Aggregate
         array $foodChoices,
         array $songChoices
     ): void {
+        if (null === $this->getLastAuthenticatedAt()) {
+            throw new \DomainException('Invite must be authenticated for submission');
+        }
+
         if ($this->isSubmitted()) {
             throw new \DomainException('This invite has already been submitted');
         }
