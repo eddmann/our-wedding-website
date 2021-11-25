@@ -2,8 +2,11 @@
 
 namespace App\Tests\Application\Command;
 
-use App\Application\Command\CreateFoodChoice\{CreateFoodChoiceCommand, CreateFoodChoiceCommandHandler};
-use App\Domain\Model\FoodChoice\{FoodChoiceName, FoodChoiceRepository, FoodCourse};
+use App\Application\Command\CreateFoodChoice\CreateFoodChoiceCommand;
+use App\Application\Command\CreateFoodChoice\CreateFoodChoiceCommandHandler;
+use App\Domain\Model\FoodChoice\FoodChoiceName;
+use App\Domain\Model\FoodChoice\FoodChoiceRepository;
+use App\Domain\Model\FoodChoice\FoodCourse;
 use App\Domain\Model\Shared\GuestType;
 
 final class CreateFoodChoiceCommandTest extends CommandTestCase

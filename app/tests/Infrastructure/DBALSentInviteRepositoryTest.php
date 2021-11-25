@@ -2,8 +2,10 @@
 
 namespace App\Tests\Infrastructure;
 
-use App\Domain\Model\Invite\{InviteCode, InviteId};
-use App\Domain\Projection\SentInvite\{SentInvite, SentInviteRepository};
+use App\Domain\Model\Invite\InviteCode;
+use App\Domain\Model\Invite\InviteId;
+use App\Domain\Projection\SentInvite\SentInvite;
+use App\Domain\Projection\SentInvite\SentInviteRepository;
 use App\Infrastructure\DBALSentInviteRepository;
 use Doctrine\DBAL\Connection;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;

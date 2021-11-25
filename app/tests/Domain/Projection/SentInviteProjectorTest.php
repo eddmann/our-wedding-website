@@ -2,13 +2,24 @@
 
 namespace App\Tests\Domain\Projection;
 
-use App\Domain\Helpers\{AggregateEvents, AggregateVersion};
-use App\Domain\Model\Invite\Events\{InviteWasAuthenticated, InviteWasCreated, InviteWasSubmitted};
-use App\Domain\Model\Invite\Guest\{ChosenFoodChoices, GuestId, GuestName, InvitedGuest};
-use App\Domain\Model\Invite\{InviteCode, InviteId, InviteType};
+use App\Domain\Helpers\AggregateEvents;
+use App\Domain\Helpers\AggregateVersion;
+use App\Domain\Model\Invite\Events\InviteWasAuthenticated;
+use App\Domain\Model\Invite\Events\InviteWasCreated;
+use App\Domain\Model\Invite\Events\InviteWasSubmitted;
+use App\Domain\Model\Invite\Guest\ChosenFoodChoices;
+use App\Domain\Model\Invite\Guest\GuestId;
+use App\Domain\Model\Invite\Guest\GuestName;
+use App\Domain\Model\Invite\Guest\InvitedGuest;
+use App\Domain\Model\Invite\InviteCode;
+use App\Domain\Model\Invite\InviteId;
+use App\Domain\Model\Invite\InviteType;
 use App\Domain\Model\Shared\GuestType;
-use App\Domain\Projection\SentInvite\{SentInvite, SentInviteProjector, SentInviteRepository};
-use App\Tests\Doubles\{ChosenFoodChoiceValidatorStub, InMemorySentInviteRepository};
+use App\Domain\Projection\SentInvite\SentInvite;
+use App\Domain\Projection\SentInvite\SentInviteProjector;
+use App\Domain\Projection\SentInvite\SentInviteRepository;
+use App\Tests\Doubles\ChosenFoodChoiceValidatorStub;
+use App\Tests\Doubles\InMemorySentInviteRepository;
 use PHPUnit\Framework\TestCase;
 
 final class SentInviteProjectorTest extends TestCase

@@ -2,12 +2,22 @@
 
 namespace App\Tests\Application\Command;
 
-use App\Application\Command\SubmitInvite\{InviteSubmitted, SubmitInviteCommand, SubmitInviteCommandHandler};
+use App\Application\Command\SubmitInvite\InviteSubmitted;
+use App\Application\Command\SubmitInvite\SubmitInviteCommand;
+use App\Application\Command\SubmitInvite\SubmitInviteCommandHandler;
 use App\Domain\Model\FoodChoice\FoodChoiceId;
-use App\Domain\Model\Invite\Guest\{GuestId, GuestName, InvitedGuest};
-use App\Domain\Model\Invite\{Invite, InviteCode, InviteId, InviteRepository, InviteType, SongChoice};
+use App\Domain\Model\Invite\Guest\GuestId;
+use App\Domain\Model\Invite\Guest\GuestName;
+use App\Domain\Model\Invite\Guest\InvitedGuest;
+use App\Domain\Model\Invite\Invite;
+use App\Domain\Model\Invite\InviteCode;
+use App\Domain\Model\Invite\InviteId;
+use App\Domain\Model\Invite\InviteRepository;
+use App\Domain\Model\Invite\InviteType;
+use App\Domain\Model\Invite\SongChoice;
 use App\Domain\Model\Shared\GuestType;
-use App\Tests\Doubles\{ChosenFoodChoiceValidatorStub, DomainEventBusSpy};
+use App\Tests\Doubles\ChosenFoodChoiceValidatorStub;
+use App\Tests\Doubles\DomainEventBusSpy;
 
 final class SubmitInviteCommandTest extends CommandTestCase
 {

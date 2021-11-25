@@ -2,7 +2,8 @@
 
 namespace App\Tests\Doubles;
 
-use App\Domain\Projection\SubmittedSongChoice\{SubmittedSongChoice, SubmittedSongChoiceRepository};
+use App\Domain\Projection\SubmittedSongChoice\SubmittedSongChoice;
+use App\Domain\Projection\SubmittedSongChoice\SubmittedSongChoiceRepository;
 
 final class InMemorySubmittedSongChoiceRepository implements SubmittedSongChoiceRepository
 {

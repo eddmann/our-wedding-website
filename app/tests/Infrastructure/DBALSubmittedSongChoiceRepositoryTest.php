@@ -2,7 +2,8 @@
 
 namespace App\Tests\Infrastructure;
 
-use App\Domain\Projection\SubmittedSongChoice\{SubmittedSongChoice, SubmittedSongChoiceRepository};
+use App\Domain\Projection\SubmittedSongChoice\SubmittedSongChoice;
+use App\Domain\Projection\SubmittedSongChoice\SubmittedSongChoiceRepository;
 use App\Infrastructure\DBALSubmittedSongChoiceRepository;
 use Doctrine\DBAL\Connection;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;

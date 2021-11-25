@@ -2,9 +2,17 @@
 
 namespace App\Tests\Application\Command;
 
-use App\Application\Command\AuthenticateInvite\{AuthenticateInviteCommand, AuthenticateInviteCommandHandler, InviteCodeNotFound};
-use App\Domain\Model\Invite\Guest\{GuestId, GuestName, InvitedGuest};
-use App\Domain\Model\Invite\{Invite, InviteCode, InviteId, InviteRepository, InviteType};
+use App\Application\Command\AuthenticateInvite\AuthenticateInviteCommand;
+use App\Application\Command\AuthenticateInvite\AuthenticateInviteCommandHandler;
+use App\Application\Command\AuthenticateInvite\InviteCodeNotFound;
+use App\Domain\Model\Invite\Guest\GuestId;
+use App\Domain\Model\Invite\Guest\GuestName;
+use App\Domain\Model\Invite\Guest\InvitedGuest;
+use App\Domain\Model\Invite\Invite;
+use App\Domain\Model\Invite\InviteCode;
+use App\Domain\Model\Invite\InviteId;
+use App\Domain\Model\Invite\InviteRepository;
+use App\Domain\Model\Invite\InviteType;
 use App\Domain\Model\Shared\GuestType;
 use App\Tests\Doubles\InviteAuthenticatorSpy;
 

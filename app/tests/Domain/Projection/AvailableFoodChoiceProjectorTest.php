@@ -2,11 +2,16 @@
 
 namespace App\Tests\Domain\Projection;
 
-use App\Domain\Helpers\{AggregateEvents, AggregateVersion};
+use App\Domain\Helpers\AggregateEvents;
+use App\Domain\Helpers\AggregateVersion;
 use App\Domain\Model\FoodChoice\Events\FoodChoiceWasCreated;
-use App\Domain\Model\FoodChoice\{FoodChoiceId, FoodChoiceName, FoodCourse};
+use App\Domain\Model\FoodChoice\FoodChoiceId;
+use App\Domain\Model\FoodChoice\FoodChoiceName;
+use App\Domain\Model\FoodChoice\FoodCourse;
 use App\Domain\Model\Shared\GuestType;
-use App\Domain\Projection\AvailableFoodChoice\{AvailableFoodChoice, AvailableFoodChoiceProjector, AvailableFoodChoiceRepository};
+use App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoice;
+use App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoiceProjector;
+use App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoiceRepository;
 use App\Tests\Doubles\InMemoryAvailableFoodChoiceRepository;
 use PHPUnit\Framework\TestCase;
 

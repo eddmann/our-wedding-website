@@ -2,10 +2,18 @@
 
 namespace App\Tests\Doubles;
 
-use App\Application\Command\AuthenticateInvite\{InviteCodeNotFound, InviteCodeToIdFinder};
-use App\Domain\Helpers\{AggregateEvent, AggregateEventStream, AggregateEvents, AggregateId, AggregateName, EventStore, EventStreamPointer};
+use App\Application\Command\AuthenticateInvite\InviteCodeNotFound;
+use App\Application\Command\AuthenticateInvite\InviteCodeToIdFinder;
+use App\Domain\Helpers\AggregateEvent;
+use App\Domain\Helpers\AggregateEvents;
+use App\Domain\Helpers\AggregateEventStream;
+use App\Domain\Helpers\AggregateId;
+use App\Domain\Helpers\AggregateName;
+use App\Domain\Helpers\EventStore;
+use App\Domain\Helpers\EventStreamPointer;
 use App\Domain\Model\Invite\Events\InviteWasCreated;
-use App\Domain\Model\Invite\{InviteCode, InviteId};
+use App\Domain\Model\Invite\InviteCode;
+use App\Domain\Model\Invite\InviteId;
 use App\Domain\Model\Shared\AggregateEventFactory;
 
 final class InMemoryEventStore implements EventStore, InviteCodeToIdFinder

@@ -2,7 +2,9 @@
 
 namespace App\Tests\Doubles;
 
-use App\Domain\Model\Invite\{InviteAuthenticator, InviteId, InviteType};
+use App\Domain\Model\Invite\InviteAuthenticator;
+use App\Domain\Model\Invite\InviteId;
+use App\Domain\Model\Invite\InviteType;
 
 final class InviteAuthenticatorSpy implements InviteAuthenticator
 {

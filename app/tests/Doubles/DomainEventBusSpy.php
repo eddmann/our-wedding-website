@@ -2,7 +2,8 @@
 
 namespace App\Tests\Doubles;
 
-use App\Domain\Helpers\{DomainEvent, DomainEventBus};
+use App\Domain\Helpers\DomainEvent;
+use App\Domain\Helpers\DomainEventBus;
 
 final class DomainEventBusSpy implements DomainEventBus
 {

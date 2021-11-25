@@ -4,7 +4,8 @@ namespace App\Tests\Infrastructure;
 
 use App\Domain\Model\Invite\Guest\GuestId;
 use App\Domain\Model\Invite\InviteId;
-use App\Domain\Projection\SubmittedAttendingGuest\{SubmittedAttendingGuest, SubmittedAttendingGuestRepository};
+use App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuest;
+use App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuestRepository;
 use App\Infrastructure\DBALSubmittedAttendingGuestRepository;
 use Doctrine\DBAL\Connection;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;

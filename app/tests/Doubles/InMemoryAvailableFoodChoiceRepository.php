@@ -2,7 +2,9 @@
 
 namespace App\Tests\Doubles;
 
-use App\Domain\Projection\AvailableFoodChoice\{AvailableFoodChoice, AvailableFoodChoiceNotFound, AvailableFoodChoiceRepository};
+use App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoice;
+use App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoiceNotFound;
+use App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoiceRepository;
 
 final class InMemoryAvailableFoodChoiceRepository implements AvailableFoodChoiceRepository
 {

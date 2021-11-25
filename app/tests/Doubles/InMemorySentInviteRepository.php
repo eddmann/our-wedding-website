@@ -2,7 +2,9 @@
 
 namespace App\Tests\Doubles;
 
-use App\Domain\Projection\SentInvite\{SentInvite, SentInviteNotFound, SentInviteRepository};
+use App\Domain\Projection\SentInvite\SentInvite;
+use App\Domain\Projection\SentInvite\SentInviteNotFound;
+use App\Domain\Projection\SentInvite\SentInviteRepository;
 
 final class InMemorySentInviteRepository implements SentInviteRepository
 {

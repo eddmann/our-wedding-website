@@ -2,7 +2,8 @@
 
 namespace App\Tests\Doubles;
 
-use App\Domain\Model\Invite\Guest\{ChosenFoodChoiceValidator, ChosenFoodChoices};
+use App\Domain\Model\Invite\Guest\ChosenFoodChoices;
+use App\Domain\Model\Invite\Guest\ChosenFoodChoiceValidator;
 use App\Domain\Model\Shared\GuestType;
 
 final class ChosenFoodChoiceValidatorStub implements ChosenFoodChoiceValidator

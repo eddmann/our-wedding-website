@@ -2,7 +2,8 @@
 
 namespace App\Tests\Doubles;
 
-use App\Domain\Helpers\{AggregateEvents, AggregateEventsBus};
+use App\Domain\Helpers\AggregateEvents;
+use App\Domain\Helpers\AggregateEventsBus;
 
 final class AggregateEventsBusSpy implements AggregateEventsBus
 {

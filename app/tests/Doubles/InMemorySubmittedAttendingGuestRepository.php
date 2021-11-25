@@ -2,7 +2,9 @@
 
 namespace App\Tests\Doubles;
 
-use App\Domain\Projection\SubmittedAttendingGuest\{SubmittedAttendingGuest, SubmittedAttendingGuestNotFound, SubmittedAttendingGuestRepository};
+use App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuest;
+use App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuestNotFound;
+use App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuestRepository;
 
 final class InMemorySubmittedAttendingGuestRepository implements SubmittedAttendingGuestRepository
 {

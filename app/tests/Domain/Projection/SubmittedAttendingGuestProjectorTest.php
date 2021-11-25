@@ -2,13 +2,23 @@
 
 namespace App\Tests\Domain\Projection;
 
-use App\Domain\Helpers\{AggregateEvents, AggregateVersion};
-use App\Domain\Model\Invite\Events\{InviteWasCreated, InviteWasSubmitted};
-use App\Domain\Model\Invite\Guest\{ChosenFoodChoices, GuestId, GuestName, InvitedGuest};
-use App\Domain\Model\Invite\{InviteCode, InviteId, InviteType};
+use App\Domain\Helpers\AggregateEvents;
+use App\Domain\Helpers\AggregateVersion;
+use App\Domain\Model\Invite\Events\InviteWasCreated;
+use App\Domain\Model\Invite\Events\InviteWasSubmitted;
+use App\Domain\Model\Invite\Guest\ChosenFoodChoices;
+use App\Domain\Model\Invite\Guest\GuestId;
+use App\Domain\Model\Invite\Guest\GuestName;
+use App\Domain\Model\Invite\Guest\InvitedGuest;
+use App\Domain\Model\Invite\InviteCode;
+use App\Domain\Model\Invite\InviteId;
+use App\Domain\Model\Invite\InviteType;
 use App\Domain\Model\Shared\GuestType;
-use App\Domain\Projection\SubmittedAttendingGuest\{SubmittedAttendingGuest, SubmittedAttendingGuestProjector, SubmittedAttendingGuestRepository};
-use App\Tests\Doubles\{ChosenFoodChoiceValidatorStub, InMemorySubmittedAttendingGuestRepository};
+use App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuest;
+use App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuestProjector;
+use App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuestRepository;
+use App\Tests\Doubles\ChosenFoodChoiceValidatorStub;
+use App\Tests\Doubles\InMemorySubmittedAttendingGuestRepository;
 use PHPUnit\Framework\TestCase;
 
 final class SubmittedAttendingGuestProjectorTest extends TestCase

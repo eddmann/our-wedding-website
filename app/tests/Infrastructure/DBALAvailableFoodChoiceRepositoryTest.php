@@ -3,7 +3,8 @@
 namespace App\Tests\Infrastructure;
 
 use App\Domain\Model\FoodChoice\FoodChoiceId;
-use App\Domain\Projection\AvailableFoodChoice\{AvailableFoodChoice, AvailableFoodChoiceRepository};
+use App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoice;
+use App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoiceRepository;
 use App\Infrastructure\DBALAvailableFoodChoiceRepository;
 use Doctrine\DBAL\Connection;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;

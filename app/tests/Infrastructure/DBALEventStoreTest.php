@@ -2,9 +2,16 @@
 
 namespace App\Tests\Infrastructure;
 
-use App\Domain\Helpers\{AggregateEvents, EventStore, EventStreamPointer};
-use App\Domain\Model\Invite\Guest\{GuestId, GuestName, InvitedGuest};
-use App\Domain\Model\Invite\{Invite, InviteCode, InviteId, InviteType};
+use App\Domain\Helpers\AggregateEvents;
+use App\Domain\Helpers\EventStore;
+use App\Domain\Helpers\EventStreamPointer;
+use App\Domain\Model\Invite\Guest\GuestId;
+use App\Domain\Model\Invite\Guest\GuestName;
+use App\Domain\Model\Invite\Guest\InvitedGuest;
+use App\Domain\Model\Invite\Invite;
+use App\Domain\Model\Invite\InviteCode;
+use App\Domain\Model\Invite\InviteId;
+use App\Domain\Model\Invite\InviteType;
 use App\Domain\Model\Shared\GuestType;
 use App\Infrastructure\DBALEventStore;
 use App\Tests\Doubles\AggregateEventsBusSpy;

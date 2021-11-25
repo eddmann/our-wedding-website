@@ -2,7 +2,8 @@
 
 namespace App\Tests\Application\Command;
 
-use App\Domain\Helpers\{AggregateEvent, EventStreamPointer};
+use App\Domain\Helpers\AggregateEvent;
+use App\Domain\Helpers\EventStreamPointer;
 use App\Tests\Doubles\InMemoryEventStore;
 use PHPUnit\Framework\TestCase;
 
