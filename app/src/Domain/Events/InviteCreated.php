@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Application\Command\CreateInvite;
+namespace App\Domain\Events;
 
 use App\Domain\Helpers\DomainEvent;
 

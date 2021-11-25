@@ -4,7 +4,7 @@ namespace App\Tests\Application\Command;
 
 use App\Application\Command\CreateInvite\CreateInviteCommand;
 use App\Application\Command\CreateInvite\CreateInviteCommandHandler;
-use App\Application\Command\CreateInvite\InviteCreated;
+use App\Domain\Events\InviteCreated;
 use App\Domain\Model\Invite\InviteRepository;
 use App\Domain\Model\Invite\InviteType;
 use App\Tests\Doubles\DomainEventBusSpy;

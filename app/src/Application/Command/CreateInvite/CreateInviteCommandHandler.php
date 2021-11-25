@@ -3,6 +3,7 @@
 namespace App\Application\Command\CreateInvite;
 
 use App\Application\Command\CommandHandler;
+use App\Domain\Events\InviteCreated;
 use App\Domain\Helpers\DomainEventBus;
 use App\Domain\Model\Invite\Invite;
 use App\Domain\Model\Invite\InviteRepository;

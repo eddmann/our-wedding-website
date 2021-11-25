@@ -3,6 +3,7 @@
 namespace App\Application\Command\SubmitInvite;
 
 use App\Application\Command\CommandHandler;
+use App\Domain\Events\InviteSubmitted;
 use App\Domain\Helpers\DomainEventBus;
 use App\Domain\Model\Invite\Guest\ChosenFoodChoiceValidator;
 use App\Domain\Model\Invite\Guest\GuestId;
