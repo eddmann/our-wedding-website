@@ -342,6 +342,9 @@
             ".env"
         ]
     },
+    "symfony/form": {
+        "version": "v5.3.11"
+    },
     "symfony/framework-bundle": {
         "version": "5.3",
         "recipe": {
@@ -403,6 +406,9 @@
             "config/packages/test/monolog.yaml"
         ]
     },
+    "symfony/options-resolver": {
+        "version": "v5.3.7"
+    },
     "symfony/phpunit-bridge": {
         "version": "5.3",
         "recipe": {
@@ -420,6 +426,9 @@
     },
     "symfony/polyfill-intl-grapheme": {
         "version": "v1.23.1"
+    },
+    "symfony/polyfill-intl-icu": {
+        "version": "v1.23.0"
     },
     "symfony/polyfill-intl-normalizer": {
         "version": "v1.23.0"
@@ -441,6 +450,12 @@
     },
     "symfony/process": {
         "version": "v5.3.7"
+    },
+    "symfony/property-access": {
+        "version": "v5.3.8"
+    },
+    "symfony/property-info": {
+        "version": "v5.3.8"
     },
     "symfony/redis-messenger": {
         "version": "v5.3.10"
@@ -494,6 +509,19 @@
     },
     "symfony/uid": {
         "version": "v5.3.10"
+    },
+    "symfony/validator": {
+        "version": "5.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "3eb8df139ec05414489d55b97603c5f6ca0c44cb"
+        },
+        "files": [
+            "config/packages/test/validator.yaml",
+            "config/packages/validator.yaml"
+        ]
     },
     "symfony/var-dumper": {
         "version": "v5.3.10"
