@@ -23,9 +23,6 @@ services:
         arguments: ['@domain_event.bus']
         lazy: true
 
-    App\Ui\Cli\:
-        resource: '../src/Ui/Cli'
-
     App\Ui\Http\Controller\:
         resource: '../src/Ui/Http/Controller/'
         tags: ['controller.service_arguments']
