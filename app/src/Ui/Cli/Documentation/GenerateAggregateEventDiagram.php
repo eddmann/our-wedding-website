@@ -6,13 +6,13 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-final class GenerateEventDiagram extends Command
+final class GenerateAggregateEventDiagram extends Command
 {
     private const SNAPSHOT_FILES = [
         __DIR__ . '/../../../../tests/Application/Command/EventStoreSnapshots/CreateFoodChoiceCommandTest/test_should_create_food_choice.json',
         __DIR__ . '/../../../../tests/Application/Command/EventStoreSnapshots/SubmitInviteCommandTest/test_successfully_submits_pending_invite_with_all_guests_attending.json',
     ];
-    public static $defaultName = 'documentation:event-diagram';
+    public static $defaultName = 'documentation:aggregate-event-diagram';
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
