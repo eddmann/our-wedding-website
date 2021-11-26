@@ -3,7 +3,7 @@
 namespace App\Domain\Projection\SubmittedSongChoice;
 
 use App\Domain\Helpers\AggregateEventsSubscriber;
-use App\Domain\Model\Invite\Events\InviteWasSubmitted;
+use App\Domain\Model\Invite\Event\InviteWasSubmitted;
 
 final class SubmittedSongChoiceProjector extends AggregateEventsSubscriber
 {

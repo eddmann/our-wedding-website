@@ -3,7 +3,7 @@
 namespace App\Domain\Projection\SubmittedAttendingGuest;
 
 use App\Domain\Helpers\AggregateEventsSubscriber;
-use App\Domain\Model\Invite\Events\InviteWasSubmitted;
+use App\Domain\Model\Invite\Event\InviteWasSubmitted;
 
 final class SubmittedAttendingGuestProjector extends AggregateEventsSubscriber
 {

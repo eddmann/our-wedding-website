@@ -8,7 +8,7 @@ use App\Application\Command\CreateInvite\CreateInviteCommand;
 use App\Application\Command\CreateInvite\CreateInviteCommandHandler;
 use App\Application\Command\SubmitInvite\SubmitInviteCommand;
 use App\Application\Command\SubmitInvite\SubmitInviteCommandHandler;
-use App\Domain\Events\InviteSubmitted;
+use App\Domain\Event\InviteSubmitted;
 use App\Domain\Model\FoodChoice\FoodChoiceId;
 use App\Domain\Model\Invite\Invite;
 use App\Domain\Model\Invite\InviteRepository;

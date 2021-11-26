@@ -40,7 +40,7 @@ functions:
 
 package:
     patterns:
-        - '!src/Http/Assets/**'
+        - '!src/Ui/Http/Asset/**'
         - '!node_modules/**'
         - '!public/build/**'
         - '!tests/**'

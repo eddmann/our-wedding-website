@@ -3,7 +3,7 @@
 namespace App\Domain\Projection\AvailableFoodChoice;
 
 use App\Domain\Helpers\AggregateEventsSubscriber;
-use App\Domain\Model\FoodChoice\Events\FoodChoiceWasCreated;
+use App\Domain\Model\FoodChoice\Event\FoodChoiceWasCreated;
 
 final class AvailableFoodChoiceProjector extends AggregateEventsSubscriber
 {

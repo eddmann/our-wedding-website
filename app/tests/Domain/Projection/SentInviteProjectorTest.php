@@ -4,9 +4,9 @@ namespace App\Tests\Domain\Projection;
 
 use App\Domain\Helpers\AggregateEvents;
 use App\Domain\Helpers\AggregateVersion;
-use App\Domain\Model\Invite\Events\InviteWasAuthenticated;
-use App\Domain\Model\Invite\Events\InviteWasCreated;
-use App\Domain\Model\Invite\Events\InviteWasSubmitted;
+use App\Domain\Model\Invite\Event\InviteWasAuthenticated;
+use App\Domain\Model\Invite\Event\InviteWasCreated;
+use App\Domain\Model\Invite\Event\InviteWasSubmitted;
 use App\Domain\Model\Invite\Guest\ChosenFoodChoices;
 use App\Domain\Model\Invite\Guest\GuestId;
 use App\Domain\Model\Invite\Guest\GuestName;

@@ -4,7 +4,7 @@ namespace App\Tests\Domain\Projection;
 
 use App\Domain\Helpers\AggregateEvents;
 use App\Domain\Helpers\AggregateVersion;
-use App\Domain\Model\FoodChoice\Events\FoodChoiceWasCreated;
+use App\Domain\Model\FoodChoice\Event\FoodChoiceWasCreated;
 use App\Domain\Model\FoodChoice\FoodChoiceId;
 use App\Domain\Model\FoodChoice\FoodChoiceName;
 use App\Domain\Model\FoodChoice\FoodCourse;

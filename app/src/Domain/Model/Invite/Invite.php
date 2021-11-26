@@ -4,7 +4,6 @@ namespace App\Domain\Model\Invite;
 
 use App\Domain\Helpers\Aggregate;
 use App\Domain\Helpers\AggregateName;
-use App\Domain\Model\Invite\Events as Events;
 use App\Domain\Model\Invite\Guest\AttendingGuest;
 use App\Domain\Model\Invite\Guest\ChosenFoodChoices;
 use App\Domain\Model\Invite\Guest\ChosenFoodChoiceValidator;
@@ -114,7 +113,7 @@ final class Invite extends Aggregate
         }
 
         $invite->raise(
-            new Events\InviteWasCreated(
+            new Event\InviteWasCreated(
                 $id,
                 $invite->getAggregateVersion(),
                 $code,
@@ -125,6 +124,19 @@ final class Invite extends Aggregate
         );
 
         return $invite;
+    }
+
+    public function authenticate(InviteAuthenticator $authenticator): void
+    {
+        $authenticator->login($this->id, $this->inviteType);
+
+        $this->raise(
+            new Event\InviteWasAuthenticated(
+                $this->getAggregateId(),
+                $this->getAggregateVersion(),
+                new \DateTimeImmutable()
+            )
+        );
     }
 
     /**
@@ -157,7 +169,7 @@ final class Invite extends Aggregate
         );
 
         $this->raise(
-            new Events\InviteWasSubmitted(
+            new Event\InviteWasSubmitted(
                 $this->getAggregateId(),
                 $this->getAggregateVersion(),
                 $attendingGuests,
@@ -167,20 +179,7 @@ final class Invite extends Aggregate
         );
     }
 
-    public function authenticate(InviteAuthenticator $authenticator): void
-    {
-        $authenticator->login($this->id, $this->inviteType);
-
-        $this->raise(
-            new Events\InviteWasAuthenticated(
-                $this->getAggregateId(),
-                $this->getAggregateVersion(),
-                new \DateTimeImmutable()
-            )
-        );
-    }
-
-    protected function applyInviteWasCreated(Events\InviteWasCreated $event): void
+    protected function applyInviteWasCreated(Event\InviteWasCreated $event): void
     {
         $this->id = $event->getAggregateId();
         $this->inviteCode = $event->getInviteCode();
@@ -188,15 +187,15 @@ final class Invite extends Aggregate
         $this->invitedGuests = $event->getInvitedGuests();
     }
 
-    protected function applyInviteWasSubmitted(Events\InviteWasSubmitted $event): void
+    protected function applyInviteWasAuthenticated(Event\InviteWasAuthenticated $event): void
+    {
+        $this->lastAuthenticatedAt = $event->getOccurredAt();
+    }
+
+    protected function applyInviteWasSubmitted(Event\InviteWasSubmitted $event): void
     {
         $this->submittedAt = $event->getOccurredAt();
         $this->attendingGuests = $event->getAttendingGuests();
         $this->songChoices = $event->getSongChoices();
-    }
-
-    protected function applyInviteWasAuthenticated(Events\InviteWasAuthenticated $event): void
-    {
-        $this->lastAuthenticatedAt = $event->getOccurredAt();
     }
 }

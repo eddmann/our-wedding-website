@@ -4,7 +4,6 @@ namespace App\Domain\Model\FoodChoice;
 
 use App\Domain\Helpers\Aggregate;
 use App\Domain\Helpers\AggregateName;
-use App\Domain\Model\FoodChoice\Events\FoodChoiceWasCreated;
 use App\Domain\Model\Shared\GuestType;
 
 final class FoodChoice extends Aggregate
@@ -54,7 +53,7 @@ final class FoodChoice extends Aggregate
         $choice = new self();
 
         $choice->raise(
-            new FoodChoiceWasCreated(
+            new Event\FoodChoiceWasCreated(
                 $id,
                 $choice->getAggregateVersion(),
                 $guestType,
@@ -67,7 +66,7 @@ final class FoodChoice extends Aggregate
         return $choice;
     }
 
-    protected function applyFoodChoiceWasCreated(FoodChoiceWasCreated $event): void
+    protected function applyFoodChoiceWasCreated(Event\FoodChoiceWasCreated $event): void
     {
         $this->id = $event->getAggregateId();
         $this->guestType = $event->getGuestType();

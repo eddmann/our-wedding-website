@@ -11,7 +11,7 @@ use App\Domain\Helpers\AggregateId;
 use App\Domain\Helpers\AggregateName;
 use App\Domain\Helpers\EventStore;
 use App\Domain\Helpers\EventStreamPointer;
-use App\Domain\Model\Invite\Events\InviteWasCreated;
+use App\Domain\Model\Invite\Event\InviteWasCreated;
 use App\Domain\Model\Invite\InviteCode;
 use App\Domain\Model\Invite\InviteId;
 use App\Domain\Model\Shared\AggregateEventFactory;
@@ -51,7 +51,7 @@ final class InMemoryEventStore implements EventStore, InviteCodeToIdFinder
             EventStreamPointer::fromInt($start->toInt() + \count($stream)),
             \array_reduce(
                 $stream,
-                static fn (AggregateEvents $events, AggregateEvent $event) => $events->add($event),
+                fn (AggregateEvents $events, AggregateEvent $event) => $events->add($this->toSerializedAndBack($event)),
                 AggregateEvents::make()
             )
         );

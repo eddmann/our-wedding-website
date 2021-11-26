@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Domain\Model\Invite\Events;
+namespace App\Domain\Model\Invite\Event;
 
 use App\Domain\Helpers\AggregateEvent;
 use App\Domain\Helpers\AggregateName;
@@ -68,8 +68,8 @@ final class InviteWasSubmitted implements AggregateEvent
     public function serialize(): string
     {
         return \json_encode_array([
-            'aggregateVersion' => $this->aggregateVersion->toInt(),
             'id' => $this->id->toString(),
+            'aggregateVersion' => $this->aggregateVersion->toInt(),
             'attendingGuests' => \array_map(static fn (AttendingGuest $guest) => $guest->toArray(), $this->attendingGuests),
             'songChoices' => \array_map(static fn (SongChoice $choice) => $choice->toArray(), $this->songChoices),
             'occurredAt' => \datetime_timestamp($this->occurredAt),

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Domain\Model\FoodChoice\Events;
+namespace App\Domain\Model\FoodChoice\Event;
 
 use App\Domain\Helpers\AggregateEvent;
 use App\Domain\Helpers\AggregateName;
@@ -69,8 +69,8 @@ final class FoodChoiceWasCreated implements AggregateEvent
     public function serialize(): string
     {
         return \json_encode_array([
-            'aggregateVersion' => $this->aggregateVersion->toInt(),
             'id' => $this->id->toString(),
+            'aggregateVersion' => $this->aggregateVersion->toInt(),
             'guestType' => $this->guestType->toString(),
             'course' => $this->course->toString(),
             'name' => $this->name->toString(),
