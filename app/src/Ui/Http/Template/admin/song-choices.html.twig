@@ -1,0 +1,26 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Song Choices - Our Wedding{% endblock %}
+
+{% block body %}
+<div class="table-responsive">
+    <table class="table table-hover table-sortable">
+        <thead>
+            <tr>
+                <th>Artist</th>
+                <th>Track</th>
+                <th>Submitted At</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for choice in choices %}
+            <tr>
+                <td>{{ choice.artist }}</td>
+                <td>{{ choice.track }}</td>
+                <td>{{ choice.submittedAt }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

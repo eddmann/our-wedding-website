@@ -1,0 +1,30 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Attending Guests - Our Wedding{% endblock %}
+
+{% block body %}
+<div class="table-responsive">
+    <table class="table table-hover table-sortable">
+        <thead>
+            <tr>
+                <th>Invite Type</th>
+                <th>Guest Type</th>
+                <th>Name</th>
+                <th>Food Choices</th>
+                <th>Dietary Requirements</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for guest in guests %}
+            <tr>
+                <td>{{ guest.inviteType|title }}</td>
+                <td>{{ guest.guestType|title }}</td>
+                <td>{{ guest.name }}</td>
+                <td>{{ guest.chosenFoodChoices|join(', ') }}</td>
+                <td>{{ guest.dietaryRequirements }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

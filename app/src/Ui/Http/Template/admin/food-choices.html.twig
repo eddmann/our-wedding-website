@@ -1,0 +1,26 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Food Choices - Our Wedding{% endblock %}
+
+{% block body %}
+<div class="table-responsive">
+    <table class="table table-hover table-sortable">
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Course</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for choice in choices %}
+            <tr>
+                <td>{{ choice.guestType|title }}</td>
+                <td>{{ choice.course|title }}</td>
+                <td>{{ choice.name }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
