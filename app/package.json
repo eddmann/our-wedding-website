@@ -1,19 +1,39 @@
 {
+    "license": "proprietary",
+    "private": true,
+    "dependencies": {},
     "devDependencies": {
         "@symfony/webpack-encore": "^1.0.0",
+        "autoprefixer": "^10.4.0",
         "core-js": "^3.0.0",
+        "file-loader": "^6.0.0",
         "fork-ts-checker-webpack-plugin": "^6.0.0",
+        "postcss-loader": "^6.0.0",
+        "prettier": "2.5.0",
         "sass": "^1.43.4",
         "sass-loader": "^12.0.0",
         "ts-loader": "^9.0.0",
         "typescript": "^4.4.4"
     },
-    "license": "proprietary",
-    "private": true,
     "scripts": {
         "dev-server": "encore dev-server",
         "dev": "encore dev",
         "watch": "encore dev --watch",
-        "build": "encore production --progress"
-    }
+        "build": "encore production --progress",
+        "lint": "prettier --check src/Ui/Http/Asset",
+        "prettier": "prettier --write src/Ui/Http/Asset"
+    },
+    "prettier": {
+        "printWidth": 120,
+        "tabWidth": 4,
+        "useTabs": false,
+        "semi": true,
+        "singleQuote": true,
+        "trailingComma": "all",
+        "bracketSpacing": true,
+        "arrowParens": "avoid"
+    },
+    "browserslist": [
+        "defaults"
+    ]
 }

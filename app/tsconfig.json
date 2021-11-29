@@ -2,9 +2,6 @@
     "compilerOptions": {
         "strict": true,
         "esModuleInterop": true,
-        "lib": [
-            "es2018",
-            "dom"
-        ],
+        "lib": ["es2018", "dom"]
     }
 }
