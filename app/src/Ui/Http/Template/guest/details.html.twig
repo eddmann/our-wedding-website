@@ -1,0 +1,61 @@
+{% extends 'guest/base.html.twig' %}
+
+{% block title %}Our Wedding{% endblock %}
+
+{% block body %}
+<header class="details__header-container">
+    <div class="details-overlay"></div>
+    <div class="details-background">
+        <div class="details-logo">
+            <img src="{{ asset('build/images/logo.svg') }}" alt="Our Wedding" />
+        </div>
+    </div>
+</header>
+
+<div class="details__countdown-container">
+    <h2>Countdown to our Wedding Day</h2>
+    <div class="countdown-timer" id="js-countdown-timer"></div>
+    <div class="rsvp-cta">
+        <h2>Don't forget to</h2>
+        <span class="countdown-swirl-left">
+            <span class="countdown-swirl-right">
+                <a href="{{ path('rsvp') }}">RSVP</a>
+            </span>
+        </span>
+    </div>
+</div>
+
+<div class="details__info-container">
+    <div class="info-block">
+        <div class="info-icon">
+            <img src="{{ asset('build/images/cta-order-of-service.svg') }}" alt="Plan of the day" />
+        </div>
+        <h2>Plan of the Day</h2>
+        {{ page_content.plan_of_the_day ?? '' }}
+    </div>
+    <div class="info-block">
+        <div class="info-icon">
+            <img src="{{ asset('build/images/cta-gift.svg') }}" alt="Gift registry" />
+        </div>
+        <h2>Gift registry</h2>
+        {{ page_content.gift_registry ?? '' }}
+    </div>
+    <div class="info-block">
+        <div class="info-icon">
+            <img src="{{ asset('build/images/cta-location.svg') }}" alt="Wedding location" />
+        </div>
+        <h2>Wedding location</h2>
+        {{ page_content.location ?? '' }}
+    </div>
+</div>
+
+<div class="details__map-container">
+    <iframe class="map" src="//maps.google.com/maps?q={{ page_content.map ?? '' }}&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+</div>
+{% endblock %}
+
+{% block javascripts -%}
+{{ parent() -}}
+{{ encore_entry_script_tags('day-countdown') }}
+<script>window.initCountdown('#js-countdown-timer', new Date('{{ page_content.wedding_date ?? '' }}'));</script>
+{% endblock %}

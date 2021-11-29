@@ -1,0 +1,107 @@
+{% form_theme form _self %}
+
+{% extends 'guest/base.html.twig' %}
+
+{% block title %}RSVP - Our Wedding{% endblock %}
+
+{% block body %}
+<header class="header-container rsvp">
+    <div class="header-overlay">
+        <h1>RSVP</h1>
+    </div>
+</header>
+
+<div class="page-container">
+    {% if invite.type == 'day'%}
+        <h2>Food Choices</h2>
+        <p class="top">Please select your food choices from the provided <a href="{{ path('menu') }}" target="_blank">menu</a>.</p>
+    {% else %}
+        <h2>Attendance</h2>
+    {% endif %}
+
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_errors(form) }}
+
+        {% for guest in form.guests %}
+            {{ form_label(guest) }}
+
+            <div class="rsvp__guest-container">
+                <div class="block">
+                    {{ form_widget(guest.attending, {'attr': {'class': 'form-select js-attending'}}) }}
+                </div>
+
+                {% if guest.starterId is defined %}
+                    <div class="block">
+                        {{ form_widget(guest.starterId, {'attr': {'class': 'form-select'}}) }}
+                    </div>
+                {% endif %}
+
+                {% if guest.mainId is defined %}
+                    <div class="block">
+                        {{ form_widget(guest.mainId, {'attr': {'class': 'form-select'}}) }}
+                    </div>
+                {% endif %}
+
+                {% if guest.dessertId is defined %}
+                    <div class="block">
+                        {{ form_widget(guest.dessertId, {'attr': {'class': 'form-select'}}) }}
+                    </div>
+                {% endif %}
+            </div>
+
+            {% if guest.dietaryRequirements is defined %}
+                {{ form_widget(guest.dietaryRequirements, {'attr': {'class': 'form-textarea'}}) }}
+            {% endif %}
+        {% endfor %}
+
+        <img class="divider" src="{{ asset('build/images/divider.svg') }}" alt="Divider" />
+
+        <h2>Song Choices</h2>
+        <p class="top">Pick a couple of songs that will get you on the dance floor!</p>
+        <div class="rsvp__song-container">
+            <div class="block">
+                <label>Song One</label>
+                {{ form_widget(form.songs.0.artist, {'attr': {'class': 'form-input'}}) }}
+                {{ form_widget(form.songs.0.track, {'attr': {'class': 'form-input'}}) }}
+            </div>
+            <div class="block">
+                <label>Song Two</label>
+                {{ form_widget(form.songs.1.artist, {'attr': {'class': 'form-input'}}) }}
+                {{ form_widget(form.songs.1.track, {'attr': {'class': 'form-input'}}) }}
+            </div>
+        </div>
+
+        {{ form_widget(form.submit, {'attr': {'class':'form-submit'}}) }}
+    {{ form_end(form) }}
+</div>
+
+<script>
+    (function (document) {
+        var onAttendanceChange = function (e) {
+            var id = e.target.name.replace('[attending]', '');
+            [].forEach.call(document.querySelectorAll("[name*=\""+ id +"\"]"), function (el) {
+                if (el === e.target) return;
+                el.disabled = e.target.value !== '1';
+                if (e.target.value !== '1') el.value = '';
+            });
+        };
+
+        [].forEach.call(document.getElementsByClassName('js-attending'), function (el) {
+            el.addEventListener('change', onAttendanceChange);
+            onAttendanceChange({ target: el });
+        });
+    })(document);
+</script>
+{% endblock %}
+
+{% block form_errors %}
+{% apply spaceless %}
+    {% if errors|length > 0 %}
+        <ul class="form-errors">
+            {% for error in errors %}
+                <li>{{ error.message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endapply %}
+{% endblock form_errors %}

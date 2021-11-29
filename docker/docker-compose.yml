@@ -33,6 +33,7 @@ services:
       APP_SECRET: secret
       DATABASE_URL: 'postgresql://user:password@postgres:5432/db?serverVersion=14.1&charset=utf8'
       ADMIN_PASSWORD: password
+      PAGE_CONTENT: '{}'
 
   postgres:
     image: docker.io/postgres:14.1-alpine3.14

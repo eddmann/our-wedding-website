@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Our Wedding</title>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('guest') }}
+    {% endblock %}
+</head>
+<body class="login-container">
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        <img src="{{ asset('build/images/login.svg') }}" alt="Our Wedding" />
+        {{ form_errors(form) }}
+        {{ form_widget(form.code) }}
+        {{ form_widget(form.login) }}
+    {{ form_end(form) }}
+</body>
+</html>

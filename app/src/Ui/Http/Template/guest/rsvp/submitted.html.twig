@@ -1,0 +1,32 @@
+{% extends 'guest/base.html.twig' %}
+
+{% block title %}RSVP - Our Wedding{% endblock %}
+
+{% block body %}
+<header class="header-container rsvp">
+    <div class="header-overlay">
+        <h1>RSVP</h1>
+    </div>
+</header>
+
+<div class="page-container">
+    <h2>Thank You</h2>
+
+    {% if invite.guests is empty %}
+        <p class="top">Thank you for submitting your RSVP. We are sorry that you can not make the big day.</p>
+    {% else %}
+        <p class="top">Thank you for submitting your RSVP. We look forward to seeing you on the big day!</p>
+
+        {% for guest in invite.guests %}
+            <h3>{{ guest.name }}</h3>
+            <ul>
+                {% for choice in guest.chosenFoodChoices %}
+                    <li>{{ choice }}</li>
+                {% else %}
+                    <li>Attending</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

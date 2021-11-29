@@ -1,0 +1,15 @@
+{% extends 'guest/base.html.twig' %}
+
+{% block title %}Menu - Our Wedding{% endblock %}
+
+{% block body %}
+<header class="header-container menu">
+    <div class="header-overlay">
+        <h1>Menu</h1>
+    </div>
+</header>
+
+<div class="page-container">
+    {{ page_content.menu ?? '' }}
+</div>
+{% endblock %}

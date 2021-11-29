@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>{% block title %}Our Wedding{% endblock %}</title>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('guest') }}
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Clicker+Script|Open+Sans:400,300,700,800">
+    {% endblock %}
+</head>
+<body>
+<div id="container">
+    <a class="mobile-show-menu show" id="js-mobile-show-menu" href="#"><img src="{{ asset('build/images/mobile-menu-open.svg') }}" alt="Show menu" /></a>
+    <a class="mobile-hide-menu" id="js-mobile-hide-menu" href="#"><img src="{{ asset('build/images/mobile-menu-close.svg') }}" alt="Hide menu" /></a>
+    <nav class="menu">
+        <ul>
+            <li>{{ _self.nav_link('Our Wedding', 'details') }}</li>
+            {% if is_granted('ROLE_DAY') -%}
+                <li>{{ _self.nav_link('Menu', 'menu') }}</li>
+            {% endif -%}
+            <li>{{ _self.nav_link('RSVP', 'rsvp') }}</li>
+            <li>{{ _self.nav_link('Accommodation', 'accommodation') }}</li>
+            <li><a href="{{ path('logout') }}">Logout</a></li>
+        </ul>
+    </nav>
+    {% block body %}{% endblock %}
+    <footer id="js-footer">
+        <img src="{{ asset('build/images/footer.svg') }}" alt="Footer" />
+        <span>Made by Aimee and Edd</span>
+    </footer>
+    {% block javascripts -%}
+        {{ encore_entry_script_tags('guest') }}
+    {% endblock %}
+</div>
+</body>
+</html>
+{% macro nav_link(title, route) %}
+    {% apply spaceless %}
+        <a href="{{ path(route) }}"{{ app.request.get('_route') == route ? ' class="selected"' }}>{{ title }}</a>
+    {% endapply %}
+{% endmacro %}
