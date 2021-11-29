@@ -50,6 +50,10 @@ test-db: ## (Re)creates the test database (with migrations)
 	$(APP) bin/console doctrine:database:create -n --env=test
 	$(APP) bin/console doctrine:migrations:migrate -n --allow-no-migration --quiet --env=test
 
+.PHONY: clean
+clean: ## Remove all untracked/changed files
+	@git clean -ffdx .
+
 ##@ Testing/Linting
 
 .PHONY: can-release
