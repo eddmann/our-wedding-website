@@ -1,0 +1,33 @@
+security:
+    enable_authenticator_manager: true
+
+    password_hashers:
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: plaintext
+
+    providers:
+        admin:
+            memory:
+                users: { admin: { password: '%env(ADMIN_PASSWORD)%', roles: [ROLE_ADMIN] } }
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        admin:
+            pattern: ^/admin
+            provider: admin
+            stateless: true
+            http_basic:
+                realm: Admin Area
+        main:
+            lazy: true
+            stateless: true
+            custom_authenticators:
+                - App\Infrastructure\SymfonyInviteAuthenticator
+
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/healthz, roles: PUBLIC_ACCESS }
+        - { path: ^/menu, roles: ROLE_DAY }
+        - { path: ^/.+, roles: [ROLE_DAY, ROLE_EVENING] }
+        - { path: ^/, roles: PUBLIC_ACCESS }
