@@ -1,0 +1,71 @@
+@import 'reset';
+
+$color-white: #fff;
+$color-light-grey: #e8e1d0;
+$color-mid-grey: #6e6a5f;
+$color-dark-grey: #5d594d;
+$color-wedding-purple: #482683;
+
+$font-family-sans-serif: 'Open Sans', sans-serif;
+$font-family-cursive: 'Clicker Script', cursive;
+
+$form-border-radius: 8px;
+
+@mixin for-mobile {
+    @media screen and (max-width: 680px) {
+        @content;
+    }
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    font-family: $font-family-sans-serif;
+    font-size: 14px;
+    color: $color-mid-grey;
+    padding: 0;
+    margin: 0 auto;
+}
+
+p {
+    line-height: 25px;
+
+    &.top {
+        margin-top: 25px;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: $color-wedding-purple;
+}
+
+h1,
+h2,
+h3 {
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: $color-dark-grey;
+}
+
+h1 {
+    font-size: 34px;
+}
+
+h2 {
+    font-size: 26px;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+@import 'menu';
+@import 'layout';
+@import 'page-details';
+@import 'page-rsvp';
+@import 'page-login';

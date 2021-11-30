@@ -1798,6 +1798,10 @@ cosmiconfig@^7.0.0:
     path-type "^4.0.0"
     yaml "^1.10.0"
 
+countdown@mckamey/countdownjs#master:
+  version "2.6.1"
+  resolved "https://codeload.github.com/mckamey/countdownjs/tar.gz/1902fb23d21d84958b302c117fe472634a5bcf52"
+
 cross-spawn@^7.0.3:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-7.0.3.tgz#f73a85b9d5d41d045551c177e2882d4ac85728a6"

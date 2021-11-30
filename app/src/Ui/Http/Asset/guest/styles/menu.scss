@@ -1,0 +1,83 @@
+nav.menu {
+    position: absolute;
+    background: url('../images/menu-border-bottom.png') no-repeat center bottom;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+    height: 85px;
+    top: 0;
+    z-index: 9999;
+
+    @include for-mobile {
+        box-sizing: border-box;
+        display: none;
+        padding: 10px 4%;
+        width: 90%;
+        height: auto;
+        margin-left: 5%;
+        background: $color-wedding-purple;
+        top: 85px;
+        left: 0;
+        z-index: 9999999999;
+        clear: both;
+        float: left;
+    }
+
+    ul li {
+        position: relative;
+        margin: 0 10px;
+        display: inline-block;
+
+        @include for-mobile {
+            width: 95%;
+            padding: 5px 0;
+            line-height: 20px;
+            background: url(../images/menu-border-bottom.png) no-repeat center bottom;
+
+            &:last-child {
+                background: none;
+            }
+        }
+
+        a {
+            font-size: 13px;
+            line-height: 85px;
+            color: $color-white;
+            padding: 0 0 0 18px;
+            font-weight: 400;
+            text-transform: uppercase;
+
+            @include for-mobile {
+                font-size: 14px;
+                line-height: 35px;
+                padding: 0;
+            }
+
+            &.selected,
+            &:hover {
+                color: $color-light-grey;
+            }
+        }
+    }
+}
+
+.mobile-show-menu,
+.mobile-hide-menu {
+    display: none;
+    position: absolute;
+    top: 45px;
+    z-index: 99999;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    img {
+        height: 42px;
+        width: 42px;
+    }
+
+    @include for-mobile {
+        &.show {
+            display: block;
+        }
+    }
+}

@@ -1,0 +1,121 @@
+#container {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0 auto;
+}
+
+.header-container {
+    background-size: cover;
+    width: 100%;
+    height: auto;
+
+    &.rsvp {
+        background-image: url(../images/bg-rsvp.jpg);
+        background-position: 50% 32%;
+    }
+
+    &.accommodation {
+        background-image: url(../images/bg-accommodation.jpg);
+        background-position: 20% 27%;
+    }
+
+    &.menu {
+        background-image: url(../images/bg-menu.jpg);
+        background-position: 20% 28%;
+    }
+
+    .header-overlay {
+        background: url(../images/bg-overlay.png) repeat;
+        width: 100%;
+        padding: 160px 0 90px 0;
+
+        @include for-mobile {
+            padding: 100px 0 60px 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: $color-white;
+            padding: 0;
+            text-transform: uppercase;
+
+            @include for-mobile {
+                font-size: 26px;
+            }
+        }
+    }
+}
+
+.page-container {
+    max-width: 1100px;
+    padding: 60px 15px;
+    text-align: center;
+    margin: auto;
+
+    h2 {
+        padding-bottom: 20px;
+        background: url(../images/header-divider.png) no-repeat center bottom;
+    }
+
+    h3 {
+        margin-top: 40px;
+    }
+
+    ul {
+        margin-top: 20px;
+
+        li {
+            margin-bottom: 10px;
+            line-height: 20px;
+        }
+    }
+
+    .divider {
+        width: 170px;
+        margin: 50px 0;
+    }
+
+    label {
+        display: block;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        color: $color-dark-grey;
+        font-size: 20px;
+        margin-top: 40px;
+    }
+}
+
+.grid-container {
+    display: flex;
+
+    @include for-mobile {
+        display: block;
+    }
+
+    .block {
+        flex: 1;
+
+        h3 {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+footer {
+    clear: both;
+    background-color: $color-wedding-purple;
+    color: $color-white;
+    width: 100%;
+    text-align: center;
+    padding: 50px 0;
+
+    img {
+        min-width: 300px;
+        margin-bottom: 20px;
+    }
+
+    span {
+        display: block;
+    }
+}

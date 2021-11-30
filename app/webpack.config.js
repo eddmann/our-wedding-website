@@ -7,6 +7,13 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 Encore
     .setOutputPath('public/build/')
     .setPublicPath('/build')
+    .copyFiles({
+        from: './src/Ui/Http/Asset/guest/images',
+        to: 'images/[path][name].[hash:8].[ext]',
+        pattern: /\.(svg|png)$/,
+    })
+    .addEntry('guest', './src/Ui/Http/Asset/guest')
+    .addEntry('day-countdown', './src/Ui/Http/Asset/guest/day-countdown')
     .addEntry('admin', './src/Ui/Http/Asset/admin')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()

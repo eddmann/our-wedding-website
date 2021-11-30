@@ -1,0 +1,63 @@
+.login-container {
+    background-color: $color-wedding-purple;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    form {
+        width: 70%;
+        color: $color-white;
+        text-align: center;
+
+        @include for-mobile {
+            width: 80%;
+            margin-left: 15px;
+        }
+
+        img {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 0 15px -30px;
+        }
+
+        ul {
+            margin: 15px auto;
+        }
+
+        input {
+            text-transform: uppercase;
+            display: block;
+            text-align: center;
+            width: 50%;
+            max-width: 150px;
+            font-size: 14px;
+            padding: 10px;
+            margin: 15px auto;
+            box-sizing: border-box;
+            background-color: $color-white;
+            border: 1px $color-light-grey solid;
+            border-radius: $form-border-radius;
+            appearance: none;
+            outline: none;
+
+            &::placeholder {
+                text-transform: none;
+            }
+        }
+
+        button {
+            margin: auto;
+            display: block;
+            color: $color-white;
+            background: $color-wedding-purple;
+            border: 2px solid $color-white;
+            cursor: pointer;
+            border-radius: $form-border-radius;
+            padding: 10px 15px;
+            font-size: 16px;
+            font-weight: bold;
+            appearance: none;
+            outline: none;
+        }
+    }
+}
