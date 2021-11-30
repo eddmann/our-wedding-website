@@ -43,9 +43,7 @@ const toHtml = (output: Output[]): string =>
         .join('');
 
 const updateCountdown = (id: string, date: Date): void => {
-    document.querySelector(id)!.innerHTML = toHtml(
-        countdownWithPrecision(new Date(), date, 3),
-    );
+    document.querySelector(id)!.innerHTML = toHtml(countdownWithPrecision(new Date(), date, 3));
 };
 
 (window as any).initCountdown = (id: string, date: Date) => {

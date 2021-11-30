@@ -96,6 +96,7 @@ test-ui: test-db ## Runs the ui tests
 .PHONY: cs-fix
 cs-fix: ## Auto-fixes any code-styling related code violations
 	$(COMPOSE) exec -e PHP_CS_FIXER_IGNORE_ENV=1 -T php php-cs-fixer fix
+	$(APP) yarn prettier
 
 .PHONY: update-snapshots
 update-snapshots: ## Updates event store snapshots that are mismatches
