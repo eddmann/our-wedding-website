@@ -14,6 +14,7 @@ Encore
     })
     .addEntry('guest', './src/Ui/Http/Asset/guest')
     .addEntry('day-countdown', './src/Ui/Http/Asset/guest/day-countdown')
+    .addEntry('pending-rsvp', './src/Ui/Http/Asset/guest/pending-rsvp')
     .addEntry('admin', './src/Ui/Http/Asset/admin')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()

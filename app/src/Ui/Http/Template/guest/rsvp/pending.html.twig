@@ -74,24 +74,11 @@
         {{ form_widget(form.submit, {'attr': {'class':'form-submit'}}) }}
     {{ form_end(form) }}
 </div>
+{% endblock %}
 
-<script>
-    (function (document) {
-        var onAttendanceChange = function (e) {
-            var id = e.target.name.replace('[attending]', '');
-            [].forEach.call(document.querySelectorAll("[name*=\""+ id +"\"]"), function (el) {
-                if (el === e.target) return;
-                el.disabled = e.target.value !== '1';
-                if (e.target.value !== '1') el.value = '';
-            });
-        };
-
-        [].forEach.call(document.getElementsByClassName('js-attending'), function (el) {
-            el.addEventListener('change', onAttendanceChange);
-            onAttendanceChange({ target: el });
-        });
-    })(document);
-</script>
+{% block javascripts -%}
+{{ parent() -}}
+{{ encore_entry_script_tags('pending-rsvp') }}
 {% endblock %}
 
 {% block form_errors %}
