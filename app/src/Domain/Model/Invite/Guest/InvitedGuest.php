@@ -66,7 +66,7 @@ final class InvitedGuest
             );
         }
 
-        if (! $foodChoiceValidator->isValid($this->guestType, $foodChoices)) {
+        if ($this->hasFoodChoices && ! $foodChoiceValidator->isValid($this->guestType, $foodChoices)) {
             throw new \DomainException(
                 \sprintf(
                     "%s's food choices do not meet the %s type requirements",
