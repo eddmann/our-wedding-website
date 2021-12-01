@@ -73,7 +73,7 @@ final class GuestController extends AbstractController
     public function rsvp(Request $request, CommandBus $commandBus, InviteRsvpQuery $rsvp): Response
     {
         /** @psalm-suppress PossiblyNullReference */
-        $id = $this->getUser()->getUsername();
+        $id = $this->getUser()->getUserIdentifier();
 
         $invite = $rsvp->query($id);
 

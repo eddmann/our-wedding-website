@@ -25,7 +25,6 @@ final class LoginType extends AbstractType
                         'message' => \sprintf('Please enter your %d character code', self::CODE_LENGTH),
                     ]),
                     new Assert\Length([
-                        'allowEmptyString' => false,
                         'min' => self::CODE_LENGTH,
                         'max' => self::CODE_LENGTH,
                         'exactMessage' => 'Please enter your {{ limit }} character code',
