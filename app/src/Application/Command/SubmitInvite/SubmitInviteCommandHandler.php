@@ -36,7 +36,10 @@ final class SubmitInviteCommandHandler implements CommandHandler
             new InviteSubmitted(
                 $invite->getAggregateId()->toString(),
                 \array_map(
-                    fn (InvitedGuest $guest) => ['name' => $guest->getName()->toString(), 'attending' => $this->isGuestAttending($invite, $guest->getId())],
+                    fn (InvitedGuest $guest) => [
+                        'name' => $guest->getName()->toString(),
+                        'attending' => $this->isGuestAttending($invite, $guest->getId()),
+                    ],
                     $invite->getInvitedGuests()
                 )
             )

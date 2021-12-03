@@ -6,6 +6,7 @@ use App\Domain\Model\Invite\InviteAuthenticator;
 use App\Domain\Model\Invite\InviteId;
 use App\Domain\Model\Invite\InviteType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -19,17 +20,22 @@ use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPasspor
 final class SymfonyInviteAuthenticator extends AbstractAuthenticator implements InviteAuthenticator
 {
     private const INVITE_SESSION_KEY = 'invite';
+    private SessionInterface $session;
 
-    public function __construct(private SessionInterface $session)
+    public function __construct(RequestStack $requestStack)
     {
+        $this->session = $requestStack->getSession();
     }
 
     public function login(InviteId $id, InviteType $type): void
     {
-        $this->session->set(self::INVITE_SESSION_KEY, [
-            'id' => $id->toString(),
-            'role' => \mb_strtoupper("ROLE_{$type->toString()}"),
-        ]);
+        $this->session->set(
+            self::INVITE_SESSION_KEY,
+            [
+                'id' => $id->toString(),
+                'role' => \mb_strtoupper("ROLE_{$type->toString()}"),
+            ]
+        );
 
         $this->session->migrate();
     }
