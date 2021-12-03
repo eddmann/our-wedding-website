@@ -18,7 +18,6 @@ final class LoginAndSubmitDayInviteTest extends WebTestCase
         parent::setUp();
 
         $this->client = self::createClient();
-
         $this->client->disableReboot();
 
         self::getContainer()->get(Connection::class)->beginTransaction();
@@ -40,7 +39,8 @@ final class LoginAndSubmitDayInviteTest extends WebTestCase
         $this->whenWeLogIntoTheInviteAndVisitTheRSVPForm($invite['code']);
         $this->whenWeFillOutAndSubmitTheRSVPFormWithFoodAndSongChoices($invite, $adultFoodChoices, $childFoodChoices);
 
-        $this->thenSuccessfullySubmittedTheRSVP();
+        $this->thenEmailNotificationSent();
+        $this->thenPresentedWithSuccessMessage();
         $this->thenAttendingGuestsPresentWithinAdmin();
         $this->thenSongChoicePresentInAdmin();
     }
@@ -122,11 +122,19 @@ final class LoginAndSubmitDayInviteTest extends WebTestCase
         $form['invite_rsvp[songs][0][track]'] = 'Sample Track';
 
         $this->client->submit($form);
-        $this->client->followRedirect();
     }
 
-    private function thenSuccessfullySubmittedTheRSVP(): void
+    /** Required to be asserted before redirect is followed */
+    private function thenEmailNotificationSent(): void
     {
+        self::assertEmailCount(1);
+        $email = $this->getMailerMessage(0);
+        self::assertEmailHeaderSame($email, 'Subject', 'An invite has been submitted!');
+    }
+
+    private function thenPresentedWithSuccessMessage(): void
+    {
+        $this->client->followRedirect();
         self::assertResponseIsSuccessful();
         self::assertStringContainsString('Thank you for submitting your RSVP.', $this->client->getResponse()->getContent());
     }
