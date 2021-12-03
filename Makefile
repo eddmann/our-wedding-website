@@ -127,6 +127,10 @@ ps: ## List all running containers
 open-web: ## Opens the website in the default browser
 	open "http://0.0.0.0:8080"
 
+.PHONY: open-mailhog
+open-mailhog: ## Opens the MailHog web interface in the default browser
+	open "http://0.0.0.0:8025"
+
 .PHONY: psql
 psql: ## Open a Postgres client session to the development database
 	$(COMPOSE) exec postgres psql -U user db

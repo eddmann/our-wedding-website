@@ -32,6 +32,9 @@ services:
       APP_ENV: dev
       APP_SECRET: secret
       DATABASE_URL: 'postgresql://user:password@postgres:5432/db?serverVersion=14.1&charset=utf8'
+      MAILER_DSN: 'smtp://mailhog:1025'
+      EMAIL_NOTIFIER_TO: 'to@email.com'
+      EMAIL_NOTIFIER_FROM: 'from@email.com'
       ADMIN_PASSWORD: password
       PAGE_CONTENT: '{}'
 
@@ -50,6 +53,14 @@ services:
       POSTGRES_DB: db
       POSTGRES_INITDB_ARGS: '--auth-host=md5'
       TZ: Europe/London
+
+  mailhog:
+    image: docker.io/mailhog/mailhog:v1.0.1
+    container_name: our-wedding-mailhog
+    ports:
+      - 8025:8025
+    networks:
+      - app
 
 volumes:
   postgres:
