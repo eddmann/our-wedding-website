@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\InMemoryUser;
 use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
-use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
+use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 
 final class SymfonyInviteAuthenticator extends AbstractAuthenticator implements InviteAuthenticator
@@ -50,7 +50,7 @@ final class SymfonyInviteAuthenticator extends AbstractAuthenticator implements 
         return $this->session->has(self::INVITE_SESSION_KEY);
     }
 
-    public function authenticate(Request $request): PassportInterface
+    public function authenticate(Request $request): Passport
     {
         $credentials = $this->session->get(self::INVITE_SESSION_KEY);
 
