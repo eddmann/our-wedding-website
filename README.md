@@ -24,7 +24,8 @@ Following Hexagonal Architecture, the layers have been defined like so:
 
 ### Flow
 
-Based on the above layering, the application follows the Command/Query and Event Sourcing flow as follows:
+Based on the above layers, we employ three distinct message buses (*Command*, *Aggregate Event* and *Domain Event*), modeling the Aggregates using Event Sourcing.
+The following diagram highlights how these three buses interact during a typical Command/Query lifecycle response.
 
 ![](documentation/cqrs-event-sourcing-flow-diagram.png)
 
@@ -45,5 +46,21 @@ Application-level Commands which are available for the *Ui* to interact with the
 Along with the Command and Command Handlers, this also deptics the associated Domain Events which are emitted.
 
 ## Testing
+
+Try and keep testing the behaviour at the Application layer (public inteface which will not change) and out.
+Specific domain tests for projections and model concepts implementations if required due to completelixy and value.
+
+## Linting
+
+The application uses the following linting tools to maintain the desired code quality and correctness.
+
+- [Psalm](https://psalm.dev/) - used to provide type-checking support within PHP (`app/psalm.xml`)
+- [PHP Coding Standards Fixer](https://cs.symfony.com/) - ensures the desired PHP code styling is maintained (`app/.php-cs-fixer.php`)
+- [Deptrac](https://github.com/qossmic/deptrac) - ensures we adhere to the strict Hexagonal Architectural layering boundaries we have imposed (`depfile.yml`)
+- [Local PHP Security Checker](https://github.com/fabpot/local-php-security-checker) - ensures that no known vulnerable dependencies are used within the application
+- [Prettier](https://prettier.io/) - ensures the desired JS code style is maintained (`app/package.json`)
+
+These tools can be run locally using `make lint`, returning a non-zero status code upon failure.
+This process is also completed during a `make can-release` invocation.
 
 ## Infrastructure
