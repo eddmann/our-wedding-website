@@ -1,7 +1,6 @@
-# see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
     secret: '%env(secret:APP_SECRET)%'
-    #csrf_protection: true
+    csrf_protection: true
     http_method_override: false
     session:
         handler_id: null
@@ -10,6 +9,10 @@ framework:
         storage_factory_id: session.storage.factory.native
     php_errors:
         log: true
+
+when@prod:
+    session:
+        handler_id: AsyncAws\DynamoDbSession\SessionHandler
 
 when@test:
     framework:

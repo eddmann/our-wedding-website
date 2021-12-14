@@ -1,0 +1,7 @@
+services:
+    AsyncAws\DynamoDb\DynamoDbClient:
+
+    AsyncAws\DynamoDbSession\SessionHandler:
+        arguments:
+            - 'AsyncAws\DynamoDb\DynamoDbClient'
+            - table_name: '%env(SESSIONS_TABLE)%'

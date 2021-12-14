@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3b118165ed05f7161db43d779a8b209f",
+    "content-hash": "2fd938f0281098f802010100b29d1c06",
     "packages": [
         {
             "name": "async-aws/core",
@@ -60,6 +60,124 @@
             ],
             "support": {
                 "source": "https://github.com/async-aws/core/tree/1.12.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/jderusse",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/nyholm",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-10-02T11:41:51+00:00"
+        },
+        {
+            "name": "async-aws/dynamo-db",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/async-aws/dynamo-db.git",
+                "reference": "dd820a41f0fe21d125d41702ff3eb8c66e1b64d0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/async-aws/dynamo-db/zipball/dd820a41f0fe21d125d41702ff3eb8c66e1b64d0",
+                "reference": "dd820a41f0fe21d125d41702ff3eb8c66e1b64d0",
+                "shasum": ""
+            },
+            "require": {
+                "async-aws/core": "^1.9",
+                "ext-filter": "*",
+                "ext-json": "*",
+                "php": "^7.2.5 || ^8.0"
+            },
+            "conflict": {
+                "symfony/http-client": "<4.4.16,<5.1.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "AsyncAws\\DynamoDb\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "DynamoDb client, part of the AWS SDK provided by AsyncAws.",
+            "keywords": [
+                "amazon",
+                "async-aws",
+                "aws",
+                "dynamo-db",
+                "sdk"
+            ],
+            "support": {
+                "source": "https://github.com/async-aws/dynamo-db/tree/1.1.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/jderusse",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/nyholm",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-10-02T11:41:51+00:00"
+        },
+        {
+            "name": "async-aws/dynamo-db-session",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/async-aws/dynamo-db-session.git",
+                "reference": "4609c8eeba0623432d6110d81efdc855ae360d5f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/async-aws/dynamo-db-session/zipball/4609c8eeba0623432d6110d81efdc855ae360d5f",
+                "reference": "4609c8eeba0623432d6110d81efdc855ae360d5f",
+                "shasum": ""
+            },
+            "require": {
+                "async-aws/dynamo-db": "^1.0",
+                "php": "^7.2.5 || ^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "AsyncAws\\DynamoDbSession\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "AsyncAws DynamoDB integration for PHP Sessions.",
+            "keywords": [
+                "amazon",
+                "async-aws",
+                "aws",
+                "dynamo-db",
+                "sdk",
+                "session"
+            ],
+            "support": {
+                "source": "https://github.com/async-aws/dynamo-db-session/tree/1.0.1"
             },
             "funding": [
                 {
@@ -10468,12 +10586,12 @@
     "prefer-lowest": false,
     "platform": {
         "php": ">=8.1",
+        "ext-apcu": "*",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-intl": "*",
         "ext-json": "*",
-        "ext-apcu": "*",
-        "ext-pdo_pgsql": "*",
-        "ext-intl": "*"
+        "ext-pdo_pgsql": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.1.0"

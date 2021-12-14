@@ -2,6 +2,12 @@
     "async-aws/core": {
         "version": "1.12.0"
     },
+    "async-aws/dynamo-db": {
+        "version": "1.1.1"
+    },
+    "async-aws/dynamo-db-session": {
+        "version": "1.0.1"
+    },
     "async-aws/event-bridge": {
         "version": "1.2.0"
     },
