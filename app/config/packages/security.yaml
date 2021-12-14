@@ -7,7 +7,7 @@ security:
     providers:
         admin:
             memory:
-                users: { admin: { password: '%env(ADMIN_PASSWORD)%', roles: [ROLE_ADMIN] } }
+                users: { admin: { password: '%env(secret:ADMIN_PASSWORD)%', roles: [ROLE_ADMIN] } }
 
     firewalls:
         dev:
