@@ -13,12 +13,21 @@ provider:
     memorySize: 512
     tags: ${self:custom.tags}
     stackTags: ${self:custom.tags}
-    endpointType: regional # not fronted by CloudFront
+    endpointType: regional # use own CloudFront distro.
     deploymentBucket:
         tags: ${self:custom.tags}
         blockPublicAccess: true
     environment:
         APP_ENV: prod
+        APP_SECRET: 'sm:/our-wedding/${self:provider.stage}/apps/website/app-secret'
+        PROXY_AUTH_KEY_HEADER: '${ssm:/our-wedding/${self:provider.stage}/apps/website/origin-domain-auth-key-header}'
+        PROXY_AUTH_KEY_VALUE: '${ssm:/aws/reference/secretsmanager//our-wedding/staging/apps/website/origin-domain-auth-key}'
+        DATABASE_URL: 'sm:/our-wedding/${self:provider.stage}/data/website/db-url'
+        MAILER_DSN: 'sm:/our-wedding/${self:provider.stage}/apps/website/mailer-dsn'
+        EMAIL_NOTIFIER_TO: '${ssm:/our-wedding/${self:provider.stage}/apps/website/email-notifier-to}'
+        EMAIL_NOTIFIER_FROM: '${ssm:/our-wedding/${self:provider.stage}/apps/website/email-notifier-from}'
+        ADMIN_PASSWORD: 'sm:/our-wedding/${self:provider.stage}/apps/website/admin-password'
+        PAGE_CONTENT: '${ssm:/our-wedding/${self:provider.stage}/apps/website/page-content}'
 
 plugins:
     - ./vendor/bref/bref
