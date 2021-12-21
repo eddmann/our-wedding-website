@@ -1,6 +1,10 @@
 name: Test
 
-on: push
+on:
+  push:
+    branches-ignore:
+      - main
+  workflow_call:
 
 jobs:
   test:
@@ -9,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Login to GHCR
-        run: echo ${{ secrets.OUR_WEDDING_APP_GHCR_WRITE }} | docker login ghcr.io -u irrelevant-user --password-stdin
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Restore Composer cache
         uses: actions/cache@v2
         with:
