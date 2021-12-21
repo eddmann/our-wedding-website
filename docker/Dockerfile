@@ -22,7 +22,8 @@ RUN curl -sL https://dl.yarnpkg.com/rpm/yarn.repo -o /etc/yum.repos.d/yarn.repo
 RUN yum install nodejs yarn -y
 
 # Serverless
-RUN curl -o- -L https://slss.io/install | VERSION=2.21.1 bash
+RUN curl -sL https://github.com/serverless/serverless/releases/download/v2.69.1/serverless-linux-x64 -o /usr/bin/serverless \
+ && chmod +x /usr/bin/serverless
 
 # PHP-FPM
 COPY docker/php-fpm.conf /opt/bref/etc/php-fpm.conf

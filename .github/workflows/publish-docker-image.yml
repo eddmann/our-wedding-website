@@ -18,6 +18,6 @@ jobs:
       - name: Publish image
         run: |
           TAG_NAME=${GITHUB_SHA::7}
-          echo ${{ secrets.OUR_WEDDING_APP_GHCR_WRITE }} | docker login ghcr.io -u irrelevant-user --password-stdin
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           docker build -f docker/Dockerfile -t ghcr.io/eddmann/our-wedding-app:dev-$TAG_NAME .
           docker push ghcr.io/eddmann/our-wedding-app:dev-$TAG_NAME
