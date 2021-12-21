@@ -3,7 +3,7 @@
 use App\Infrastructure\Kernel;
 
 if (($proxyAuthKeyHeader = \getenv('PROXY_AUTH_KEY_HEADER'))
-    && \getenv('PROXY_AUTH_KEY_VALUE') !== ($_SERVER[$proxyAuthKeyHeader] ?? '')) {
+    && \getenv('PROXY_AUTH_KEY_VALUE') !== ($_SERVER["HTTP_{$proxyAuthKeyHeader}"] ?? '')) {
     \http_response_code(401);
     exit();
 }
