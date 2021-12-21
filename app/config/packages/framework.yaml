@@ -11,8 +11,9 @@ framework:
         log: true
 
 when@prod:
-    session:
-        handler_id: AsyncAws\DynamoDbSession\SessionHandler
+    framework:
+        session:
+            handler_id: AsyncAws\DynamoDbSession\SessionHandler
 
 when@test:
     framework:
