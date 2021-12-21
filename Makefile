@@ -54,6 +54,25 @@ test-db: ## (Re)creates the test database (with migrations)
 clean: ## Remove all untracked/changed files
 	@git clean -ffdx .
 
+##@ Release
+
+.PHONY: build
+build: ## Build the app for deployment
+	docker run --rm \
+	  -v $(PWD)/app:/var/task \
+	  -v $(PWD)/app/var/cache:/tmp/cache \
+	  -e APP_ENV=prod \
+	  ghcr.io/eddmann/our-wedding-app:dev-dda968d \
+	  bash -c "([ -z ${GITHUB_TOKEN} ] || composer config -g github-oauth.github.com ${GITHUB_TOKEN}); \
+	           yarn && \
+	           composer install --no-dev --no-interaction --no-ansi --classmap-authoritative --no-scripts --ignore-platform-reqs && \
+	           yarn build && \
+	           bin/console cache:clear --no-debug --no-interaction"
+
+.PHONY: package
+package: ## Package the app for deployment
+	tar --create --gzip --exclude=node_modules --file build.tar.gz app/
+
 ##@ Testing/Linting
 
 .PHONY: can-release
