@@ -2,6 +2,7 @@
 
 namespace App\Application\Command;
 
+/** @psalm-immutable */
 interface Command
 {
 }

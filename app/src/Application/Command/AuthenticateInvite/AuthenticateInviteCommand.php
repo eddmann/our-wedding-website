@@ -5,6 +5,7 @@ namespace App\Application\Command\AuthenticateInvite;
 use App\Application\Command\Command;
 use App\Domain\Model\Invite\InviteCode;
 
+/** @psalm-immutable */
 final class AuthenticateInviteCommand implements Command
 {
     private InviteCode $code;

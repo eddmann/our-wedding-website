@@ -8,6 +8,7 @@ use App\Domain\Model\FoodChoice\FoodChoiceName;
 use App\Domain\Model\FoodChoice\FoodCourse;
 use App\Domain\Model\Shared\GuestType;
 
+/** @psalm-immutable */
 final class CreateFoodChoiceCommand implements Command
 {
     private FoodChoiceId $id;
