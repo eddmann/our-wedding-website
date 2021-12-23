@@ -1,4 +1,5 @@
 parameters:
+    env(AWS_REGION): eu-west-1
 
 services:
     _defaults:
@@ -29,3 +30,19 @@ services:
     App\Ui\Http\Controller\:
         resource: '../src/Ui/Http/Controller/'
         tags: ['controller.service_arguments']
+
+    async_aws.http_client:
+        class: Symfony\Component\HttpClient\CurlHttpClient
+        arguments:
+            - { timeout: 5, max_duration: 20 }
+
+    AsyncAws\SecretsManager\SecretsManagerClient:
+        arguments:
+            - { region: '%env(AWS_REGION)%' }
+            - ~
+            - '@async_aws.http_client'
+            - '@logger'
+
+    App\Infrastructure\AwsSecretsManagerEnvVarProcessor:
+        arguments:
+            - '@AsyncAws\SecretsManager\SecretsManagerClient'

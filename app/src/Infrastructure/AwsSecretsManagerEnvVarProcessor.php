@@ -10,11 +10,8 @@ final class AwsSecretsManagerEnvVarProcessor implements EnvVarProcessorInterface
     private const VALUE_PREFIX = 'sm:';
     private const VALUE_TTL = 900; // 15 mins
 
-    private SecretsManagerClient $client;
-
-    public function __construct()
+    public function __construct(private SecretsManagerClient $client)
     {
-        $this->client = new SecretsManagerClient();
     }
 
     public function getEnv(string $prefix, string $name, \Closure $getEnv): string|int
