@@ -22,4 +22,5 @@ services:
         public: true
         autowire: true
         arguments:
+            $bus: '@messenger.routable_message_bus'
             $transportName: 'async'

@@ -8,12 +8,12 @@ use Psr\Log\LoggerInterface;
 
 final class InviteCreatedAuditLogger implements DomainEventSubscriber
 {
-    public function __construct(private LoggerInterface $logger)
+    public function __construct(private LoggerInterface $infoLogger)
     {
     }
 
     public function __invoke(InviteCreated $event): void
     {
-        $this->logger->info('Invite was created', ['id' => $event->id]);
+        $this->infoLogger->info('Invite was created', ['id' => $event->id]);
     }
 }
