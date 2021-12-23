@@ -9,13 +9,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class HealthCommand extends Command
 {
-    private Connection $connection;
-
-    public function __construct(Connection $connection)
+    public function __construct(private Connection $connection)
     {
         parent::__construct('app:health');
-
-        $this->connection = $connection;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

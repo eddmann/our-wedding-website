@@ -13,13 +13,9 @@ use Symfony\Component\Console\Question\Question;
 
 final class CreateNewInviteCommand extends Command
 {
-    private CommandBus $commandBus;
-
-    public function __construct(CommandBus $commandBus)
+    public function __construct(private CommandBus $commandBus)
     {
         parent::__construct('app:create-invite');
-
-        $this->commandBus = $commandBus;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
