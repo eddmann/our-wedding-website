@@ -35,6 +35,8 @@ provider:
         PROXY_AUTH_KEY_VALUE: '${ssm:/aws/reference/secretsmanager//our-wedding/${self:provider.stage}/apps/website/origin-domain-auth-key}'
         HOST: '${ssm:/our-wedding/${self:provider.stage}/apps/website/host}'
         HTTPS: true
+        TRUSTED_PROXIES: '127.0.0.1'
+        MESSENGER_ASYNC_TRANSPORT_DSN: '${ssm:/our-wedding/${self:provider.stage}/apps/website/worker-queue-url}'
         SESSIONS_TABLE: '${ssm:/our-wedding/${self:provider.stage}/apps/website/sessions-table-name}'
         DATABASE_URL: 'sm:/our-wedding/${self:provider.stage}/data/website/db-url'
         MAILER_DSN: 'sm:/our-wedding/${self:provider.stage}/apps/website/mailer-dsn'
@@ -54,6 +56,15 @@ functions:
             - ${bref:layer.php-81-fpm}
         events:
             - httpApi: '*'
+    worker:
+        handler: bin/worker.php
+        timeout: 120
+        layers:
+            - ${bref:layer.php-81}
+        events:
+            - sqs:
+                  arn: '${ssm:/our-wedding/${self:provider.stage}/apps/website/worker-queue-arn}'
+                  batchSize: 1
     console:
         handler: bin/console
         timeout: 120
