@@ -1,9 +1,12 @@
 service: our-wedding
 
+variablesResolutionMode: 20210326
+
 custom:
     tags:
         Service: OurWedding
-        Stage: ${self:provider.stage}
+        Application: Website
+        Env: ${self:provider.stage}
 
 provider:
     name: aws
@@ -11,21 +14,31 @@ provider:
     stage: ${opt:stage}
     runtime: provided.al2
     memorySize: 512
+    vpc:
+        securityGroupIds:
+            - ${ssm:/our-wedding/${self:provider.stage}/network/default-security-group-id}
+        subnetIds: ${ssm:/our-wedding/${self:provider.stage}/network/private-subnet-ids}
     tags: ${self:custom.tags}
     stackTags: ${self:custom.tags}
-    endpointType: regional # use own CloudFront distro.
     deploymentBucket:
         tags: ${self:custom.tags}
         blockPublicAccess: true
+    lambdaHashingVersion: 20201221
+    httpApi:
+        useProviderTags: true
+    iamManagedPolicies:
+        - ${ssm:/our-wedding/${self:provider.stage}/apps/website/policy-arn}
     environment:
         APP_ENV: prod
         APP_SECRET: 'sm:/our-wedding/${self:provider.stage}/apps/website/app-secret'
         PROXY_AUTH_KEY_HEADER: '${ssm:/our-wedding/${self:provider.stage}/apps/website/origin-domain-auth-key-header}'
         PROXY_AUTH_KEY_VALUE: '${ssm:/aws/reference/secretsmanager//our-wedding/${self:provider.stage}/apps/website/origin-domain-auth-key}'
-        SESSIONS_TABLE: '/our-wedding/${self:provider.stage}/apps/website/sessions-table-name'
+        HOST: '${ssm:/our-wedding/${self:provider.stage}/apps/website/host}'
+        HTTPS: true
+        SESSIONS_TABLE: '${ssm:/our-wedding/${self:provider.stage}/apps/website/sessions-table-name}'
         DATABASE_URL: 'sm:/our-wedding/${self:provider.stage}/data/website/db-url'
         MAILER_DSN: 'sm:/our-wedding/${self:provider.stage}/apps/website/mailer-dsn'
-        EMAIL_NOTIFIER_TO: '${ssm:/our-wedding/${self:provider.stage}/apps/website/email-notifier-to}'
+        EMAIL_NOTIFIER_TO: '${ssm(raw):/our-wedding/${self:provider.stage}/apps/website/email-notifier-to}'
         EMAIL_NOTIFIER_FROM: '${ssm:/our-wedding/${self:provider.stage}/apps/website/email-notifier-from}'
         ADMIN_PASSWORD: 'sm:/our-wedding/${self:provider.stage}/apps/website/admin-password'
         PAGE_CONTENT: '${ssm:/our-wedding/${self:provider.stage}/apps/website/page-content}'
@@ -36,7 +49,7 @@ plugins:
 functions:
     web:
         handler: public/index.php
-        timeout: 29
+        timeout: 28
         layers:
             - ${bref:layer.php-81-fpm}
         events:

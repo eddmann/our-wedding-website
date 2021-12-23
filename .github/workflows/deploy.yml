@@ -1,0 +1,62 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency: deployment
+
+jobs:
+  test:
+    uses: eddmann/our-wedding-app/.github/workflows/test.yml@main
+  build:
+    needs: test
+    name: Build
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login to GHCR
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Restore Composer cache
+        uses: actions/cache@v2
+        with:
+          path: ./app/vendor
+          key: our-wedding-build-composer-${{ hashFiles('./app/composer.lock') }}
+          restore-keys: our-wedding-build-composer-
+      - name: Restore Yarn cache
+        uses: actions/cache@v2
+        with:
+          path: ./app/node_modules
+          key: our-wedding-build-yarn-${{ hashFiles('./app/yarn.lock') }}
+          restore-keys: our-wedding-build-yarn-
+      - name: Build
+        run: make build ARTIFACT_PATH=build.tar.gz
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: build.tar.gz
+          path: build.tar.gz
+          retention-days: 1
+  deploy-staging:
+    needs: build
+    name: Deploy staging
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login to GHCR
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Retrieve AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: eu-west-1
+          aws-access-key-id: ${{ secrets.STAGING_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.STAGING_AWS_SECRET_ACCESS_KEY }}
+      - name: Download
+        uses: actions/download-artifact@v2
+        with:
+          name: build.tar.gz
+      - name: Deploy
+        run: make deploy ARTIFACT_PATH=build.tar.gz STAGE=staging
+      - name: Migrate database
+        run: make deploy/db-migrate STAGE=staging

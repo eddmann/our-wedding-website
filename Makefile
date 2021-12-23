@@ -57,7 +57,7 @@ clean: ## Remove all untracked/changed files
 ##@ Release
 
 .PHONY: build
-build: ## Build the app for deployment
+build: _require_ARTIFACT_PATH ## Build and package the app for deployment
 	docker run --rm \
 	  -v $(PWD)/app:/var/task \
 	  -v $(PWD)/app/var/cache:/tmp/cache \
@@ -68,10 +68,34 @@ build: ## Build the app for deployment
 	           composer install --no-dev --no-interaction --no-ansi --classmap-authoritative --no-scripts --ignore-platform-reqs && \
 	           yarn build && \
 	           bin/console cache:clear --no-debug --no-interaction"
+	tar --create --gzip --exclude=node_modules --file ${ARTIFACT_PATH} app/
 
-.PHONY: package
-package: ## Package the app for deployment
-	tar --create --gzip --exclude=node_modules --file build.tar.gz app/
+.PHONY: deploy
+deploy: _require_AWS_ACCESS_KEY_ID _require_AWS_SECRET_ACCESS_KEY _require_ARTIFACT_PATH _require_STAGE ## Unpack and deploy the app within stage environment
+	rm -fr app/ && tar -xf ${ARTIFACT_PATH}
+	docker run --rm \
+	  -v $(PWD)/app/public/build:/build \
+	  -e AWS_ACCESS_KEY_ID \
+	  -e AWS_SECRET_ACCESS_KEY \
+	  --entrypoint= \
+	  docker.io/amazon/aws-cli:2.4.6 \
+	    bash -c "ASSETS_S3_BUCKET_NAME=$$(aws ssm get-parameter --region=eu-west-1 --name /our-wedding/${STAGE}/apps/website/assets-s3-bucket-name --query Parameter.Value --output text); \
+	             aws s3 sync --region=eu-west-1 /build "s3://\$${ASSETS_S3_BUCKET_NAME}/build" --quiet --delete --sse AES256"
+	docker run --rm \
+	  -v $(PWD)/app:/var/task \
+	  -e AWS_ACCESS_KEY_ID \
+	  -e AWS_SECRET_ACCESS_KEY \
+	  ghcr.io/eddmann/our-wedding-app:dev-dda968d \
+	    serverless deploy --stage ${STAGE} --region eu-west-1 --verbose --conceal
+
+.PHONY: deploy/db-migrate
+deploy/db-migrate: _require_AWS_ACCESS_KEY_ID _require_AWS_SECRET_ACCESS_KEY _require_STAGE ## Apply outstanding migrations to stage environment database
+	docker run --rm \
+	  -v $(PWD)/app:/var/task \
+	  -e AWS_ACCESS_KEY_ID \
+	  -e AWS_SECRET_ACCESS_KEY \
+	  ghcr.io/eddmann/our-wedding-app:dev-dda968d \
+	    vendor/bin/bref cli our-wedding-${STAGE}-console --region eu-west-1 -- doctrine:migrations:migrate -n
 
 ##@ Testing/Linting
 
