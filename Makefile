@@ -62,7 +62,7 @@ build: _require_ARTIFACT_PATH ## Build and package the app for deployment
 	  -v $(PWD)/app:/var/task \
 	  -v $(PWD)/app/var/cache:/tmp/cache \
 	  -e APP_ENV=prod \
-	  ghcr.io/eddmann/our-wedding-app:dev-dda968d \
+	  ghcr.io/eddmann/our-wedding-app:dev-be0b347 \
 	  bash -c "([ -z ${GITHUB_TOKEN} ] || composer config -g github-oauth.github.com ${GITHUB_TOKEN}); \
 	           yarn && \
 	           composer install --no-dev --no-interaction --no-ansi --classmap-authoritative --no-scripts --ignore-platform-reqs && \
@@ -85,7 +85,7 @@ deploy: _require_AWS_ACCESS_KEY_ID _require_AWS_SECRET_ACCESS_KEY _require_ARTIF
 	  -v $(PWD)/app:/var/task \
 	  -e AWS_ACCESS_KEY_ID \
 	  -e AWS_SECRET_ACCESS_KEY \
-	  ghcr.io/eddmann/our-wedding-app:dev-dda968d \
+	  ghcr.io/eddmann/our-wedding-app:dev-be0b347 \
 	    serverless deploy --stage ${STAGE} --region eu-west-1 --verbose --conceal
 
 .PHONY: deploy/db-migrate
@@ -94,7 +94,7 @@ deploy/db-migrate: _require_AWS_ACCESS_KEY_ID _require_AWS_SECRET_ACCESS_KEY _re
 	  -v $(PWD)/app:/var/task \
 	  -e AWS_ACCESS_KEY_ID \
 	  -e AWS_SECRET_ACCESS_KEY \
-	  ghcr.io/eddmann/our-wedding-app:dev-dda968d \
+	  ghcr.io/eddmann/our-wedding-app:dev-be0b347 \
 	    vendor/bin/bref cli our-wedding-${STAGE}-console --region eu-west-1 -- doctrine:migrations:migrate -n
 
 ##@ Testing/Linting
