@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   web:
-    image: docker.io/bref/fpm-dev-gateway:1.3.2
+    image: docker.io/bref/fpm-dev-gateway:1.4.2
     container_name: our-wedding-web
     ports:
       - 8080:80
