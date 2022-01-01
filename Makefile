@@ -27,7 +27,7 @@ composer: ## Installs the latest Composer dependencies within running instance
 	@echo "Found GitHub access token, configuring composer"
 	@$(APP) composer config -g http-basic.github.com x-access-token ${GITHUB_TOKEN}
   endif
-	$(APP) composer install --ignore-platform-reqs --no-interaction --no-ansi
+	$(APP) composer install --no-interaction --no-ansi
 	$(APP) bin/phpunit --version # ensure PHPUnit is installed
 
 .PHONY: yarn
@@ -65,7 +65,7 @@ build: _require_ARTIFACT_PATH ## Build and package the app for deployment
 	  ghcr.io/eddmann/our-wedding-app:dev-be0b347 \
 	  bash -c "([ -z ${GITHUB_TOKEN} ] || composer config -g github-oauth.github.com ${GITHUB_TOKEN}); \
 	           yarn && \
-	           composer install --no-dev --no-interaction --no-ansi --classmap-authoritative --no-scripts --ignore-platform-reqs && \
+	           composer install --no-dev --no-interaction --no-ansi --classmap-authoritative --no-scripts && \
 	           yarn build && \
 	           bin/console cache:clear --no-debug --no-interaction"
 	tar --create --gzip --exclude=node_modules --file ${ARTIFACT_PATH} app/
@@ -108,7 +108,7 @@ security: ## Checks if we are running any dependencies with known security vulne
 
 .PHONY: lint
 lint: ## Runs the lint tools we have configured for the application
-	$(COMPOSE) exec -e PHP_CS_FIXER_IGNORE_ENV=1 -T php php-cs-fixer fix --dry-run --diff
+	$(APP) php-cs-fixer fix --dry-run --diff
 	$(APP) deptrac --no-interaction --no-progress
 	$(APP) psalm --no-progress --monochrome --show-info=true --threads=4 --diff
 	$(APP) yarn lint
