@@ -4,6 +4,7 @@ SHELL := /bin/bash
 COMPOSE := docker-compose -f docker/docker-compose.yml -p our-wedding
 APP := $(COMPOSE) exec -T php
 GRAPHVIZ := docker run --rm -i docker.io/minidocks/graphviz dot -Tsvg
+DEVELOPMENT_IMAGE := ghcr.io/eddmann/our-wedding-app:dev-be0b347
 
 ##@ Setup
 
@@ -62,7 +63,7 @@ build: _require_ARTIFACT_PATH ## Build and package the app for deployment
 	  -v $(PWD)/app:/var/task \
 	  -v $(PWD)/app/var/cache:/tmp/cache \
 	  -e APP_ENV=prod \
-	  ghcr.io/eddmann/our-wedding-app:dev-be0b347 \
+	  ${DEVELOPMENT_IMAGE} \
 	  bash -c "([ -z ${GITHUB_TOKEN} ] || composer config -g github-oauth.github.com ${GITHUB_TOKEN}); \
 	           yarn && \
 	           composer install --no-dev --no-interaction --no-ansi --classmap-authoritative --no-scripts && \
@@ -86,7 +87,7 @@ deploy: _require_AWS_ACCESS_KEY_ID _require_AWS_SECRET_ACCESS_KEY _require_ARTIF
 	  -v $(PWD)/app:/var/task \
 	  -e AWS_ACCESS_KEY_ID \
 	  -e AWS_SECRET_ACCESS_KEY \
-	  ghcr.io/eddmann/our-wedding-app:dev-be0b347 \
+	  ${DEVELOPMENT_IMAGE} \
 	    serverless deploy --stage ${STAGE} --region eu-west-1 --verbose --conceal
 
 .PHONY: deploy/db-migrate
@@ -95,7 +96,7 @@ deploy/db-migrate: _require_AWS_ACCESS_KEY_ID _require_AWS_SECRET_ACCESS_KEY _re
 	  -v $(PWD)/app:/var/task \
 	  -e AWS_ACCESS_KEY_ID \
 	  -e AWS_SECRET_ACCESS_KEY \
-	  ghcr.io/eddmann/our-wedding-app:dev-be0b347 \
+	  ${DEVELOPMENT_IMAGE} \
 	    vendor/bin/bref cli our-wedding-${STAGE}-console --region eu-west-1 -- doctrine:migrations:migrate -n
 
 ##@ Testing/Linting
@@ -139,7 +140,7 @@ test-ui: test-db ## Runs the ui tests
 
 .PHONY: cs-fix
 cs-fix: ## Auto-fixes any code-styling related code violations
-	$(COMPOSE) exec -e PHP_CS_FIXER_IGNORE_ENV=1 -T php php-cs-fixer fix
+	$(APP) php-cs-fixer fix
 	$(APP) yarn prettier
 
 .PHONY: update-snapshots
