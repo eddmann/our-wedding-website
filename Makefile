@@ -73,6 +73,7 @@ build: _require_ARTIFACT_PATH ## Build and package the app for deployment
 .PHONY: deploy
 deploy: _require_AWS_ACCESS_KEY_ID _require_AWS_SECRET_ACCESS_KEY _require_ARTIFACT_PATH _require_STAGE ## Unpack and deploy the app within stage environment
 	rm -fr app/ && tar -xf ${ARTIFACT_PATH}
+	mv app/php/conf.d/preload.ini.dist app/php/conf.d/preload.ini
 	docker run --rm \
 	  -v $(PWD)/app/public/build:/build \
 	  -e AWS_ACCESS_KEY_ID \
