@@ -34,7 +34,6 @@ provider:
         PROXY_AUTH_KEY_HEADER: '${ssm:/our-wedding/${self:provider.stage}/apps/website/origin-domain-auth-key-header}'
         PROXY_AUTH_KEY_VALUE: '${ssm:/aws/reference/secretsmanager//our-wedding/${self:provider.stage}/apps/website/origin-domain-auth-key}'
         HOST: '${ssm:/our-wedding/${self:provider.stage}/apps/website/host}'
-        HTTPS: true
         TRUSTED_PROXIES: '127.0.0.1'
         MESSENGER_ASYNC_TRANSPORT_DSN: '${ssm:/our-wedding/${self:provider.stage}/apps/website/worker-queue-url}'
         SESSIONS_TABLE: '${ssm:/our-wedding/${self:provider.stage}/apps/website/sessions-table-name}'
@@ -50,14 +49,14 @@ plugins:
 
 functions:
     web:
-        handler: public/index.php
+        handler: App\Infrastructure\Kernel
         timeout: 28
         layers:
-            - ${bref:layer.php-81-fpm}
+            - ${bref:layer.php-81}
         events:
             - httpApi: '*'
     worker:
-        handler: bin/worker.php
+        handler: Bref\Symfony\Messenger\Service\Sqs\SqsConsumer
         timeout: 120
         layers:
             - ${bref:layer.php-81}
