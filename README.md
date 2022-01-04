@@ -1,6 +1,29 @@
-# Our Wedding
+# Our Wedding Website
 
 Because every Wedding RSVP website needs to follow DDD, CQRS, Hexagonal Architecture, Event Sourcing, and be deployed on Lambda.
+
+## Overview
+
+This application (and associated infrastructure) documents an approach to building complex systems which require the benefits that DDD, Hexagonal Architecture and Event Sourcing provide.
+On-top of this it shows how such an application can be combined with Terraform and deployed in a Serverless manor.
+
+Using PHP and the Symfony framework it highlights how such an approach can be laid out, providing a sufficient testing strategy and local development environment.
+Some topics and features covered within this application are: 
+
+- Use of PHP 8.1 and [Bref](https://bref.sh/) for Serverless Lambda environment.
+- Docker-based local [development environment](./docker) (inc. Postgres), which replicates the intended Lambda platform.
+- Make used to assist in running the application locally and performing CI based tasks.
+- CI pipeline developed using [GitHub workflows](./.github/workflows), running the provided tests and deploying the application to the given environment stages (staging and production).
+- Implements the desired Message buses using [Symfony Messenger](https://symfony.com/doc/current/messenger.html), with asynchronous transport being handled by SQS/Lambda.
+- Runtime secrets pulled in via Secrets Manager (and cached using APCu) using a Symfony [environment variable processor](https://symfony.com/doc/current/configuration/env_var_processors.html).
+- Email communication sent using [Symfony Mailer](https://symfony.com/doc/current/mailer.html) (via Gmail), with local testing achieved using MailHog.
+- [Webpack Encore](https://symfony.com/doc/current/frontend.html) used to transpile and bundle assets (TypeScript, CSS and Images) used throughout the website.
+- Event stream snapshots generated and validated within _Application_ level tests, providing regression testing for already present stream structures.
+- Automated aggregate event diagrams created using the _Application_ level Event stream snapshots, combined with Graphviz.
+- Automated documentation/diagrams generated for the present Commands within the system.
+- Use of Deptrac to ensure that desired Hexagonal Architecture layering is maintained.
+- Psalm and PHP-CS-Fixer employed to ensure correctness and coding standards maintained.
+- DynamoDB configured to manage client sessions within a deployed stage environment.
 
 ## Getting Started
 
@@ -79,11 +102,11 @@ This provides us with confidence at the highest-level that the application is ac
 
 The application uses the following linting tools to maintain the desired code quality and application correctness.
 
-- [Psalm](https://psalm.dev/) - used to provide type-checking support within PHP (`app/psalm.xml`)
-- [PHP Coding Standards Fixer](https://cs.symfony.com/) - ensures the desired PHP code styling is maintained (`app/.php-cs-fixer.php`)
-- [Deptrac](https://github.com/qossmic/deptrac) - ensures we adhere to the strict Hexagonal Architectural layering boundaries we have imposed (`depfile.yml`)
-- [Local PHP Security Checker](https://github.com/fabpot/local-php-security-checker) - ensures that no known vulnerable dependencies are used within the application
-- [Prettier](https://prettier.io/) - ensures the desired JS code style is maintained (`app/package.json`)
+- [Psalm](https://psalm.dev/) - used to provide type-checking support within PHP (`app/psalm.xml`).
+- [PHP Coding Standards Fixer](https://cs.symfony.com/) - ensures the desired PHP code styling is maintained (`app/.php-cs-fixer.php`).
+- [Deptrac](https://github.com/qossmic/deptrac) - ensures we adhere to the strict Hexagonal Architectural layering boundaries we have imposed (`depfile.yml`).
+- [Local PHP Security Checker](https://github.com/fabpot/local-php-security-checker) - ensures that no known vulnerable dependencies are used within the application.
+- [Prettier](https://prettier.io/) - ensures the desired JS code style is maintained (`app/package.json`).
 
 These tools can be run locally using `make lint`, returning a non-zero status code upon failure.
 This process is also completed during a `make can-release` invocation.
