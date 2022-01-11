@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a1a714ec7848ea25b04d5153830695f2",
+    "content-hash": "f0f8e71e2f316df85cbddb10fe1a6e22",
     "packages": [
         {
             "name": "async-aws/core",
@@ -482,16 +482,16 @@
         },
         {
             "name": "bref/bref",
-            "version": "1.4.2",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brefphp/bref.git",
-                "reference": "208c3152828c6dd17dd4ae2edd6bf67b1136307f"
+                "reference": "5996caf41cad88f166c6c2fbbe9e6ac3b267e83f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brefphp/bref/zipball/208c3152828c6dd17dd4ae2edd6bf67b1136307f",
-                "reference": "208c3152828c6dd17dd4ae2edd6bf67b1136307f",
+                "url": "https://api.github.com/repos/brefphp/bref/zipball/5996caf41cad88f166c6c2fbbe9e6ac3b267e83f",
+                "reference": "5996caf41cad88f166c6c2fbbe9e6ac3b267e83f",
                 "shasum": ""
             },
             "require": {
@@ -544,7 +544,7 @@
             ],
             "support": {
                 "issues": "https://github.com/brefphp/bref/issues",
-                "source": "https://github.com/brefphp/bref/tree/1.4.2"
+                "source": "https://github.com/brefphp/bref/tree/1.5.0"
             },
             "funding": [
                 {
@@ -556,7 +556,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-12-28T10:32:10+00:00"
+            "time": "2022-01-08T17:19:22+00:00"
         },
         {
             "name": "bref/symfony-bridge",
@@ -623,16 +623,16 @@
         },
         {
             "name": "bref/symfony-messenger",
-            "version": "0.4.2",
+            "version": "0.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brefphp/symfony-messenger.git",
-                "reference": "2607f282c7b04e9b1c345187e2450c7a32171d95"
+                "reference": "03d0825fec427ac530d5deed06b6e01d8c19d759"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brefphp/symfony-messenger/zipball/2607f282c7b04e9b1c345187e2450c7a32171d95",
-                "reference": "2607f282c7b04e9b1c345187e2450c7a32171d95",
+                "url": "https://api.github.com/repos/brefphp/symfony-messenger/zipball/03d0825fec427ac530d5deed06b6e01d8c19d759",
+                "reference": "03d0825fec427ac530d5deed06b6e01d8c19d759",
                 "shasum": ""
             },
             "require": {
@@ -642,20 +642,20 @@
                 "bref/bref": "^0.5.18 || ^1.0",
                 "ext-json": "*",
                 "php": ">=7.3",
-                "symfony/amazon-sqs-messenger": "^5.2",
-                "symfony/config": "^4.3 || ^5.0",
-                "symfony/dependency-injection": "^4.3 || ^5.0",
-                "symfony/http-kernel": "^4.3 || ^5.0",
-                "symfony/messenger": "^4.3 || ^5.0",
-                "symfony/yaml": "^4.3 || ^5.0"
+                "symfony/amazon-sqs-messenger": "^5.2 || ^6.0",
+                "symfony/config": "^4.3 || ^5.0 || ^6.0",
+                "symfony/dependency-injection": "^4.3 || ^5.0 || ^6.0",
+                "symfony/http-kernel": "^4.3 || ^5.0 || ^6.0",
+                "symfony/messenger": "^4.3 || ^5.0 || ^6.0",
+                "symfony/yaml": "^4.3 || ^5.0 || ^6.0"
             },
             "require-dev": {
                 "matthiasnoback/symfony-dependency-injection-test": "^4.1",
                 "mnapoli/hard-mode": "^0.3.0",
-                "nyholm/symfony-bundle-test": "^1.6",
+                "nyholm/symfony-bundle-test": "1.x-dev",
                 "phpstan/phpstan": "^0.12.0",
                 "phpunit/phpunit": "^9.4",
-                "symfony/framework-bundle": "^4.3 || ^5.0"
+                "symfony/framework-bundle": "^4.3 || ^5.0 || ^6.0"
             },
             "type": "library",
             "autoload": {
@@ -679,7 +679,7 @@
             ],
             "support": {
                 "issues": "https://github.com/brefphp/symfony-messenger/issues",
-                "source": "https://github.com/brefphp/symfony-messenger/tree/0.4.2"
+                "source": "https://github.com/brefphp/symfony-messenger/tree/0.4.3"
             },
             "funding": [
                 {
@@ -687,7 +687,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-12-15T09:04:25+00:00"
+            "time": "2022-01-07T09:53:00+00:00"
         },
         {
             "name": "composer/package-versions-deprecated",
