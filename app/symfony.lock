@@ -454,30 +454,6 @@
             "tests/bootstrap.php"
         ]
     },
-    "symfony/polyfill-intl-grapheme": {
-        "version": "v1.23.1"
-    },
-    "symfony/polyfill-intl-icu": {
-        "version": "v1.23.0"
-    },
-    "symfony/polyfill-intl-idn": {
-        "version": "v1.23.0"
-    },
-    "symfony/polyfill-intl-normalizer": {
-        "version": "v1.23.0"
-    },
-    "symfony/polyfill-mbstring": {
-        "version": "v1.23.1"
-    },
-    "symfony/polyfill-php73": {
-        "version": "v1.23.0"
-    },
-    "symfony/polyfill-php80": {
-        "version": "v1.23.1"
-    },
-    "symfony/polyfill-php81": {
-        "version": "v1.23.0"
-    },
     "symfony/polyfill-uuid": {
         "version": "v1.23.0"
     },
