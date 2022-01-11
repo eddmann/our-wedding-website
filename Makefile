@@ -29,7 +29,6 @@ composer: ## Installs the latest Composer dependencies within running instance
 	@$(APP) composer config -g http-basic.github.com x-access-token ${GITHUB_TOKEN}
   endif
 	$(APP) composer install --no-interaction --no-ansi
-	$(APP) bin/phpunit --version # ensure PHPUnit is installed
 
 .PHONY: yarn
 yarn: ## Installs and builds the latest Yarn dependencies within running instance
