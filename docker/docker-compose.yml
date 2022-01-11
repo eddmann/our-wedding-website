@@ -31,7 +31,7 @@ services:
     environment:
       APP_ENV: dev
       APP_SECRET: secret
-      DATABASE_URL: 'postgresql://user:password@postgres:5432/db?serverVersion=14.1&charset=utf8'
+      DATABASE_URL: 'postgresql://user:password@postgres:5432/db?serverVersion=10.14&charset=utf8'
       MAILER_DSN: 'smtp://mailhog:1025'
       EMAIL_NOTIFIER_TO: 'to@email.com'
       EMAIL_NOTIFIER_FROM: 'from@email.com'
@@ -39,7 +39,7 @@ services:
       PAGE_CONTENT: '{}'
 
   postgres:
-    image: docker.io/postgres:14.1-alpine3.14
+    image: docker.io/postgres:10.14-alpine
     container_name: our-wedding-postgres
     ports:
       - 5432:5432
@@ -51,7 +51,6 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: db
-      POSTGRES_INITDB_ARGS: '--auth-host=md5'
       TZ: Europe/London
 
   mailhog:
