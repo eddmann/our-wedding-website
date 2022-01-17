@@ -96,7 +96,7 @@ deploy/db-migrate: _require_AWS_ACCESS_KEY_ID _require_AWS_SECRET_ACCESS_KEY _re
 	  -e AWS_ACCESS_KEY_ID \
 	  -e AWS_SECRET_ACCESS_KEY \
 	  ${DEVELOPMENT_IMAGE} \
-	    vendor/bin/bref cli our-wedding-${STAGE}-console --region eu-west-1 -- doctrine:migrations:migrate -n
+	    vendor/bin/bref cli our-wedding-website-${STAGE}-console --region eu-west-1 -- doctrine:migrations:migrate -n
 
 ##@ Testing/Linting
 
