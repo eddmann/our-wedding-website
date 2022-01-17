@@ -4,7 +4,7 @@ SHELL := /bin/bash
 COMPOSE := docker compose -f docker/docker-compose.yml -p our-wedding-website
 APP := $(COMPOSE) exec -T php
 GRAPHVIZ := docker run --rm -i docker.io/minidocks/graphviz dot -Tsvg
-DEVELOPMENT_IMAGE := ghcr.io/eddmann/our-wedding-website:dev-8d1cf1d
+DEVELOPMENT_IMAGE := ghcr.io/eddmann/our-wedding-website:dev-913984a
 
 ##@ Setup
 
