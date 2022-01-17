@@ -60,3 +60,25 @@ jobs:
         run: make deploy ARTIFACT_PATH=build.tar.gz STAGE=staging
       - name: Migrate database
         run: make deploy/db-migrate STAGE=staging
+  deploy-prod:
+    needs: deploy-staging
+    name: Deploy production
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login to GHCR
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Retrieve AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: eu-west-1
+          aws-access-key-id: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
+      - name: Download
+        uses: actions/download-artifact@v2
+        with:
+          name: build.tar.gz
+      - name: Deploy
+        run: make deploy ARTIFACT_PATH=build.tar.gz STAGE=prod
+      - name: Migrate database
+        run: make deploy/db-migrate STAGE=prod
