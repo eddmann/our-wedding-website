@@ -1,5 +1,5 @@
 {
-    "name": "eddmann/our-wedding-app",
+    "name": "eddmann/our-wedding-website",
     "description": "Because every Wedding RSVP website needs to follow DDD, CQRS, Hexagonal Architecture, Event Sourcing, and be deployed on Lambda.",
     "type": "project",
     "license": "proprietary",

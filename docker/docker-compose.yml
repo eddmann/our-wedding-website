@@ -3,7 +3,7 @@ version: '3.9'
 services:
   web:
     image: docker.io/bref/fpm-dev-gateway:1.5.0
-    container_name: our-wedding-web
+    container_name: our-wedding-website-web
     ports:
       - 8080:80
     volumes:
@@ -17,11 +17,11 @@ services:
       DOCUMENT_ROOT: public
 
   php:
-    image: ghcr.io/eddmann/our-wedding-app:dev-8d1cf1d
-    #build:
-    #  context: ../
-    #  dockerfile: docker/Dockerfile
-    container_name: our-wedding-php
+    #image: ghcr.io/eddmann/our-wedding-website:dev-8d1cf1d
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    container_name: our-wedding-website-php
     volumes:
       - ../app:/var/task
     depends_on:
@@ -40,7 +40,7 @@ services:
 
   postgres:
     image: docker.io/postgres:10.14-alpine
-    container_name: our-wedding-postgres
+    container_name: our-wedding-website-postgres
     ports:
       - 5432:5432
     volumes:
@@ -55,7 +55,7 @@ services:
 
   mailhog:
     image: docker.io/mailhog/mailhog:v1.0.1
-    container_name: our-wedding-mailhog
+    container_name: our-wedding-website-mailhog
     ports:
       - 8025:8025
     networks:

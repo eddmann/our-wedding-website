@@ -9,7 +9,7 @@ concurrency: deployment
 
 jobs:
   test:
-    uses: eddmann/our-wedding-app/.github/workflows/test.yml@main
+    uses: eddmann/our-wedding-website/.github/workflows/test.yml@main
   build:
     needs: test
     name: Build
@@ -22,14 +22,14 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./app/vendor
-          key: our-wedding-build-composer-${{ hashFiles('./app/composer.lock') }}
-          restore-keys: our-wedding-build-composer-
+          key: build-composer-${{ hashFiles('./app/composer.lock') }}
+          restore-keys: build-composer-
       - name: Restore Yarn cache
         uses: actions/cache@v2
         with:
           path: ./app/node_modules
-          key: our-wedding-build-yarn-${{ hashFiles('./app/yarn.lock') }}
-          restore-keys: our-wedding-build-yarn-
+          key: build-yarn-${{ hashFiles('./app/yarn.lock') }}
+          restore-keys: build-yarn-
       - name: Build
         run: make build ARTIFACT_PATH=build.tar.gz
       - name: Upload

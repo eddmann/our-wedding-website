@@ -18,14 +18,14 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./app/vendor
-          key: our-wedding-test-composer-${{ hashFiles('./app/composer.lock') }}
-          restore-keys: our-wedding-test-composer-
+          key: test-composer-${{ hashFiles('./app/composer.lock') }}
+          restore-keys: test-composer-
       - name: Restore Yarn cache
         uses: actions/cache@v2
         with:
           path: ./app/node_modules
-          key: our-wedding-test-yarn-${{ hashFiles('./app/yarn.lock') }}
-          restore-keys: our-wedding-test-yarn-
+          key: test-yarn-${{ hashFiles('./app/yarn.lock') }}
+          restore-keys: test-yarn-
       - name: Start
         run: make start
       - name: Test

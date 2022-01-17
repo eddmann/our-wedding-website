@@ -19,5 +19,5 @@ jobs:
         run: |
           TAG_NAME=${GITHUB_SHA::7}
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-          docker build -f docker/Dockerfile -t ghcr.io/eddmann/our-wedding-app:dev-$TAG_NAME .
-          docker push ghcr.io/eddmann/our-wedding-app:dev-$TAG_NAME
+          docker build -f docker/Dockerfile -t ghcr.io/eddmann/our-wedding-website:dev-$TAG_NAME .
+          docker push ghcr.io/eddmann/our-wedding-website:dev-$TAG_NAME
