@@ -9,15 +9,6 @@ framework:
             App\Domain\Helpers\DomainEvent: async
 
 services:
-    bref.messenger.sqs_client:
-        class: AsyncAws\Sqs\SqsClient
-        public: true
-        arguments:
-            - { region: '%env(AWS_REGION)%' }
-            - ~
-            - '@async_aws.http_client'
-            - '@logger'
-
     Bref\Symfony\Messenger\Service\Sqs\SqsConsumer:
         public: true
         autowire: true
