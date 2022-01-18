@@ -4,7 +4,7 @@ parameters:
 twig:
     default_path: '%kernel.project_dir%/src/Ui/Http/Template'
     globals:
-        page_content: '%env(json:PAGE_CONTENT)%'
+        page_content: '%env(json:secret:PAGE_CONTENT)%'
 
 when@test:
     twig:

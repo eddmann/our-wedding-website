@@ -43,7 +43,7 @@ provider:
         EMAIL_NOTIFIER_TO: '${ssm(raw):/our-wedding/${self:provider.stage}/apps/website/email-notifier-to}'
         EMAIL_NOTIFIER_FROM: '${ssm:/our-wedding/${self:provider.stage}/apps/website/email-notifier-from}'
         ADMIN_PASSWORD: 'sm:/our-wedding/${self:provider.stage}/apps/website/admin-password'
-        PAGE_CONTENT: '${ssm:/our-wedding/${self:provider.stage}/apps/website/page-content}'
+        PAGE_CONTENT: 'sm:/our-wedding/${self:provider.stage}/apps/website/page-content'
 
 plugins:
     - ./vendor/bref/bref
