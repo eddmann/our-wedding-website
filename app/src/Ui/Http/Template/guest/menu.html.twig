@@ -10,6 +10,6 @@
 </header>
 
 <div class="page-container">
-    {{ page_content.menu ?? '' }}
+    {{ (page_content.menu ?? '')|raw }}
 </div>
 {% endblock %}

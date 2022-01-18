@@ -10,6 +10,6 @@
 </header>
 
 <div class="page-container">
-    {{ page_content.accommodation ?? '' }}
+    {{ (page_content.accommodation ?? '')|raw }}
 </div>
 {% endblock %}

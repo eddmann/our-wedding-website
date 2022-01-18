@@ -31,21 +31,25 @@
             <img src="{{ asset('build/images/cta-order-of-service.svg') }}" alt="Plan of the day" />
         </div>
         <h2>Plan of the Day</h2>
-        {{ page_content.plan_of_the_day ?? '' }}
+        {% if is_granted('ROLE_DAY') -%}
+            {{ (page_content.plan_of_the_day ?? '')|raw }}
+        {% else %}
+            {{ (page_content.plan_of_the_evening ?? '')|raw }}
+        {% endif %}
     </div>
     <div class="info-block">
         <div class="info-icon">
             <img src="{{ asset('build/images/cta-gift.svg') }}" alt="Gift registry" />
         </div>
         <h2>Gift registry</h2>
-        {{ page_content.gift_registry ?? '' }}
+        {{ (page_content.gift_registry ?? '')|raw }}
     </div>
     <div class="info-block">
         <div class="info-icon">
             <img src="{{ asset('build/images/cta-location.svg') }}" alt="Wedding location" />
         </div>
         <h2>Wedding location</h2>
-        {{ page_content.location ?? '' }}
+        {{ (page_content.location ?? '')|raw }}
     </div>
 </div>
 
