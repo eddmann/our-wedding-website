@@ -4,28 +4,30 @@ Because every Wedding RSVP website needs to follow DDD, CQRS, Hexagonal Architec
 
 ## Overview
 
-This application (and associated infrastructure) documents an approach to building complex systems which require the benefits that DDD, Hexagonal Architecture and Event Sourcing provide.
+This application (and [associated infrastructure](https://github.com/eddmann/our-wedding-infra)) documents an approach to building complex systems which require the benefits that DDD, Hexagonal Architecture and Event Sourcing provide.
 On-top of this it shows how such an application can be combined with Terraform and deployed in a Serverless manor.
 
-Using PHP and the Symfony framework it highlights how such an approach can be laid out, providing a sufficient testing strategy and local development environment.
-Some topics and features covered within this application are: 
+Using PHP and the Symfony framework it highlights how such an approach can be laid out, coupled with a sufficient testing strategy and local development environment.
+Some topics and features covered within this application are:
 
 - Use of PHP 8.1 and [Bref](https://bref.sh/) for Serverless Lambda environment.
-- Docker-based local [development environment](./docker) (inc. Postgres), which replicates the intended Lambda platform.
-- Make used to assist in running the application locally and performing CI based tasks.
-- CI pipeline developed using [GitHub workflows](./.github/workflows), running the provided tests and deploying the application to the given environment stages (staging and production).
+- Docker-based local [development environment](./docker) (inc. PostgreSQL), which replicates the intended Lambda platform.
+- GNU make used to assist in running the application locally and performing CI-based tasks.
+- CI pipeline developed using [GitHub workflows](./.github/workflows), running the provided tests and deploying the application to the given stage-environments (staging and production).
 - Implements the desired Message buses using [Symfony Messenger](https://symfony.com/doc/current/messenger.html), with asynchronous transport being handled by SQS/Lambda.
 - Runtime secrets pulled in via Secrets Manager (and cached using APCu) using a Symfony [environment variable processor](https://symfony.com/doc/current/configuration/env_var_processors.html).
 - Email communication sent using [Symfony Mailer](https://symfony.com/doc/current/mailer.html) (via Gmail), with local testing achieved using MailHog.
 - [Webpack Encore](https://symfony.com/doc/current/frontend.html) used to transpile and bundle assets (TypeScript, CSS and Images) used throughout the website.
-- Event stream snapshots generated and validated within _Application_ level tests, providing regression testing for already present stream structures.
+- Event stream snapshots generated and validated within _Application_ level tests, providing regression testing for present stream structures.
 - Automated aggregate event diagrams created using the _Application_ level Event stream snapshots, combined with Graphviz.
 - Automated documentation/diagrams generated for the present Commands within the system.
-- Use of Deptrac to ensure that desired Hexagonal Architecture layering is maintained.
-- Psalm and PHP-CS-Fixer employed to ensure correctness and coding standards maintained.
-- DynamoDB configured to manage client sessions within a deployed stage environment.
+- Use of [Deptrac](https://github.com/qossmic/deptrac) to ensure that desired Hexagonal Architecture layering is maintained.
+- [Psalm](https://psalm.dev/) and [PHP Coding Standards Fixer](https://cs.symfony.com/) employed to ensure correctness and coding standards maintained.
+- DynamoDB configured to manage client sessions within a deployed stage-environment.
 
 ## Getting Started
+
+**Prerequisite:** ensure you have Docker installed on your local machine.
 
 ```
 make start
@@ -37,7 +39,7 @@ All available actions within the local development environment are available (an
 
 ## Architecture
 
-The application follows CQRS for interaction between the *Ui* and *Application*, Hexagonal Architecture to decouple the *Infrastructural* concerns, and DDD/Event Sourcing to model the *Domain*.
+The application follows CQRS for interaction between the _Ui_ and _Application_, Hexagonal Architecture to decouple the _Infrastructural_ concerns, and DDD/Event Sourcing to model the _Domain_.
 
 ### Layers
 
@@ -45,9 +47,9 @@ Following Hexagonal Architecture, the layers have been defined like so:
 
 <img src="documentation/hexagonal-architecture.png" width="300">
 
-### Flow
+### Communication Flow
 
-Based on the above layers, we employ three distinct message buses (*Command*, *Aggregate Event* and *Domain Event*), modeling the Aggregates using Event Sourcing.
+Based on the above layers, we employ three distinct message buses (_Command_, _Aggregate Event_ and _Domain Event_), modeling the Aggregates using Event Sourcing.
 The following diagram highlights how these three buses interact during a typical Command/Query lifecycle response.
 
 ![](documentation/cqrs-event-sourcing-flow-diagram.png)
@@ -62,7 +64,7 @@ This diagram is automatically generated based on the current implementation, usi
 
 #### Commands and Domain Events
 
-Application-level Commands which are available for the *Ui* to interact with the *Domain* are presented below:
+Application-level Commands which are available for the _Ui_ to interact with the _Domain_ are presented below:
 
 ![](documentation/command-digram.svg)
 
@@ -86,7 +88,7 @@ This is used in cases where you wish to have a higher-level of confidence of a g
 Unit tests (ala [Unit of behaviour](https://vimeo.com/68375232)) which use the public API exposed by the Commands and Query services to assert correctness.
 These are isolated from any infrastructural concerns (via test doubles) and exercise the core business logic/behaviour that the application provides.
 This level provides us with the greatest balance between asserting that the current implementation achieves the desired behaviour, whilst not being over-coupled to the implementation causing the test to become brittle.
-Depending only on the public API within these tests allows us to refactor the underlying domain implementation going forward whilst keeping the tests intact.
+Depending only on the public API within these tests allows us to refactor the underlying _Domain_ implementation going forward whilst keeping the tests intact.
 As such, it is desired to have the most amount of testing at this level.
 
 **Infrastructure**
@@ -95,7 +97,7 @@ Contractual tests to assert that the given _adaptor_ implementation completes th
 
 **Ui**
 
-Full-system tests which exercises the entire system by way of common use-cases. 
+Full-system tests which exercises the entire system by-way of common use-cases.
 This provides us with confidence at the highest-level that the application is achieving the desired behaviour.
 
 ## Linting
@@ -117,5 +119,5 @@ The application is hosted on AWS Lambda with transient infrastructure (which cha
 Resources managed at this level include Lambda functions, API-gateways and SQS event integrations.
 Foundational infrastructural concerns (such as networking, databases, queues etc.) are provisioned using Terraform and can be found in the [related repository](https://github.com/eddmann/our-wedding-infra).
 
-Sharing between Terraform and Serverless Framework is unidirectional, with the application resources that Serverless Framework creates being built upon the _foundation_ that Terraform resources create.
+Sharing between Terraform and Serverless Framework is unidirectional, with the application resources that Serverless Framework creates being built upon the _foundation_ that Terraform resources provision.
 Parameters, secrets and shared resources which are controlled by Terraform are accessible to this application via SSM parameters and Secrets Manager secrets; providing clear responsibility separation.
