@@ -1,4 +1,4 @@
-FROM docker.io/bref/php-81-fpm-dev:1.5.0
+FROM docker.io/bref/php-81-fpm-dev:1.5.1
 
 USER root
 
