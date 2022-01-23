@@ -16,10 +16,10 @@ final class HealthCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $isConnected = $this->connection->connect();
+        $isUp = (bool) $this->connection->executeQuery('SELECT 1')->fetchOne();
 
-        $output->writeln($isConnected ? 'Up' : 'Down');
+        $output->writeln($isUp ? 'Up' : 'Down');
 
-        return $isConnected ? Command::SUCCESS : Command::FAILURE;
+        return $isUp ? Command::SUCCESS : Command::FAILURE;
     }
 }

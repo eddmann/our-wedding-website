@@ -11,7 +11,9 @@ final class HealthController
 {
     public function __invoke(Connection $connection): Response
     {
-        if ($connection->connect()) {
+        $isUp = (bool) $connection->executeQuery('SELECT 1')->fetchOne();
+
+        if ($isUp) {
             return new Response('Up');
         }
 
