@@ -33,5 +33,5 @@ require('./styles/index.scss');
     };
 
     window.addEventListener('resize', onWindowResize);
-    onWindowResize();
+    window.addEventListener('load', onWindowResize);
 })(window, document);
