@@ -1,4 +1,4 @@
-name: Publish Docker image
+name: Publish development image
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ on:
       - 'main'
     paths:
       - 'docker/Dockerfile'
-      - '.github/workflows/publish-docker-image.yml'
+      - '.github/workflows/publish-dev-image.yml'
 
 jobs:
   publish:
