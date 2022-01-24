@@ -15,5 +15,6 @@
         {{ form_widget(form.code) }}
         {{ form_widget(form.login) }}
     {{ form_end(form) }}
+    <script>fetch('{{ url('health') }}');</script>
 </body>
 </html>
