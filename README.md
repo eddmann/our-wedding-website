@@ -2,6 +2,8 @@
 
 Because every Wedding RSVP website needs to follow DDD, CQRS, Hexagonal Architecture, Event Sourcing, and be deployed on Lambda.
 
+🌎 Website | 🏗️ [Infrastructure](https://github.com/eddmann/our-wedding-infra)
+
 ## Overview
 
 This application (and [associated infrastructure](https://github.com/eddmann/our-wedding-infra)) documents an approach to building complex systems which require the benefits that DDD, Hexagonal Architecture and Event Sourcing provide.
