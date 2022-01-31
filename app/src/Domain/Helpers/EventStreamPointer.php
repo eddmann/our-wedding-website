@@ -5,11 +5,8 @@ namespace App\Domain\Helpers;
 /** @psalm-immutable */
 final class EventStreamPointer
 {
-    private int $position;
-
-    private function __construct(int $position)
+    private function __construct(private int $position)
     {
-        $this->position = $position;
     }
 
     public static function fromInt(int $position): self

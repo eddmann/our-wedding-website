@@ -9,15 +9,11 @@ abstract class AggregateId
 {
     private const NIL = '00000000-0000-0000-0000-000000000000';
 
-    private string $id;
-
-    private function __construct(string $id)
+    private function __construct(private string $id)
     {
         if (! Uuid::isValid($id)) {
             throw new \DomainException(\sprintf("%s '%s' is not valid", static::class, $id));
         }
-
-        $this->id = $id;
     }
 
     public function toString(): string

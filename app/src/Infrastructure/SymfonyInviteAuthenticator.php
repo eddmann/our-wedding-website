@@ -20,6 +20,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPasspor
 final class SymfonyInviteAuthenticator extends AbstractAuthenticator implements InviteAuthenticator
 {
     private const INVITE_SESSION_KEY = 'invite';
+
     private SessionInterface $session;
 
     public function __construct(RequestStack $requestStack)

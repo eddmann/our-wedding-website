@@ -7,27 +7,14 @@ final class SentInvite
     private const STATUS_PENDING = 'pending';
     private const STATUS_SUBMITTED = 'submitted';
 
-    private string $id;
-    private string $code;
-    private string $type;
-    private array $invitedGuests;
-    private ?\DateTimeImmutable $submittedAt;
-    private ?\DateTimeImmutable $lastAuthenticatedAt;
-
     public function __construct(
-        string $id,
-        string $code,
-        string $type,
-        array $invitedGuests,
-        ?\DateTimeImmutable $submittedAt = null,
-        ?\DateTimeImmutable $lastAuthenticatedAt = null
+        private string $id,
+        private string $code,
+        private string $type,
+        private array $invitedGuests,
+        private ?\DateTimeImmutable $submittedAt = null,
+        private ?\DateTimeImmutable $lastAuthenticatedAt = null
     ) {
-        $this->id = $id;
-        $this->code = $code;
-        $this->type = $type;
-        $this->invitedGuests = $invitedGuests;
-        $this->submittedAt = $submittedAt;
-        $this->lastAuthenticatedAt = $lastAuthenticatedAt;
     }
 
     public function getId(): string

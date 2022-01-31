@@ -26,7 +26,9 @@ final class InviteListingQueryTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->sentInviteProjector = new SentInviteProjector($sentInviteRepository = new InMemorySentInviteRepository());
+        $this->sentInviteProjector = new SentInviteProjector(
+            $sentInviteRepository = new InMemorySentInviteRepository()
+        );
         $this->query = new InviteListingQuery($sentInviteRepository);
     }
 

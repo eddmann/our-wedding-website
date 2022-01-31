@@ -23,12 +23,12 @@ use PHPUnit\Framework\TestCase;
 
 final class SubmittedAttendingGuestProjectorTest extends TestCase
 {
-    private SubmittedAttendingGuestProjector $projection;
+    private SubmittedAttendingGuestProjector $projector;
     private SubmittedAttendingGuestRepository $repository;
 
     protected function setUp(): void
     {
-        $this->projection = new SubmittedAttendingGuestProjector(
+        $this->projector = new SubmittedAttendingGuestProjector(
             $this->repository = new InMemorySubmittedAttendingGuestRepository()
         );
     }
@@ -67,7 +67,7 @@ final class SubmittedAttendingGuestProjectorTest extends TestCase
                 )
             );
 
-        ($this->projection)($events);
+        ($this->projector)($events);
 
         self::assertEquals(
             new SubmittedAttendingGuest(

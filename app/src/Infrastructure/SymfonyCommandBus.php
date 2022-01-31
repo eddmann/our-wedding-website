@@ -11,11 +11,8 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 final class SymfonyCommandBus implements CommandBus
 {
-    private MessageBusInterface $bus;
-
-    public function __construct(MessageBusInterface $bus)
+    public function __construct(private MessageBusInterface $bus)
     {
-        $this->bus = $bus;
     }
 
     /** @throws CommandNotRegistered */

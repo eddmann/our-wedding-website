@@ -7,11 +7,8 @@ use App\Domain\Model\FoodChoice\Event\FoodChoiceWasCreated;
 
 final class AvailableFoodChoiceProjector extends AggregateEventsSubscriber
 {
-    private AvailableFoodChoiceRepository $repository;
-
-    public function __construct(AvailableFoodChoiceRepository $repository)
+    public function __construct(private AvailableFoodChoiceRepository $repository)
     {
-        $this->repository = $repository;
     }
 
     protected function handleFoodChoiceWasCreated(FoodChoiceWasCreated $event): void

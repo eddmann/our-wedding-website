@@ -5,11 +5,8 @@ namespace App\Domain\Helpers;
 /** @psalm-immutable */
 final class AggregateVersion
 {
-    private int $version;
-
-    private function __construct(int $version)
+    private function __construct(private int $version)
     {
-        $this->version = $version;
     }
 
     public static function fromInt(int $version): self

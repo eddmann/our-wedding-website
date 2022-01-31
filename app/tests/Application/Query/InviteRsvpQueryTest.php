@@ -37,10 +37,20 @@ final class InviteRsvpQueryTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->sentInviteProjector = new SentInviteProjector($sentInviteRepository = new InMemorySentInviteRepository());
-        $this->foodChoiceProjector = new AvailableFoodChoiceProjector($foodChoiceRepository = new InMemoryAvailableFoodChoiceRepository());
-        $this->attendingGuestProjector = new SubmittedAttendingGuestProjector($attendingGuestRepository = new InMemorySubmittedAttendingGuestRepository());
-        $this->query = new InviteRsvpQuery($sentInviteRepository, $foodChoiceRepository, $attendingGuestRepository);
+        $this->sentInviteProjector = new SentInviteProjector(
+            $sentInviteRepository = new InMemorySentInviteRepository()
+        );
+        $this->foodChoiceProjector = new AvailableFoodChoiceProjector(
+            $foodChoiceRepository = new InMemoryAvailableFoodChoiceRepository()
+        );
+        $this->attendingGuestProjector = new SubmittedAttendingGuestProjector(
+            $attendingGuestRepository = new InMemorySubmittedAttendingGuestRepository()
+        );
+        $this->query = new InviteRsvpQuery(
+            $sentInviteRepository,
+            $foodChoiceRepository,
+            $attendingGuestRepository
+        );
     }
 
     public function test_pending_day_invite(): void

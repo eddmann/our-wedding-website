@@ -5,15 +5,11 @@ namespace App\Domain\Helpers;
 /** @psalm-immutable */
 final class AggregateName
 {
-    private string $name;
-
-    private function __construct(string $name)
+    private function __construct(private string $name)
     {
         if ($name === '') {
             throw new \DomainException('Aggregates must have a name');
         }
-
-        $this->name = $name;
     }
 
     public function toString(): string

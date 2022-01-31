@@ -7,11 +7,8 @@ use App\Domain\Model\Invite\Event\InviteWasSubmitted;
 
 final class SubmittedSongChoiceProjector extends AggregateEventsSubscriber
 {
-    private SubmittedSongChoiceRepository $repository;
-
-    public function __construct(SubmittedSongChoiceRepository $repository)
+    public function __construct(private SubmittedSongChoiceRepository $repository)
     {
-        $this->repository = $repository;
     }
 
     protected function handleInviteWasSubmitted(InviteWasSubmitted $event): void

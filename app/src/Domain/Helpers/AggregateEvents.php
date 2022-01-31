@@ -6,14 +6,11 @@ namespace App\Domain\Helpers;
 final class AggregateEvents implements \IteratorAggregate
 {
     /**
-     * @psalm-var list<AggregateEvent>
-     * @var AggregateEvent[]
+     * @psalm-param list<AggregateEvent> $events
+     * @param AggregateEvent[] $events
      */
-    private array $events;
-
-    public function __construct(array $events)
+    public function __construct(private array $events)
     {
-        $this->events = $events;
     }
 
     public function add(AggregateEvent $event): self

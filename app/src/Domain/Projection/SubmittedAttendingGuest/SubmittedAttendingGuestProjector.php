@@ -7,11 +7,8 @@ use App\Domain\Model\Invite\Event\InviteWasSubmitted;
 
 final class SubmittedAttendingGuestProjector extends AggregateEventsSubscriber
 {
-    private SubmittedAttendingGuestRepository $repository;
-
-    public function __construct(SubmittedAttendingGuestRepository $repository)
+    public function __construct(private SubmittedAttendingGuestRepository $repository)
     {
-        $this->repository = $repository;
     }
 
     protected function handleInviteWasSubmitted(InviteWasSubmitted $event): void

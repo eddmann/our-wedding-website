@@ -8,11 +8,8 @@ use App\Domain\Model\FoodChoice\FoodChoiceRepository;
 
 final class CreateFoodChoiceCommandHandler implements CommandHandler
 {
-    private FoodChoiceRepository $repository;
-
-    public function __construct(FoodChoiceRepository $repository)
+    public function __construct(private FoodChoiceRepository $repository)
     {
-        $this->repository = $repository;
     }
 
     public function __invoke(CreateFoodChoiceCommand $command): void

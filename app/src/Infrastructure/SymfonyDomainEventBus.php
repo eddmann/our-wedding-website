@@ -8,11 +8,8 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 final class SymfonyDomainEventBus implements DomainEventBus
 {
-    private MessageBusInterface $bus;
-
-    public function __construct(MessageBusInterface $bus)
+    public function __construct(private MessageBusInterface $bus)
     {
-        $this->bus = $bus;
     }
 
     public function publish(DomainEvent $event): void

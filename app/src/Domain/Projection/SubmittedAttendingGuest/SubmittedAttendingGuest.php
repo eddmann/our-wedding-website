@@ -4,27 +4,14 @@ namespace App\Domain\Projection\SubmittedAttendingGuest;
 
 final class SubmittedAttendingGuest
 {
-    private string $id;
-    private string $inviteId;
-    private string $inviteType;
-    private string $guestType;
-    private string $name;
-    private array $chosenFoodChoices;
-
     public function __construct(
-        string $id,
-        string $inviteId,
-        string $inviteType,
-        string $guestType,
-        string $name,
-        array $chosenFoodChoices
+        private string $id,
+        private string $inviteId,
+        private string $inviteType,
+        private string $guestType,
+        private string $name,
+        private array $chosenFoodChoices
     ) {
-        $this->id = $id;
-        $this->inviteId = $inviteId;
-        $this->inviteType = $inviteType;
-        $this->guestType = $guestType;
-        $this->name = $name;
-        $this->chosenFoodChoices = $chosenFoodChoices;
     }
 
     public function getId(): string

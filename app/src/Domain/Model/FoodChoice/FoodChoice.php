@@ -6,17 +6,14 @@ use App\Domain\Helpers\Aggregate;
 use App\Domain\Helpers\AggregateName;
 use App\Domain\Model\Shared\GuestType;
 
+/** @psalm-suppress PropertyNotSetInConstructor */
 final class FoodChoice extends Aggregate
 {
     public const AGGREGATE_NAME = 'food_choice';
 
-    /** @psalm-suppress PropertyNotSetInConstructor */
     private FoodChoiceId $id;
-    /** @psalm-suppress PropertyNotSetInConstructor */
     private GuestType $guestType;
-    /** @psalm-suppress PropertyNotSetInConstructor */
     private FoodCourse $course;
-    /** @psalm-suppress PropertyNotSetInConstructor */
     private FoodChoiceName $name;
 
     public function getAggregateName(): AggregateName

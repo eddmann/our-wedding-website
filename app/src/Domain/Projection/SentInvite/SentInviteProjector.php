@@ -10,11 +10,8 @@ use App\Domain\Model\Invite\Guest\InvitedGuest;
 
 final class SentInviteProjector extends AggregateEventsSubscriber
 {
-    private SentInviteRepository $repository;
-
-    public function __construct(SentInviteRepository $repository)
+    public function __construct(private SentInviteRepository $repository)
     {
-        $this->repository = $repository;
     }
 
     public function handleInviteWasAuthenticated(InviteWasAuthenticated $event): void

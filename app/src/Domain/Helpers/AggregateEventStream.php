@@ -4,13 +4,10 @@ namespace App\Domain\Helpers;
 
 final class AggregateEventStream
 {
-    private EventStreamPointer $next;
-    private AggregateEvents $events;
-
-    public function __construct(EventStreamPointer $next, AggregateEvents $events)
-    {
-        $this->next = $next;
-        $this->events = $events;
+    public function __construct(
+        private EventStreamPointer $next,
+        private AggregateEvents $events
+    ) {
     }
 
     public function getNextPointer(): EventStreamPointer

@@ -23,8 +23,14 @@ final class SubmitInviteCommand implements Command
         array $songChoices
     ) {
         $this->id = InviteId::fromString($id);
-        $this->chosenFoodChoices = \array_map(static fn (array $choices) => ChosenFoodChoices::fromArray($choices), $chosenFoodChoices);
-        $this->songChoices = \array_map(static fn (array $song) => SongChoice::fromString($song['artist'], $song['track']), $songChoices);
+        $this->chosenFoodChoices = \array_map(
+            static fn (array $choices) => ChosenFoodChoices::fromArray($choices),
+            $chosenFoodChoices
+        );
+        $this->songChoices = \array_map(
+            static fn (array $song) => SongChoice::fromString($song['artist'], $song['track']),
+            $songChoices
+        );
     }
 
     public function getId(): InviteId

@@ -4,15 +4,11 @@ namespace App\Domain\Projection\SubmittedSongChoice;
 
 final class SubmittedSongChoice
 {
-    private string $artist;
-    private string $track;
-    private \DateTimeImmutable $submittedAt;
-
-    public function __construct(string $artist, string $track, \DateTimeImmutable $submittedAt)
-    {
-        $this->artist = $artist;
-        $this->track = $track;
-        $this->submittedAt = $submittedAt;
+    public function __construct(
+        private string $artist,
+        private string $track,
+        private \DateTimeImmutable $submittedAt
+    ) {
     }
 
     public function getArtist(): string

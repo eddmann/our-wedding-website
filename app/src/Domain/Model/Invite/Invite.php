@@ -9,21 +9,18 @@ use App\Domain\Model\Invite\Guest\ChosenFoodChoices;
 use App\Domain\Model\Invite\Guest\ChosenFoodChoiceValidator;
 use App\Domain\Model\Invite\Guest\InvitedGuest;
 
+/** @psalm-suppress PropertyNotSetInConstructor */
 final class Invite extends Aggregate
 {
     public const AGGREGATE_NAME = 'invite';
     private const MAX_SONG_CHOICES = 2;
 
-    /** @psalm-suppress PropertyNotSetInConstructor */
     private InviteId $id;
-    /** @psalm-suppress PropertyNotSetInConstructor */
     private InviteCode $inviteCode;
-    /** @psalm-suppress PropertyNotSetInConstructor */
     private InviteType $inviteType;
     /**
      * @psalm-var list<InvitedGuest>
      * @var InvitedGuest[]
-     * @psalm-suppress PropertyNotSetInConstructor
      */
     private array $invitedGuests;
     /**

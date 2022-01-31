@@ -28,7 +28,9 @@ final class SongChoiceListingQueryTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->songChoiceProjector = new SubmittedSongChoiceProjector($songChoiceRepository = new InMemorySubmittedSongChoiceRepository());
+        $this->songChoiceProjector = new SubmittedSongChoiceProjector(
+            $songChoiceRepository = new InMemorySubmittedSongChoiceRepository()
+        );
         $this->query = new SongChoiceListingQuery($songChoiceRepository);
     }
 

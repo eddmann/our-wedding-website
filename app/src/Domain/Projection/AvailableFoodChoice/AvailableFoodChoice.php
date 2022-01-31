@@ -4,21 +4,12 @@ namespace App\Domain\Projection\AvailableFoodChoice;
 
 final class AvailableFoodChoice
 {
-    private string $id;
-    private string $course;
-    private string $guestType;
-    private string $name;
-
     public function __construct(
-        string $id,
-        string $course,
-        string $guestType,
-        string $name
+        private string $id,
+        private string $course,
+        private string $guestType,
+        private string $name
     ) {
-        $this->id = $id;
-        $this->course = $course;
-        $this->guestType = $guestType;
-        $this->name = $name;
     }
 
     public function getId(): string
