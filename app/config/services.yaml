@@ -76,3 +76,45 @@ services:
 
     App\Domain\Helpers\EventStore:
         alias: 'App\Infrastructure\DynamoDbEventStore'
+
+    App\Infrastructure\DynamoDbSubmittedSongChoiceRepository:
+        arguments:
+            $tableName: '%projection_table_name%'
+
+    App\Domain\Projection\SubmittedSongChoice\SubmittedSongChoiceRepository:
+        alias: 'App\Infrastructure\DynamoDbSubmittedSongChoiceRepository'
+
+    App\Infrastructure\DynamoDbSubmittedAttendingGuestRepository:
+        arguments:
+            $tableName: '%projection_table_name%'
+
+    App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuestRepository:
+        alias: 'App\Infrastructure\DynamoDbSubmittedAttendingGuestRepository'
+
+    App\Infrastructure\DynamoDbSentInviteRepository:
+        arguments:
+            $tableName: '%projection_table_name%'
+
+    App\Domain\Projection\SentInvite\SentInviteRepository:
+        alias: 'App\Infrastructure\DynamoDbSentInviteRepository'
+
+    App\Infrastructure\DynamoDbInviteCodeToIdFinder:
+        arguments:
+            $tableName: '%projection_table_name%'
+
+    App\Application\Command\AuthenticateInvite\InviteCodeToIdFinder:
+        alias: 'App\Infrastructure\DynamoDbInviteCodeToIdFinder'
+
+    App\Infrastructure\DynamoDbAvailableFoodChoiceRepository:
+        arguments:
+            $tableName: '%projection_table_name%'
+
+    App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoiceRepository:
+        alias: 'App\Infrastructure\DynamoDbAvailableFoodChoiceRepository'
+
+    App\Infrastructure\DyanmoDbChosenFoodChoiceValidator:
+        arguments:
+            $tableName: '%projection_table_name%'
+
+    App\Domain\Model\Invite\Guest\ChosenFoodChoiceValidator:
+        alias: App\Infrastructure\DyanmoDbChosenFoodChoiceValidator
