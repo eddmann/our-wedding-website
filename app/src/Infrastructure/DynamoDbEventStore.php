@@ -89,7 +89,7 @@ final class DynamoDbEventStore implements EventStore
             ])
         );
 
-        $events = \iterator_to_array($result->getItems(true));
+        $events = [...$result->getItems(true)];
 
         if (empty($events)) {
             return new AggregateEventStream($start, AggregateEvents::make());
