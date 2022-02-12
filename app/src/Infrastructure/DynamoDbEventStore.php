@@ -18,7 +18,7 @@ use AsyncAws\DynamoDb\Input\QueryInput;
 
 final class DynamoDbEventStore implements EventStore
 {
-    private const EVENT_SEQUENCE_PK = '1'; // currently a hot key
+    private const EVENT_SEQUENCE_PK = 'all';
 
     public function __construct(
         private DynamoDbClient $client,
@@ -80,23 +80,19 @@ final class DynamoDbEventStore implements EventStore
                     'EventSequencePartition' => [
                         'ComparisonOperator' => 'EQ',
                         'AttributeValueList' => [
-                            'EventSequencePartition' => ['S' => '1'],
+                            'EventSequencePartition' => ['S' => self::EVENT_SEQUENCE_PK],
                         ],
                     ],
                 ],
                 'ExclusiveStartKey' => $this->toExclusiveStartKey($start),
-                'ScanIndexForward' => true,
                 'Limit' => $limit,
             ])
         );
 
-        $events = \iterator_to_array($result->getIterator());
+        $events = \iterator_to_array($result->getItems(true));
 
         if (empty($events)) {
-            return new AggregateEventStream(
-                EventStreamPointer::beginning(),
-                AggregateEvents::make()
-            );
+            return new AggregateEventStream($start, AggregateEvents::make());
         }
 
         $last = $events[\count($events) - 1];
