@@ -2,8 +2,11 @@
 
 namespace App\Tests\Infrastructure;
 
+use App\Domain\Model\FoodChoice\FoodChoiceId;
 use App\Domain\Model\Invite\Guest\GuestId;
 use App\Domain\Model\Invite\InviteId;
+use App\Domain\Model\Invite\InviteType;
+use App\Domain\Model\Shared\GuestType;
 use App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuest;
 use App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuestRepository;
 use App\Infrastructure\DynamoDbSubmittedAttendingGuestRepository;
@@ -35,32 +38,21 @@ final class DynamoDbSubmittedAttendingGuestRepositoryTest extends KernelTestCase
     {
         $guest = new SubmittedAttendingGuest(
             $guestId = GuestId::generate()->toString(),
-            $inviteId = InviteId::generate()->toString(),
-            'day',
-            'adult',
-            'Guest',
+            InviteId::generate()->toString(),
+            InviteType::Day->toString(),
+            GuestType::Adult->toString(),
+            'Guest name',
             [
-                'starterId' => 'd2322033-d950-41f0-9b78-e8b1b25eef81',
-                'mainId' => 'c537b986-b33a-4757-acbc-decb799c82dc',
-                'dessertId' => 'c8977aef-4317-419a-8645-5a46bcdc55c6',
+                'starterId' => FoodChoiceId::generate()->toString(),
+                'mainId' => FoodChoiceId::generate()->toString(),
+                'dessertId' => FoodChoiceId::generate()->toString(),
             ]
         );
 
         $this->repository->store($guest);
 
         self::assertEquals(
-            new SubmittedAttendingGuest(
-                $guestId,
-                $inviteId,
-                'day',
-                'adult',
-                'Guest',
-                [
-                    'starterId' => 'd2322033-d950-41f0-9b78-e8b1b25eef81',
-                    'mainId' => 'c537b986-b33a-4757-acbc-decb799c82dc',
-                    'dessertId' => 'c8977aef-4317-419a-8645-5a46bcdc55c6',
-                ]
-            ),
+            $guest,
             $this->repository->get($guestId)
         );
     }
@@ -68,35 +60,22 @@ final class DynamoDbSubmittedAttendingGuestRepositoryTest extends KernelTestCase
     public function test_it_fetches_attending_guests_by_invite_id(): void
     {
         $guest = new SubmittedAttendingGuest(
-            $guestId = GuestId::generate()->toString(),
+            GuestId::generate()->toString(),
             $inviteId = InviteId::generate()->toString(),
-            'day',
-            'adult',
-            'Guest',
+            InviteType::Day->toString(),
+            GuestType::Adult->toString(),
+            'Guest name',
             [
-                'starterId' => 'd2322033-d950-41f0-9b78-e8b1b25eef81',
-                'mainId' => 'c537b986-b33a-4757-acbc-decb799c82dc',
-                'dessertId' => 'c8977aef-4317-419a-8645-5a46bcdc55c6',
+                'starterId' => FoodChoiceId::generate()->toString(),
+                'mainId' => FoodChoiceId::generate()->toString(),
+                'dessertId' => FoodChoiceId::generate()->toString(),
             ]
         );
 
         $this->repository->store($guest);
 
         self::assertEquals(
-            [
-                new SubmittedAttendingGuest(
-                    $guestId,
-                    $inviteId,
-                    'day',
-                    'adult',
-                    'Guest',
-                    [
-                        'starterId' => 'd2322033-d950-41f0-9b78-e8b1b25eef81',
-                        'mainId' => 'c537b986-b33a-4757-acbc-decb799c82dc',
-                        'dessertId' => 'c8977aef-4317-419a-8645-5a46bcdc55c6',
-                    ]
-                ),
-            ],
+            [$guest],
             $this->repository->getByInviteId($inviteId)
         );
     }
@@ -104,35 +83,22 @@ final class DynamoDbSubmittedAttendingGuestRepositoryTest extends KernelTestCase
     public function test_it_fetches_all_attending_guests(): void
     {
         $guest = new SubmittedAttendingGuest(
-            $guestId = GuestId::generate()->toString(),
-            $inviteId = InviteId::generate()->toString(),
-            'day',
-            'adult',
-            'Guest',
+            GuestId::generate()->toString(),
+            InviteId::generate()->toString(),
+            InviteType::Day->toString(),
+            GuestType::Adult->toString(),
+            'Guest name',
             [
-                'starterId' => 'd2322033-d950-41f0-9b78-e8b1b25eef81',
-                'mainId' => 'c537b986-b33a-4757-acbc-decb799c82dc',
-                'dessertId' => 'c8977aef-4317-419a-8645-5a46bcdc55c6',
+                'starterId' => FoodChoiceId::generate()->toString(),
+                'mainId' => FoodChoiceId::generate()->toString(),
+                'dessertId' => FoodChoiceId::generate()->toString(),
             ]
         );
 
         $this->repository->store($guest);
 
         self::assertEquals(
-            [
-                new SubmittedAttendingGuest(
-                    $guestId,
-                    $inviteId,
-                    'day',
-                    'adult',
-                    'Guest',
-                    [
-                        'starterId' => 'd2322033-d950-41f0-9b78-e8b1b25eef81',
-                        'mainId' => 'c537b986-b33a-4757-acbc-decb799c82dc',
-                        'dessertId' => 'c8977aef-4317-419a-8645-5a46bcdc55c6',
-                    ]
-                ),
-            ],
+            [$guest],
             $this->repository->all()
         );
     }

@@ -11,7 +11,7 @@ use AsyncAws\DynamoDb\Input\QueryInput;
 
 final class DynamoDbSentInviteRepository implements SentInviteRepository
 {
-    private const ALL_PK = 'sent_invite#all'; // currently a hot key
+    private const PK_NAMESPACE = 'sent_invite';
 
     public function __construct(
         private DynamoDbClient $client,
@@ -25,17 +25,17 @@ final class DynamoDbSentInviteRepository implements SentInviteRepository
             new PutItemInput([
                 'TableName' => $this->tableName,
                 'Item' => [
-                    'PK' => ['S' => \sprintf('sent_invite#id#%s', $invite->getId())],
-                    'SK' => ['S' => '1'],
+                    'PK' => ['S' => \sprintf('%s#id#%s', self::PK_NAMESPACE, $invite->getId())],
+                    'SK' => ['S' => '-'],
                     'Id' => ['S' => $invite->getId()],
                     'Code' => ['S' => $invite->getCode()],
                     'Type' => ['S' => $invite->getType()],
                     'InvitedGuests' => ['S' => \json_encode_array($invite->getInvitedGuests())],
                     'SubmittedAt' => ['S' => $invite->getSubmittedAt() ? \datetime_timestamp($invite->getSubmittedAt()) : ''],
                     'LastAuthenticatedAt' => ['S' => $invite->getLastAuthenticatedAt() ? \datetime_timestamp($invite->getLastAuthenticatedAt()) : ''],
-                    'GSI1PK' => ['S' => \sprintf('sent_invite#code#%s', $invite->getCode())],
-                    'GSI1SK' => ['S' => \sprintf('id#%s', $invite->getId())],
-                    'GSI2PK' => ['S' => self::ALL_PK],
+                    'GSI1PK' => ['S' => \sprintf('%s#code#%s', self::PK_NAMESPACE, $invite->getCode())],
+                    'GSI1SK' => ['S' => '-'],
+                    'GSI2PK' => ['S' => \sprintf('%s#all', self::PK_NAMESPACE)],
                     'GSI2SK' => ['S' => \sprintf('id#%s', $invite->getId())],
                 ],
             ])
@@ -51,7 +51,7 @@ final class DynamoDbSentInviteRepository implements SentInviteRepository
                     'PK' => [
                         'ComparisonOperator' => 'EQ',
                         'AttributeValueList' => [
-                            'PK' => ['S' => \sprintf('sent_invite#id#%s', $id)],
+                            'PK' => ['S' => \sprintf('%s#id#%s', self::PK_NAMESPACE, $id)],
                         ],
                     ],
                 ],
@@ -59,7 +59,7 @@ final class DynamoDbSentInviteRepository implements SentInviteRepository
             ])
         );
 
-        foreach ($result->getItems() as $item) {
+        foreach ($result->getItems(true) as $item) {
             return $this->toSentInvite($item);
         }
 
@@ -76,7 +76,7 @@ final class DynamoDbSentInviteRepository implements SentInviteRepository
                     'GSI2PK' => [
                         'ComparisonOperator' => 'EQ',
                         'AttributeValueList' => [
-                            'GSI2PK' => ['S' => self::ALL_PK],
+                            'GSI2PK' => ['S' => \sprintf('%s#all', self::PK_NAMESPACE)],
                         ],
                     ],
                 ],

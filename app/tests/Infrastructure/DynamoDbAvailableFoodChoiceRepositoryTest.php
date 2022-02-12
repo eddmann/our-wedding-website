@@ -42,17 +42,12 @@ final class DynamoDbAvailableFoodChoiceRepositoryTest extends KernelTestCase
         $this->repository->store($choice);
 
         self::assertEquals(
-            new AvailableFoodChoice(
-                $foodChoiceId,
-                'starter',
-                'adult',
-                'Starter'
-            ),
+            $choice,
             $this->repository->get($foodChoiceId)
         );
     }
 
-    public function test_it_fetches_courses_by_guest_type(): void
+    public function test_it_fetches_food_courses_by_guest_type(): void
     {
         $starter = new AvailableFoodChoice(FoodChoiceId::generate()->toString(), 'starter', 'adult', 'Starter');
         $main = new AvailableFoodChoice(FoodChoiceId::generate()->toString(), 'main', 'adult', 'Main');

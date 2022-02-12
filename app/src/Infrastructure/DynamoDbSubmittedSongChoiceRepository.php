@@ -7,11 +7,10 @@ use App\Domain\Projection\SubmittedSongChoice\SubmittedSongChoiceRepository;
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Input\PutItemInput;
 use AsyncAws\DynamoDb\Input\QueryInput;
-use Symfony\Component\Uid\Uuid;
 
 final class DynamoDbSubmittedSongChoiceRepository implements SubmittedSongChoiceRepository
 {
-    private const ALL_PK = 'submitted_song_choice#all'; // currently a hot key
+    private const PK_NAMESPACE = 'submitted_song_choice';
 
     public function __construct(
         private DynamoDbClient $client,
@@ -25,13 +24,11 @@ final class DynamoDbSubmittedSongChoiceRepository implements SubmittedSongChoice
             new PutItemInput([
                 'TableName' => $this->tableName,
                 'Item' => [
-                    'PK' => ['S' => \sprintf('submitted_song_choice#%s', (string) Uuid::v4())],
-                    'SK' => ['S' => \sprintf('artist#%s#track#%s', $choice->getArtist(), $choice->getTrack())],
+                    'PK' => ['S' => \sprintf('%s#all', self::PK_NAMESPACE)],
+                    'SK' => ['S' => $choice->getSubmittedAt()->format('Uu')],
                     'Artist' => ['S' => $choice->getArtist()],
                     'Track' => ['S' => $choice->getTrack()],
                     'SubmittedAt' => ['S' => \datetime_timestamp($choice->getSubmittedAt())],
-                    'GSI1PK' => ['S' => self::ALL_PK],
-                    'GSI1SK' => ['S' => $choice->getSubmittedAt()->format('Uu')],
                 ],
             ])
         );
@@ -42,12 +39,11 @@ final class DynamoDbSubmittedSongChoiceRepository implements SubmittedSongChoice
         $result = $this->client->query(
             new QueryInput([
                 'TableName' => $this->tableName,
-                'IndexName' => 'GSI1',
                 'KeyConditions' => [
-                    'GSI1PK' => [
+                    'PK' => [
                         'ComparisonOperator' => 'EQ',
                         'AttributeValueList' => [
-                            'GSI1PK' => ['S' => self::ALL_PK],
+                            'PK' => ['S' => \sprintf('%s#all', self::PK_NAMESPACE)],
                         ],
                     ],
                 ],

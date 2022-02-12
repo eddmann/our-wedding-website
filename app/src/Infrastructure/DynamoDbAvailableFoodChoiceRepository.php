@@ -11,7 +11,7 @@ use AsyncAws\DynamoDb\Input\QueryInput;
 
 final class DynamoDbAvailableFoodChoiceRepository implements AvailableFoodChoiceRepository
 {
-    private const ALL_PK = 'available_food_choice#all'; // currently a hot key
+    private const PK_NAMESPACE = 'available_food_choice';
 
     public function __construct(
         private DynamoDbClient $client,
@@ -25,23 +25,16 @@ final class DynamoDbAvailableFoodChoiceRepository implements AvailableFoodChoice
             new PutItemInput([
                 'TableName' => $this->tableName,
                 'Item' => [
-                    'PK' => ['S' => \sprintf('available_food_choice#id#%s', $choice->getId())],
-                    'SK' => ['S' => '1'],
+                    'PK' => ['S' => \sprintf('%s#id#%s', self::PK_NAMESPACE, $choice->getId())],
+                    'SK' => ['S' => '-'],
                     'Id' => ['S' => $choice->getId()],
                     'Course' => ['S' => $choice->getCourse()],
                     'GuestType' => ['S' => $choice->getGuestType()],
                     'Name' => ['S' => $choice->getName()],
-                    'GSI1PK' => ['S' => \sprintf('available_food_choice#guest_type#%s', $choice->getGuestType())],
+                    'GSI1PK' => ['S' => \sprintf('%s#guest_type#%s', self::PK_NAMESPACE, $choice->getGuestType())],
                     'GSI1SK' => ['S' => \sprintf('course#%s#id#%s', $choice->getCourse(), $choice->getId())],
-                    'GSI2PK' => ['S' => self::ALL_PK],
-                    'GSI2SK' => [
-                        'S' => \sprintf(
-                            '#guest_type#%s#course#%s#id#%s',
-                            $choice->getGuestType(),
-                            $choice->getCourse(),
-                            $choice->getId()
-                        ),
-                    ],
+                    'GSI2PK' => ['S' => \sprintf('%s#all', self::PK_NAMESPACE)],
+                    'GSI2SK' => ['S' => \sprintf('guest_type#%s#course#%s#id#%s', $choice->getGuestType(), $choice->getCourse(), $choice->getId())],
                 ],
             ])
         );
@@ -56,7 +49,7 @@ final class DynamoDbAvailableFoodChoiceRepository implements AvailableFoodChoice
                     'PK' => [
                         'ComparisonOperator' => 'EQ',
                         'AttributeValueList' => [
-                            'PK' => ['S' => \sprintf('available_food_choice#id#%s', $id)],
+                            'PK' => ['S' => \sprintf('%s#id#%s', self::PK_NAMESPACE, $id)],
                         ],
                     ],
                 ],
@@ -64,7 +57,7 @@ final class DynamoDbAvailableFoodChoiceRepository implements AvailableFoodChoice
             ])
         );
 
-        foreach ($result->getItems() as $item) {
+        foreach ($result->getItems(true) as $item) {
             return $this->toAvailableFoodChoice($item);
         }
 
@@ -82,7 +75,7 @@ final class DynamoDbAvailableFoodChoiceRepository implements AvailableFoodChoice
                     'GSI1PK' => [
                         'ComparisonOperator' => 'EQ',
                         'AttributeValueList' => [
-                            'GSI1PK' => ['S' => \sprintf('available_food_choice#guest_type#%s', $guestType)],
+                            'GSI1PK' => ['S' => \sprintf('%s#guest_type#%s', self::PK_NAMESPACE, $guestType)],
                         ],
                     ],
                 ],
@@ -109,7 +102,7 @@ final class DynamoDbAvailableFoodChoiceRepository implements AvailableFoodChoice
                     'GSI2PK' => [
                         'ComparisonOperator' => 'EQ',
                         'AttributeValueList' => [
-                            'GSI2PK' => ['S' => self::ALL_PK],
+                            'GSI2PK' => ['S' => \sprintf('%s#all', self::PK_NAMESPACE)],
                         ],
                     ],
                 ],

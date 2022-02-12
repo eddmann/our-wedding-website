@@ -35,7 +35,7 @@ final class DynamoDbInviteCodeToIdFinder implements InviteCodeToIdFinder
             ])
         );
 
-        foreach ($result->getItems() as $item) {
+        foreach ($result->getItems(true) as $item) {
             if ($id = $item['Id']->getS()) {
                 return InviteId::fromString($id);
             }

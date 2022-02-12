@@ -11,7 +11,7 @@ use AsyncAws\DynamoDb\Input\QueryInput;
 
 final class DynamoDbSubmittedAttendingGuestRepository implements SubmittedAttendingGuestRepository
 {
-    private const ALL_PK = 'submitted_attending_guest#all'; // currently a hot key
+    private const PK_NAMESPACE = 'submitted_attending_guest';
 
     public function __construct(
         private DynamoDbClient $client,
@@ -25,17 +25,17 @@ final class DynamoDbSubmittedAttendingGuestRepository implements SubmittedAttend
             new PutItemInput([
                 'TableName' => $this->tableName,
                 'Item' => [
-                    'PK' => ['S' => \sprintf('submitted_song_choice#id#%s', $guest->getId())],
-                    'SK' => ['S' => '1'],
+                    'PK' => ['S' => \sprintf('%s#id#%s', self::PK_NAMESPACE, $guest->getId())],
+                    'SK' => ['S' => '-'],
                     'Id' => ['S' => $guest->getId()],
                     'InviteId' => ['S' => $guest->getInviteId()],
                     'InviteType' => ['S' => $guest->getInviteType()],
                     'GuestType' => ['S' => $guest->getGuestType()],
                     'Name' => ['S' => $guest->getName()],
                     'ChosenFoodChoices' => ['S' => \json_encode_array($guest->getChosenFoodChoices())],
-                    'GSI1PK' => ['S' => \sprintf('submitted_attending_guest#invite_id#%s', $guest->getInviteId())],
+                    'GSI1PK' => ['S' => \sprintf('%s#invite_id#%s', self::PK_NAMESPACE, $guest->getInviteId())],
                     'GSI1SK' => ['S' => \sprintf('id#%s', $guest->getId())],
-                    'GSI2PK' => ['S' => self::ALL_PK],
+                    'GSI2PK' => ['S' => \sprintf('%s#all', self::PK_NAMESPACE)],
                     'GSI2SK' => ['S' => \sprintf('id#%s', $guest->getId())],
                 ],
             ])
@@ -51,7 +51,7 @@ final class DynamoDbSubmittedAttendingGuestRepository implements SubmittedAttend
                     'PK' => [
                         'ComparisonOperator' => 'EQ',
                         'AttributeValueList' => [
-                            'PK' => ['S' => \sprintf('submitted_song_choice#id#%s', $id)],
+                            'PK' => ['S' => \sprintf('%s#id#%s', self::PK_NAMESPACE, $id)],
                         ],
                     ],
                 ],
@@ -59,7 +59,7 @@ final class DynamoDbSubmittedAttendingGuestRepository implements SubmittedAttend
             ])
         );
 
-        foreach ($result->getItems() as $item) {
+        foreach ($result->getItems(true) as $item) {
             return $this->toSubmittedAttendingGuest($item);
         }
 
@@ -76,7 +76,7 @@ final class DynamoDbSubmittedAttendingGuestRepository implements SubmittedAttend
                     'GSI1PK' => [
                         'ComparisonOperator' => 'EQ',
                         'AttributeValueList' => [
-                            'GSI1PK' => ['S' => \sprintf('submitted_attending_guest#invite_id#%s', $inviteId)],
+                            'GSI1PK' => ['S' => \sprintf('%s#invite_id#%s', self::PK_NAMESPACE, $inviteId)],
                         ],
                     ],
                 ],
@@ -99,7 +99,7 @@ final class DynamoDbSubmittedAttendingGuestRepository implements SubmittedAttend
                     'GSI2PK' => [
                         'ComparisonOperator' => 'EQ',
                         'AttributeValueList' => [
-                            'GSI2PK' => ['S' => self::ALL_PK],
+                            'GSI2PK' => ['S' => \sprintf('%s#all', self::PK_NAMESPACE)],
                         ],
                     ],
                 ],
