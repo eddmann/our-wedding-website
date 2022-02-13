@@ -39,15 +39,15 @@ final class SubmitInviteCommandTest extends CommandTestCase
         );
     }
 
-    public function test_successfully_submits_pending_invite_with_all_guests_attending(): void
+    public function test_it_submits_pending_invite_with_all_guests_attending(): void
     {
         $invite = $this->createInvite(
             new CreateInviteCommand(
                 'evening',
                 [
-                    ['type' => 'adult', 'name' => 'Adult'],
-                    ['type' => 'child', 'name' => 'Child'],
-                    ['type' => 'baby', 'name' => 'Baby'],
+                    ['type' => 'adult', 'name' => 'Adult name'],
+                    ['type' => 'child', 'name' => 'Child name'],
+                    ['type' => 'baby', 'name' => 'Baby name'],
                 ]
             )
         );
@@ -74,16 +74,16 @@ final class SubmitInviteCommandTest extends CommandTestCase
             new InviteSubmitted(
                 $invite->getAggregateId()->toString(),
                 [
-                    ['name' => 'Adult', 'attending' => true],
-                    ['name' => 'Child', 'attending' => true],
-                    ['name' => 'Baby', 'attending' => true],
+                    ['name' => 'Adult name', 'attending' => true],
+                    ['name' => 'Child name', 'attending' => true],
+                    ['name' => 'Baby name', 'attending' => true],
                 ]
             ),
             $this->eventBus->getLastEvent()
         );
     }
 
-    public function test_unable_to_submit_invite_more_than_once(): void
+    public function test_it_fails_to_submit_invite_more_than_once(): void
     {
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessage('This invite has already been submitted');
@@ -92,7 +92,7 @@ final class SubmitInviteCommandTest extends CommandTestCase
             new CreateInviteCommand(
                 'evening',
                 [
-                    ['type' => 'adult', 'name' => 'Adult'],
+                    ['type' => 'adult', 'name' => 'Adult name'],
                 ]
             )
         );
@@ -109,15 +109,15 @@ final class SubmitInviteCommandTest extends CommandTestCase
         ($this->handler)($command);
     }
 
-    public function test_successfully_submits_pending_invite_with_single_guest_attending(): void
+    public function test_it_submits_pending_invite_with_single_guest_attending(): void
     {
         $invite = $this->createInvite(
             new CreateInviteCommand(
                 'evening',
                 [
-                    ['type' => 'adult', 'name' => 'Adult'],
-                    ['type' => 'child', 'name' => 'Child'],
-                    ['type' => 'baby', 'name' => 'Baby'],
+                    ['type' => 'adult', 'name' => 'Adult name'],
+                    ['type' => 'child', 'name' => 'Child name'],
+                    ['type' => 'baby', 'name' => 'Baby name'],
                 ]
             )
         );
@@ -140,24 +140,24 @@ final class SubmitInviteCommandTest extends CommandTestCase
             new InviteSubmitted(
                 $invite->getAggregateId()->toString(),
                 [
-                    ['name' => 'Adult', 'attending' => true],
-                    ['name' => 'Child', 'attending' => false],
-                    ['name' => 'Baby', 'attending' => false],
+                    ['name' => 'Adult name', 'attending' => true],
+                    ['name' => 'Child name', 'attending' => false],
+                    ['name' => 'Baby name', 'attending' => false],
                 ]
             ),
             $this->eventBus->getLastEvent()
         );
     }
 
-    public function test_successfully_submits_pending_invite_with_no_guests_attending(): void
+    public function test_it_submits_pending_invite_with_no_guests_attending(): void
     {
         $invite = $this->createInvite(
             new CreateInviteCommand(
                 'evening',
                 [
-                    ['type' => 'adult', 'name' => 'Adult'],
-                    ['type' => 'child', 'name' => 'Child'],
-                    ['type' => 'baby', 'name' => 'Baby'],
+                    ['type' => 'adult', 'name' => 'Adult name'],
+                    ['type' => 'child', 'name' => 'Child name'],
+                    ['type' => 'baby', 'name' => 'Baby name'],
                 ]
             )
         );
@@ -179,22 +179,22 @@ final class SubmitInviteCommandTest extends CommandTestCase
             new InviteSubmitted(
                 $invite->getAggregateId()->toString(),
                 [
-                    ['name' => 'Adult', 'attending' => false],
-                    ['name' => 'Child', 'attending' => false],
-                    ['name' => 'Baby', 'attending' => false],
+                    ['name' => 'Adult name', 'attending' => false],
+                    ['name' => 'Child name', 'attending' => false],
+                    ['name' => 'Baby name', 'attending' => false],
                 ]
             ),
             $this->eventBus->getLastEvent()
         );
     }
 
-    public function test_successfully_submits_day_invite_with_guest_food_choices(): void
+    public function test_it_submits_day_invite_with_guest_food_choices(): void
     {
         $invite = $this->createInvite(
             new CreateInviteCommand(
                 'day',
                 [
-                    ['type' => 'adult', 'name' => 'Adult'],
+                    ['type' => 'adult', 'name' => 'Adult name'],
                 ]
             )
         );
@@ -227,14 +227,14 @@ final class SubmitInviteCommandTest extends CommandTestCase
             new InviteSubmitted(
                 $invite->getAggregateId()->toString(),
                 [
-                    ['name' => 'Adult', 'attending' => true],
+                    ['name' => 'Adult name', 'attending' => true],
                 ]
             ),
             $this->eventBus->getLastEvent()
         );
     }
 
-    public function test_fails_to_submit_invite_without_authentication(): void
+    public function test_it_fails_to_submit_invite_without_prior_authentication(): void
     {
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessage('Invite must be authenticated for submission');
@@ -243,7 +243,7 @@ final class SubmitInviteCommandTest extends CommandTestCase
             new CreateInviteCommand(
                 'evening',
                 [
-                    ['type' => 'adult', 'name' => 'Adult'],
+                    ['type' => 'adult', 'name' => 'Adult name'],
                 ]
             )
         );
@@ -260,16 +260,16 @@ final class SubmitInviteCommandTest extends CommandTestCase
         ($this->handler)($command);
     }
 
-    public function test_fails_to_submit_day_invite_with_empty_required_guest_food_choices(): void
+    public function test_it_fails_to_submit_day_invite_with_empty_required_guest_food_choices(): void
     {
         $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage("Adult's food choices do not meet the specified requirements");
+        $this->expectExceptionMessage("Adult name's food choices do not meet the specified requirements");
 
         $invite = $this->createInvite(
             new CreateInviteCommand(
                 'day',
                 [
-                    ['type' => 'adult', 'name' => 'Adult'],
+                    ['type' => 'adult', 'name' => 'Adult name'],
                 ]
             )
         );
@@ -287,10 +287,10 @@ final class SubmitInviteCommandTest extends CommandTestCase
         ($this->handler)($command);
     }
 
-    public function test_fails_to_submit_day_invite_with_invalid_guest_food_choices(): void
+    public function test_it_fails_to_submit_day_invite_with_invalid_guest_food_choices(): void
     {
         $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage("Adult's food choices do not meet the adult type requirements");
+        $this->expectExceptionMessage("Adult name's food choices do not meet the adult type requirements");
 
         $this->foodMenuValidator->failing();
 
@@ -298,7 +298,7 @@ final class SubmitInviteCommandTest extends CommandTestCase
             new CreateInviteCommand(
                 'day',
                 [
-                    ['type' => 'adult', 'name' => 'Adult'],
+                    ['type' => 'adult', 'name' => 'Adult name'],
                 ]
             )
         );
@@ -321,7 +321,7 @@ final class SubmitInviteCommandTest extends CommandTestCase
         ($this->handler)($command);
     }
 
-    public function test_fails_to_submit_evening_invite_with_food_choices_present(): void
+    public function test_it_fails_to_submit_evening_invite_with_food_choices_present(): void
     {
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessage("Adult's food choices do not meet the specified requirements");
@@ -353,13 +353,13 @@ final class SubmitInviteCommandTest extends CommandTestCase
         ($this->handler)($command);
     }
 
-    public function test_successfully_submits_invite_with_song_choices(): void
+    public function test_it_submits_invite_with_song_choices(): void
     {
         $invite = $this->createInvite(
             new CreateInviteCommand(
                 'evening',
                 [
-                    ['type' => 'adult', 'name' => 'Adult'],
+                    ['type' => 'adult', 'name' => 'Adult name'],
                 ]
             )
         );
@@ -388,7 +388,7 @@ final class SubmitInviteCommandTest extends CommandTestCase
         );
     }
 
-    public function test_fails_to_submit_invite_with_too_many_song_choices(): void
+    public function test_it_fails_to_submit_invite_with_too_many_song_choices(): void
     {
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessage('Only two song choices allowed per invite');
@@ -397,7 +397,7 @@ final class SubmitInviteCommandTest extends CommandTestCase
             new CreateInviteCommand(
                 'evening',
                 [
-                    ['type' => 'adult', 'name' => 'Adult'],
+                    ['type' => 'adult', 'name' => 'Adult name'],
                 ]
             )
         );

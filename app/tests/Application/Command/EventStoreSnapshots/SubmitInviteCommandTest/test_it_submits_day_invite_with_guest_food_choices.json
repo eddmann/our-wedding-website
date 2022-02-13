@@ -1,44 +1,44 @@
 {
-    "generated": "2021-11-25 08:29:05.445215 +0000",
+    "generated": "2022-02-13 18:52:52.725452 +0000",
     "events": [
         {
             "name": "invite.created",
             "data": {
+                "id": "ef46690c-6aef-4986-8680-fc9645820978",
                 "aggregateVersion": 0,
-                "id": "c0f9340c-914b-44bf-ac54-9ad76a69cb03",
-                "inviteCode": "C1S9",
+                "inviteCode": "P2H5",
                 "inviteType": "day",
                 "invitedGuests": [
                     {
-                        "id": "a73d61fc-cec4-4eeb-a894-eb206540fc08",
+                        "id": "b4217602-be8c-48f4-ab10-d85e4523e814",
                         "inviteType": "day",
                         "guestType": "adult",
-                        "name": "Adult",
+                        "name": "Adult name",
                         "hasFoodChoices": true
                     }
                 ],
-                "occurredAt": "2021-11-25 08:29:05.443922 +0000"
+                "occurredAt": "2022-02-13 18:52:52.722552 +0000"
             }
         },
         {
             "name": "invite.authenticated",
             "data": {
+                "id": "ef46690c-6aef-4986-8680-fc9645820978",
                 "aggregateVersion": 1,
-                "id": "c0f9340c-914b-44bf-ac54-9ad76a69cb03",
-                "occurredAt": "2021-11-25 08:29:05.444101 +0000"
+                "occurredAt": "2022-02-13 18:52:52.722690 +0000"
             }
         },
         {
             "name": "invite.submitted",
             "data": {
+                "id": "ef46690c-6aef-4986-8680-fc9645820978",
                 "aggregateVersion": 2,
-                "id": "c0f9340c-914b-44bf-ac54-9ad76a69cb03",
                 "attendingGuests": [
                     {
-                        "id": "a73d61fc-cec4-4eeb-a894-eb206540fc08",
+                        "id": "b4217602-be8c-48f4-ab10-d85e4523e814",
                         "inviteType": "day",
                         "guestType": "adult",
-                        "name": "Adult",
+                        "name": "Adult name",
                         "chosenFoodChoices": {
                             "starterId": "98704d73-9bca-40a4-8411-d77e57e91f22",
                             "mainId": "4e8e2055-d557-40fb-aa84-edbf1bdbe9cf",
@@ -48,7 +48,7 @@
                     }
                 ],
                 "songChoices": [],
-                "occurredAt": "2021-11-25 08:29:05.444203 +0000"
+                "occurredAt": "2022-02-13 18:52:52.722865 +0000"
             }
         }
     ]

@@ -47,9 +47,9 @@ final class LoginAndSubmitEveningInviteTest extends WebTestCase
         $command = new CreateInviteCommand(
             'evening',
             [
-                ['type' => 'adult', 'name' => 'Adult'],
-                ['type' => 'child', 'name' => 'Child'],
-                ['type' => 'baby', 'name' => 'Baby'],
+                ['type' => 'adult', 'name' => 'Adult name'],
+                ['type' => 'child', 'name' => 'Child name'],
+                ['type' => 'baby', 'name' => 'Baby name'],
             ]
         );
 
@@ -105,9 +105,9 @@ final class LoginAndSubmitEveningInviteTest extends WebTestCase
         $this->client->request('GET', '/admin/attending-guests', [], [], ['PHP_AUTH_USER' => 'admin', 'PHP_AUTH_PW' => \getenv('ADMIN_PASSWORD')]);
 
         $content = $this->client->getResponse()->getContent();
-        self::assertStringContainsString('Adult', $content);
-        self::assertStringContainsString('Child', $content);
-        self::assertStringContainsString('Baby', $content);
+        self::assertStringContainsString('Adult name', $content);
+        self::assertStringContainsString('Child name', $content);
+        self::assertStringContainsString('Baby name', $content);
     }
 
     private function thenSongChoicePresentInAdmin(): void

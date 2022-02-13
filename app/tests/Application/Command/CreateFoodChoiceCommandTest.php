@@ -23,36 +23,36 @@ final class CreateFoodChoiceCommandTest extends CommandTestCase
         );
     }
 
-    public function test_should_create_food_choice(): void
+    public function test_it_creates_a_food_choice(): void
     {
-        $command = new CreateFoodChoiceCommand('adult', 'starter', 'Name');
+        $command = new CreateFoodChoiceCommand('adult', 'starter', 'Food choice name');
 
         ($this->handler)($command);
 
         $choice = $this->repository->get($command->getId());
 
-        self::assertTrue(FoodChoiceName::fromString('Name')->equals($choice->getName()));
+        self::assertTrue(FoodChoiceName::fromString('Food choice name')->equals($choice->getName()));
         self::assertTrue(FoodCourse::Starter->equals($choice->getCourse()));
         self::assertTrue(GuestType::Adult->equals($choice->getGuestType()));
     }
 
-    public function test_fails_to_create_food_choice_with_invalid_guest_type(): void
+    public function test_it_fails_to_create_food_choice_with_invalid_guest_type(): void
     {
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessage("Invalid guest type 'INVALID' supplied");
 
-        new CreateFoodChoiceCommand('INVALID', 'starter', 'Name');
+        new CreateFoodChoiceCommand('INVALID', 'starter', 'Food choice name');
     }
 
-    public function test_fails_to_create_food_choice_with_invalid_course(): void
+    public function test_it_fails_to_create_food_choice_with_invalid_course(): void
     {
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessage("Invalid food course 'INVALID' supplied");
 
-        new CreateFoodChoiceCommand('adult', 'INVALID', 'Name');
+        new CreateFoodChoiceCommand('adult', 'INVALID', 'Food choice name');
     }
 
-    public function test_fails_to_create_food_choice_with_empty_name(): void
+    public function test_it_fails_to_create_food_choice_with_empty_name(): void
     {
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessage('Food choices must have a name');

@@ -9,8 +9,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 final class GenerateAggregateEventDiagram extends Command
 {
     private const SNAPSHOT_FILES = [
-        __DIR__ . '/../../../../tests/Application/Command/EventStoreSnapshots/CreateFoodChoiceCommandTest/test_should_create_food_choice.json',
-        __DIR__ . '/../../../../tests/Application/Command/EventStoreSnapshots/SubmitInviteCommandTest/test_successfully_submits_pending_invite_with_all_guests_attending.json',
+        __DIR__ . '/../../../../tests/Application/Command/EventStoreSnapshots/CreateFoodChoiceCommandTest/test_it_creates_a_food_choice.json',
+        __DIR__ . '/../../../../tests/Application/Command/EventStoreSnapshots/SubmitInviteCommandTest/test_it_submits_pending_invite_with_all_guests_attending.json',
     ];
     public static $defaultName = 'documentation:aggregate-event-diagram';
 

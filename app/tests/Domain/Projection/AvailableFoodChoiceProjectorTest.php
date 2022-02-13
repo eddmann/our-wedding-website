@@ -27,7 +27,7 @@ final class AvailableFoodChoiceProjectorTest extends TestCase
         );
     }
 
-    public function test_it_adds_new_food_choice(): void
+    public function test_it_adds_a_new_food_choice(): void
     {
         $events = AggregateEvents::make()
             ->add(

@@ -5,6 +5,7 @@ namespace App\Tests\Application\Query;
 use App\Application\Query\SongChoiceListingQuery;
 use App\Domain\Helpers\AggregateEvents;
 use App\Domain\Helpers\AggregateVersion;
+use App\Domain\Model\FoodChoice\FoodChoiceId;
 use App\Domain\Model\Invite\Event\InviteWasCreated;
 use App\Domain\Model\Invite\Event\InviteWasSubmitted;
 use App\Domain\Model\Invite\Guest\ChosenFoodChoices;
@@ -44,7 +45,12 @@ final class SongChoiceListingQueryTest extends TestCase
                     InviteCode::generate(),
                     $inviteType = InviteType::Day,
                     [
-                        $guest = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Adult, GuestName::fromString('Adult Name')),
+                        $guest = InvitedGuest::createForInvite(
+                            $inviteType,
+                            GuestId::generate(),
+                            GuestType::Adult,
+                            GuestName::fromString('Adult name')
+                        ),
                     ],
                     new \DateTimeImmutable()
                 )
@@ -57,9 +63,9 @@ final class SongChoiceListingQueryTest extends TestCase
                         $guest->submit(
                             new ChosenFoodChoiceValidatorStub(),
                             ChosenFoodChoices::fromArray([
-                                'starterId' => 'e96ddf7f-0897-48f5-9534-81d596e3542f',
-                                'mainId' => '2ff8ec3a-e91b-4734-9a4a-bed588d6894f',
-                                'dessertId' => 'd53efc4d-83f3-41c3-9723-93961e245300',
+                                'starterId' => FoodChoiceId::generate()->toString(),
+                                'mainId' => FoodChoiceId::generate()->toString(),
+                                'dessertId' => FoodChoiceId::generate()->toString(),
                             ])
                         ),
                     ],

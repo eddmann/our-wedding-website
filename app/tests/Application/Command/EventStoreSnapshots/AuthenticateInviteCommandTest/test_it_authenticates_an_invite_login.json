@@ -1,45 +1,45 @@
 {
-    "generated": "2021-11-25 08:14:14.787792 +0000",
+    "generated": "2022-02-13 18:52:52.623846 +0000",
     "events": [
         {
             "name": "invite.created",
             "data": {
+                "id": "cb33b3ef-9a94-4d97-a67f-83f3528e2e45",
                 "aggregateVersion": 0,
-                "id": "d4fdbb6e-e09b-49d2-a3b5-b9b2ca252e84",
-                "inviteCode": "G1D4",
+                "inviteCode": "T7P8",
                 "inviteType": "day",
                 "invitedGuests": [
                     {
-                        "id": "891ba635-56ba-422c-b409-c449a771b0b4",
+                        "id": "bb3ec69e-b58b-4b8f-88bb-ba55a83a977f",
                         "inviteType": "day",
                         "guestType": "adult",
-                        "name": "Adult",
+                        "name": "Adult name",
                         "hasFoodChoices": true
                     },
                     {
-                        "id": "b7812d05-e8af-4520-a3a6-0b7615a3f2f8",
+                        "id": "a4698c2b-b64e-4d2f-9347-5e9a72c3409c",
                         "inviteType": "day",
                         "guestType": "child",
-                        "name": "Child",
+                        "name": "Child name",
                         "hasFoodChoices": true
                     },
                     {
-                        "id": "df6c09c0-7d3d-41cb-b62d-28c7a8344a23",
+                        "id": "448c7e51-2664-4c2b-8c3f-ff2a0473708c",
                         "inviteType": "day",
                         "guestType": "baby",
-                        "name": "Baby",
+                        "name": "Baby name",
                         "hasFoodChoices": false
                     }
                 ],
-                "occurredAt": "2021-11-25 08:14:14.759937 +0000"
+                "occurredAt": "2022-02-13 18:52:52.607831 +0000"
             }
         },
         {
             "name": "invite.authenticated",
             "data": {
+                "id": "cb33b3ef-9a94-4d97-a67f-83f3528e2e45",
                 "aggregateVersion": 1,
-                "id": "d4fdbb6e-e09b-49d2-a3b5-b9b2ca252e84",
-                "occurredAt": "2021-11-25 08:14:14.766756 +0000"
+                "occurredAt": "2022-02-13 18:52:52.613080 +0000"
             }
         }
     ]

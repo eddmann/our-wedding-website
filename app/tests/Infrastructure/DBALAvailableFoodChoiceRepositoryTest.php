@@ -36,19 +36,50 @@ final class DBALAvailableFoodChoiceRepositoryTest extends KernelTestCase
             $foodChoiceId = FoodChoiceId::generate()->toString(),
             'starter',
             'adult',
-            'Starter'
+            'Starter name'
         );
 
         $this->repository->store($choice);
 
         self::assertEquals(
-            new AvailableFoodChoice(
-                $foodChoiceId,
-                'starter',
-                'adult',
-                'Starter'
-            ),
+            $choice,
             $this->repository->get($foodChoiceId)
+        );
+    }
+
+    public function test_it_fetches_food_courses_by_guest_type(): void
+    {
+        $starter = new AvailableFoodChoice(FoodChoiceId::generate()->toString(), 'starter', 'adult', 'Starter name');
+        $main = new AvailableFoodChoice(FoodChoiceId::generate()->toString(), 'main', 'adult', 'Main name');
+        $dessert = new AvailableFoodChoice(FoodChoiceId::generate()->toString(), 'dessert', 'adult', 'Dessert name');
+
+        $this->repository->store($starter);
+        $this->repository->store($main);
+        $this->repository->store($dessert);
+
+        self::assertEquals(
+            [
+                'starter' => [$starter],
+                'main' => [$main],
+                'dessert' => [$dessert],
+            ],
+            $this->repository->getCoursesByGuestType('adult')
+        );
+    }
+
+    public function test_it_fetches_all_food_choices(): void
+    {
+        $starter = new AvailableFoodChoice(FoodChoiceId::generate()->toString(), 'starter', 'adult', 'Starter name');
+        $main = new AvailableFoodChoice(FoodChoiceId::generate()->toString(), 'main', 'adult', 'Main name');
+        $dessert = new AvailableFoodChoice(FoodChoiceId::generate()->toString(), 'dessert', 'adult', 'Dessert name');
+
+        $this->repository->store($starter);
+        $this->repository->store($main);
+        $this->repository->store($dessert);
+
+        self::assertEquals(
+            [$starter, $main, $dessert],
+            $this->repository->all()
         );
     }
 }

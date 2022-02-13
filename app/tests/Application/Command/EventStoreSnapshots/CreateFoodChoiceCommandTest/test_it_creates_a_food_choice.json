@@ -1,15 +1,15 @@
 {
-    "generated": "2021-11-21 16:32:55.922794 +0000",
+    "generated": "2022-02-13 18:52:52.639072 +0000",
     "events": [
         {
             "name": "food_choice.created",
             "data": {
+                "id": "cdc68be7-f2c1-4c7f-90f4-2bd16731613e",
                 "aggregateVersion": 0,
-                "id": "6e4e0cbf-73cf-4f2f-aa6f-192ad09478ee",
                 "guestType": "adult",
                 "course": "starter",
-                "name": "Name",
-                "occurredAt": "2021-11-21 16:32:55.901038 +0000"
+                "name": "Food choice name",
+                "occurredAt": "2022-02-13 18:52:52.633496 +0000"
             }
         }
     ]

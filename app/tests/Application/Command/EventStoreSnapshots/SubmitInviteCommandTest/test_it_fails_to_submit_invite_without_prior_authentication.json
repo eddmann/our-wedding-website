@@ -1,23 +1,23 @@
 {
-    "generated": "2021-11-25 08:29:05.448892 +0000",
+    "generated": "2022-02-13 18:52:52.733521 +0000",
     "events": [
         {
             "name": "invite.created",
             "data": {
+                "id": "17c8398e-b56c-4947-ba59-9fe44d3cb138",
                 "aggregateVersion": 0,
-                "id": "8ee3a46c-2518-424a-9916-c7d9741c472c",
-                "inviteCode": "P2G2",
+                "inviteCode": "A7Q3",
                 "inviteType": "evening",
                 "invitedGuests": [
                     {
-                        "id": "00cea6fb-76b7-4b50-a049-0deb022de85e",
+                        "id": "1c31c856-e894-4028-8908-f9020b2d4acc",
                         "inviteType": "evening",
                         "guestType": "adult",
-                        "name": "Adult",
+                        "name": "Adult name",
                         "hasFoodChoices": false
                     }
                 ],
-                "occurredAt": "2021-11-25 08:29:05.447746 +0000"
+                "occurredAt": "2022-02-13 18:52:52.731286 +0000"
             }
         }
     ]

@@ -43,7 +43,7 @@ final class AttendingGuestListingQueryTest extends TestCase
         $this->query = new AttendingGuestListingQuery($attendingGuestRepository, $foodChoiceRepository);
     }
 
-    public function test_attending_day_guests(): void
+    public function test_it_lists_attending_day_guests(): void
     {
         $choices = $this->addBaseFoodChoices();
         $invite = $this->createSubmittedWeddingInvite($choices);
@@ -51,9 +51,9 @@ final class AttendingGuestListingQueryTest extends TestCase
         self::assertEquals([
             [
                 'id' => $invite['adultId'],
-                'name' => 'Adult Name',
                 'inviteType' => 'day',
                 'guestType' => 'adult',
+                'name' => 'Adult name',
                 'chosenFoodChoices' => [
                     'Adult Starter',
                     'Adult Main',
@@ -65,7 +65,7 @@ final class AttendingGuestListingQueryTest extends TestCase
                 'id' => $invite['childId'],
                 'inviteType' => 'day',
                 'guestType' => 'child',
-                'name' => 'Child Name',
+                'name' => 'Child name',
                 'chosenFoodChoices' => [
                     'Child Starter',
                     'Child Main',
@@ -77,14 +77,14 @@ final class AttendingGuestListingQueryTest extends TestCase
                 'id' => $invite['babyId'],
                 'inviteType' => 'day',
                 'guestType' => 'baby',
-                'name' => 'Baby Name',
+                'name' => 'Baby name',
                 'chosenFoodChoices' => [],
                 'dietaryRequirements' => '',
             ],
         ], $this->query->query());
     }
 
-    public function test_attending_evening_guests(): void
+    public function test_it_lists_attending_evening_guests(): void
     {
         $invite = $this->createSubmittedEveningInvite();
 
@@ -93,7 +93,7 @@ final class AttendingGuestListingQueryTest extends TestCase
                 'id' => $invite['adultId'],
                 'inviteType' => 'evening',
                 'guestType' => 'adult',
-                'name' => 'Adult Name',
+                'name' => 'Adult name',
                 'chosenFoodChoices' => [],
                 'dietaryRequirements' => '',
             ],
@@ -101,7 +101,7 @@ final class AttendingGuestListingQueryTest extends TestCase
                 'id' => $invite['childId'],
                 'inviteType' => 'evening',
                 'guestType' => 'child',
-                'name' => 'Child Name',
+                'name' => 'Child name',
                 'chosenFoodChoices' => [],
                 'dietaryRequirements' => '',
             ],
@@ -109,7 +109,7 @@ final class AttendingGuestListingQueryTest extends TestCase
                 'id' => $invite['babyId'],
                 'inviteType' => 'evening',
                 'guestType' => 'baby',
-                'name' => 'Baby Name',
+                'name' => 'Baby name',
                 'chosenFoodChoices' => [],
                 'dietaryRequirements' => '',
             ],
@@ -126,9 +126,24 @@ final class AttendingGuestListingQueryTest extends TestCase
                     InviteCode::generate(),
                     $inviteType = InviteType::Day,
                     [
-                        $adult = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Adult, GuestName::fromString('Adult Name')),
-                        $child = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Child, GuestName::fromString('Child Name')),
-                        $baby = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Baby, GuestName::fromString('Baby Name')),
+                        $adult = InvitedGuest::createForInvite(
+                            $inviteType,
+                            GuestId::generate(),
+                            GuestType::Adult,
+                            GuestName::fromString('Adult name')
+                        ),
+                        $child = InvitedGuest::createForInvite(
+                            $inviteType,
+                            GuestId::generate(),
+                            GuestType::Child,
+                            GuestName::fromString('Child name')
+                        ),
+                        $baby = InvitedGuest::createForInvite(
+                            $inviteType,
+                            GuestId::generate(),
+                            GuestType::Baby,
+                            GuestName::fromString('Baby name')
+                        ),
                     ],
                     new \DateTimeImmutable()
                 )
@@ -182,9 +197,24 @@ final class AttendingGuestListingQueryTest extends TestCase
                     InviteCode::generate(),
                     $inviteType = InviteType::Evening,
                     [
-                        $adult = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Adult, GuestName::fromString('Adult Name')),
-                        $child = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Child, GuestName::fromString('Child Name')),
-                        $baby = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Baby, GuestName::fromString('Baby Name')),
+                        $adult = InvitedGuest::createForInvite(
+                            $inviteType,
+                            GuestId::generate(),
+                            GuestType::Adult,
+                            GuestName::fromString('Adult name')
+                        ),
+                        $child = InvitedGuest::createForInvite(
+                            $inviteType,
+                            GuestId::generate(),
+                            GuestType::Child,
+                            GuestName::fromString('Child name')
+                        ),
+                        $baby = InvitedGuest::createForInvite(
+                            $inviteType,
+                            GuestId::generate(),
+                            GuestType::Baby,
+                            GuestName::fromString('Baby name')
+                        ),
                     ],
                     new \DateTimeImmutable()
                 )

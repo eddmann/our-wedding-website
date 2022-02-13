@@ -25,14 +25,14 @@ final class CreateInviteCommandTest extends CommandTestCase
         );
     }
 
-    public function test_should_create_invite(): void
+    public function test_it_creates_an_invite(): void
     {
         $command = new CreateInviteCommand(
             'day',
             [
-                ['type' => 'adult', 'name' => 'Adult'],
-                ['type' => 'child', 'name' => 'Child'],
-                ['type' => 'baby', 'name' => 'Baby'],
+                ['type' => 'adult', 'name' => 'Adult name'],
+                ['type' => 'child', 'name' => 'Child name'],
+                ['type' => 'baby', 'name' => 'Baby name'],
             ]
         );
 
@@ -50,9 +50,9 @@ final class CreateInviteCommandTest extends CommandTestCase
         $command = new CreateInviteCommand(
             'day',
             [
-                ['type' => 'adult', 'name' => 'Adult'],
-                ['type' => 'child', 'name' => 'Child'],
-                ['type' => 'baby', 'name' => 'Baby'],
+                ['type' => 'adult', 'name' => 'Adult name'],
+                ['type' => 'child', 'name' => 'Child name'],
+                ['type' => 'baby', 'name' => 'Baby name'],
             ]
         );
 
@@ -64,31 +64,31 @@ final class CreateInviteCommandTest extends CommandTestCase
         );
     }
 
-    public function test_fails_to_create_invite_with_invalid_type(): void
+    public function test_it_fails_to_create_invite_with_invalid_type(): void
     {
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessage("Invalid invite type 'INVALID' supplied");
 
         new CreateInviteCommand(
             'INVALID',
-            [['type' => 'adult', 'name' => 'Adult']]
+            [['type' => 'adult', 'name' => 'Adult name']]
         );
     }
 
-    public function test_fails_to_create_invite_with_invalid_guest_type(): void
+    public function test_it_fails_to_create_invite_with_invalid_guest_type(): void
     {
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessage("Invalid guest type 'INVALID' supplied");
 
         $command = new CreateInviteCommand(
             'day',
-            [['type' => 'INVALID', 'name' => 'Adult']]
+            [['type' => 'INVALID', 'name' => 'Adult name']]
         );
 
         ($this->handler)($command);
     }
 
-    public function test_fails_to_create_invite_with_empty_guest_name(): void
+    public function test_it_fails_to_create_invite_with_empty_guest_name(): void
     {
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessage('Guests must have a name');
@@ -101,7 +101,7 @@ final class CreateInviteCommandTest extends CommandTestCase
         ($this->handler)($command);
     }
 
-    public function test_fails_to_create_invite_with_no_guests(): void
+    public function test_it_fails_to_create_invite_with_no_guests(): void
     {
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessage('An invite must have at least one guest');

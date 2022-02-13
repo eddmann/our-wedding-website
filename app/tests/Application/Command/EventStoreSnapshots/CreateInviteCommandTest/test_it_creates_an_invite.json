@@ -1,37 +1,37 @@
 {
-    "generated": "2021-11-21 16:32:55.953164 +0000",
+    "generated": "2022-02-13 18:52:52.659362 +0000",
     "events": [
         {
             "name": "invite.created",
             "data": {
+                "id": "64959ab6-af3a-4ec2-9618-14efffbfc299",
                 "aggregateVersion": 0,
-                "id": "93d673ee-4923-4180-8261-0a5944c780dd",
-                "inviteCode": "A5V4",
+                "inviteCode": "R5R7",
                 "inviteType": "day",
                 "invitedGuests": [
                     {
-                        "id": "93513f38-4495-46cf-a381-f16d0d30101d",
+                        "id": "e72a84fd-6ed1-496a-93b7-a2763f73dd8d",
                         "inviteType": "day",
                         "guestType": "adult",
-                        "name": "Adult",
+                        "name": "Adult name",
                         "hasFoodChoices": true
                     },
                     {
-                        "id": "de38bc68-0686-43ac-926d-a99c0e912b63",
+                        "id": "f579d90f-32b7-4813-a1f8-3fdd2814352d",
                         "inviteType": "day",
                         "guestType": "child",
-                        "name": "Child",
+                        "name": "Child name",
                         "hasFoodChoices": true
                     },
                     {
-                        "id": "25a5ed58-f211-47f0-9b9c-f42b1356430c",
+                        "id": "a837643f-9e4f-4d87-8ced-9ccb18cac6f6",
                         "inviteType": "day",
                         "guestType": "baby",
-                        "name": "Baby",
+                        "name": "Baby name",
                         "hasFoodChoices": false
                     }
                 ],
-                "occurredAt": "2021-11-21 16:32:55.946250 +0000"
+                "occurredAt": "2022-02-13 18:52:52.651245 +0000"
             }
         }
     ]

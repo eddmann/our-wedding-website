@@ -1,55 +1,55 @@
 {
-    "generated": "2021-11-25 08:29:05.441132 +0000",
+    "generated": "2022-02-13 18:52:52.716274 +0000",
     "events": [
         {
             "name": "invite.created",
             "data": {
+                "id": "95b31109-5431-4a28-9248-2ffa9ac6bafd",
                 "aggregateVersion": 0,
-                "id": "81b2b953-14ce-44db-a75f-3e91dc471204",
-                "inviteCode": "Q9H6",
+                "inviteCode": "V6D2",
                 "inviteType": "evening",
                 "invitedGuests": [
                     {
-                        "id": "722ec5ae-89b7-4532-bff6-20c0aaef4a76",
+                        "id": "392f8a28-d8ad-44da-9490-9c0aef46e3ab",
                         "inviteType": "evening",
                         "guestType": "adult",
-                        "name": "Adult",
+                        "name": "Adult name",
                         "hasFoodChoices": false
                     },
                     {
-                        "id": "3d61db5c-118d-4c95-94a9-0f1f5bc897e9",
+                        "id": "8bfbff7f-9c36-4e27-b352-e2f3be7867ae",
                         "inviteType": "evening",
                         "guestType": "child",
-                        "name": "Child",
+                        "name": "Child name",
                         "hasFoodChoices": false
                     },
                     {
-                        "id": "37801cf4-70ad-49de-adcd-462537fc17d5",
+                        "id": "2eedba82-3573-408c-83c6-ff72b843eb11",
                         "inviteType": "evening",
                         "guestType": "baby",
-                        "name": "Baby",
+                        "name": "Baby name",
                         "hasFoodChoices": false
                     }
                 ],
-                "occurredAt": "2021-11-25 08:29:05.438346 +0000"
+                "occurredAt": "2022-02-13 18:52:52.712140 +0000"
             }
         },
         {
             "name": "invite.authenticated",
             "data": {
+                "id": "95b31109-5431-4a28-9248-2ffa9ac6bafd",
                 "aggregateVersion": 1,
-                "id": "81b2b953-14ce-44db-a75f-3e91dc471204",
-                "occurredAt": "2021-11-25 08:29:05.438526 +0000"
+                "occurredAt": "2022-02-13 18:52:52.712343 +0000"
             }
         },
         {
             "name": "invite.submitted",
             "data": {
+                "id": "95b31109-5431-4a28-9248-2ffa9ac6bafd",
                 "aggregateVersion": 2,
-                "id": "81b2b953-14ce-44db-a75f-3e91dc471204",
                 "attendingGuests": [],
                 "songChoices": [],
-                "occurredAt": "2021-11-25 08:29:05.438618 +0000"
+                "occurredAt": "2022-02-13 18:52:52.712462 +0000"
             }
         }
     ]

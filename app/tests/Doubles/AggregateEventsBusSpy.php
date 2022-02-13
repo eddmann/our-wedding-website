@@ -7,7 +7,7 @@ use App\Domain\Helpers\AggregateEventsBus;
 
 final class AggregateEventsBusSpy implements AggregateEventsBus
 {
-    private ?AggregateEvents $events;
+    private ?AggregateEvents $events = null;
 
     public function getLastEvents(): ?AggregateEvents
     {

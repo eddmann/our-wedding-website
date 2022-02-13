@@ -35,7 +35,7 @@ final class DBALSentInviteRepositoryTest extends KernelTestCase
     {
         $invite = new SentInvite(
             $inviteId = InviteId::generate()->toString(),
-            $inviteCode = InviteCode::generate()->toString(),
+            InviteCode::generate()->toString(),
             'day',
             []
         );
@@ -43,12 +43,7 @@ final class DBALSentInviteRepositoryTest extends KernelTestCase
         $this->repository->store($invite);
 
         self::assertEquals(
-            new SentInvite(
-                $inviteId,
-                $inviteCode,
-                'day',
-                []
-            ),
+            $invite,
             $this->repository->get($inviteId)
         );
     }
@@ -57,26 +52,37 @@ final class DBALSentInviteRepositoryTest extends KernelTestCase
     {
         $invite = new SentInvite(
             $inviteId = InviteId::generate()->toString(),
-            $inviteCode = InviteCode::generate()->toString(),
+            InviteCode::generate()->toString(),
             'day',
             []
         );
 
         $this->repository->store($invite);
 
-        $invite->submitted($submittedAt = new \DateTimeImmutable());
+        $invite->submitted(new \DateTimeImmutable());
 
         $this->repository->store($invite);
 
         self::assertEquals(
-            new SentInvite(
-                $inviteId,
-                $inviteCode,
-                'day',
-                [],
-                $submittedAt
-            ),
+            $invite,
             $this->repository->get($inviteId)
+        );
+    }
+
+    public function test_it_fetches_all_sent_invites(): void
+    {
+        $invite = new SentInvite(
+            InviteId::generate()->toString(),
+            InviteCode::generate()->toString(),
+            'day',
+            []
+        );
+
+        $this->repository->store($invite);
+
+        self::assertEquals(
+            [$invite],
+            $this->repository->all()
         );
     }
 }

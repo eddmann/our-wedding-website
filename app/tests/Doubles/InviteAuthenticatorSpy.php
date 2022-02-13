@@ -8,7 +8,7 @@ use App\Domain\Model\Invite\InviteType;
 
 final class InviteAuthenticatorSpy implements InviteAuthenticator
 {
-    private ?InviteId $id;
+    private ?InviteId $id = null;
 
     public function getLastLoginInviteId(): ?InviteId
     {

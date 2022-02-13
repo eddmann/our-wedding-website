@@ -7,7 +7,7 @@ use App\Domain\Helpers\DomainEventBus;
 
 final class DomainEventBusSpy implements DomainEventBus
 {
-    private ?DomainEvent $event;
+    private ?DomainEvent $event = null;
 
     public function getLastEvent(): ?DomainEvent
     {

@@ -49,12 +49,7 @@ final class DBALEventStoreTest extends KernelTestCase
             $this->eventStore->get($invite->getAggregateName(), $invite->getAggregateId())
         );
 
-        self::assertTrue($invite->getAggregateName()->equals($hydrated->getAggregateName()));
-        self::assertTrue($invite->getAggregateVersion()->equals($hydrated->getAggregateVersion()));
-        self::assertTrue($invite->getAggregateId()->equals($hydrated->getAggregateId()));
-        self::assertTrue($invite->getInviteType()->equals($hydrated->getInviteType()));
-        self::assertTrue($invite->getInviteCode()->equals($hydrated->getInviteCode()));
-        self::assertEquals($invite->getInvitedGuests(), $hydrated->getInvitedGuests());
+        self::assertEquals($invite, $hydrated);
     }
 
     public function test_it_publishes_stored_events_to_the_bus(): void
@@ -71,24 +66,20 @@ final class DBALEventStoreTest extends KernelTestCase
         [,$eventsC] = $this->createInvite();
 
         $stream = $this->eventStore->stream(EventStreamPointer::beginning(), 1);
-
         self::assertEquals(EventStreamPointer::fromInt(1), $stream->getNextPointer());
         self::assertEquals($eventsA, $stream->getEvents());
 
         $stream = $this->eventStore->stream($stream->getNextPointer(), 1);
-
         self::assertEquals(EventStreamPointer::fromInt(2), $stream->getNextPointer());
         self::assertEquals($eventsB, $stream->getEvents());
 
         $stream = $this->eventStore->stream($stream->getNextPointer(), 1);
-
         self::assertEquals(EventStreamPointer::fromInt(3), $stream->getNextPointer());
         self::assertEquals($eventsC, $stream->getEvents());
 
         $stream = $this->eventStore->stream($stream->getNextPointer(), 1);
-
         self::assertEquals(EventStreamPointer::fromInt(3), $stream->getNextPointer());
-        self::assertCount(0, $stream->getEvents());
+        self::assertTrue($stream->getEvents()->isEmpty());
     }
 
     public function test_it_returns_last_event_pointer_if_stream_has_been_exhausted(): void
@@ -110,9 +101,24 @@ final class DBALEventStoreTest extends KernelTestCase
             InviteCode::generate(),
             $inviteType = InviteType::Day,
             [
-                InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Adult, GuestName::fromString('Adult Name')),
-                InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Child, GuestName::fromString('Child Name')),
-                InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Baby, GuestName::fromString('Baby Name')),
+                InvitedGuest::createForInvite(
+                    $inviteType,
+                    GuestId::generate(),
+                    GuestType::Adult,
+                    GuestName::fromString('Adult name')
+                ),
+                InvitedGuest::createForInvite(
+                    $inviteType,
+                    GuestId::generate(),
+                    GuestType::Child,
+                    GuestName::fromString('Child name')
+                ),
+                InvitedGuest::createForInvite(
+                    $inviteType,
+                    GuestId::generate(),
+                    GuestType::Baby,
+                    GuestName::fromString('Baby name')
+                ),
             ]
         );
 

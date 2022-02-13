@@ -53,7 +53,7 @@ final class InviteRsvpQueryTest extends TestCase
         );
     }
 
-    public function test_pending_day_invite(): void
+    public function test_it_returns_pending_day_invite(): void
     {
         $choices = $this->addBaseFoodChoices();
         $invite = $this->createPendingWeddingInvite();
@@ -64,7 +64,7 @@ final class InviteRsvpQueryTest extends TestCase
             'guests' => [
                 [
                     'id' => $invite['adultId'],
-                    'name' => 'Adult Name',
+                    'name' => 'Adult name',
                     'foodChoices' => [
                         'starter' => [['id' => $choices['adultStarterId'], 'name' => 'Adult Starter']],
                         'main' => [['id' => $choices['adultMainId'], 'name' => 'Adult Main']],
@@ -73,7 +73,7 @@ final class InviteRsvpQueryTest extends TestCase
                 ],
                 [
                     'id' => $invite['childId'],
-                    'name' => 'Child Name',
+                    'name' => 'Child name',
                     'foodChoices' => [
                         'starter' => [['id' => $choices['childStarterId'], 'name' => 'Child Starter']],
                         'main' => [['id' => $choices['childMainId'], 'name' => 'Child Main']],
@@ -82,14 +82,14 @@ final class InviteRsvpQueryTest extends TestCase
                 ],
                 [
                     'id' => $invite['babyId'],
-                    'name' => 'Baby Name',
+                    'name' => 'Baby name',
                     'foodChoices' => [],
                 ],
             ],
         ], $this->query->query($invite['inviteId']));
     }
 
-    public function test_pending_evening_invite(): void
+    public function test_it_returns_pending_evening_invite(): void
     {
         $invite = $this->createPendingEveningInvite();
 
@@ -99,24 +99,24 @@ final class InviteRsvpQueryTest extends TestCase
             'guests' => [
                 [
                     'id' => $invite['adultId'],
-                    'name' => 'Adult Name',
+                    'name' => 'Adult name',
                     'foodChoices' => [],
                 ],
                 [
                     'id' => $invite['childId'],
-                    'name' => 'Child Name',
+                    'name' => 'Child name',
                     'foodChoices' => [],
                 ],
                 [
                     'id' => $invite['babyId'],
-                    'name' => 'Baby Name',
+                    'name' => 'Baby name',
                     'foodChoices' => [],
                 ],
             ],
         ], $this->query->query($invite['inviteId']));
     }
 
-    public function test_submitted_day_invite(): void
+    public function test_it_returns_submitted_day_invite(): void
     {
         $choices = $this->addBaseFoodChoices();
         $invite = $this->createSubmittedWeddingInvite($choices);
@@ -127,24 +127,24 @@ final class InviteRsvpQueryTest extends TestCase
             'guests' => [
                 [
                     'id' => $invite['adultId'],
-                    'name' => 'Adult Name',
+                    'name' => 'Adult name',
                     'chosenFoodChoices' => ['Adult Starter', 'Adult Main', 'Adult Dessert'],
                 ],
                 [
                     'id' => $invite['childId'],
-                    'name' => 'Child Name',
+                    'name' => 'Child name',
                     'chosenFoodChoices' => ['Child Starter', 'Child Main', 'Child Dessert'],
                 ],
                 [
                     'id' => $invite['babyId'],
-                    'name' => 'Baby Name',
+                    'name' => 'Baby name',
                     'chosenFoodChoices' => [],
                 ],
             ],
         ], $this->query->query($invite['inviteId']));
     }
 
-    public function test_submitted_evening_invite(): void
+    public function test_it_returns_submitted_evening_invite(): void
     {
         $invite = $this->createSubmittedEveningInvite();
 
@@ -154,17 +154,17 @@ final class InviteRsvpQueryTest extends TestCase
             'guests' => [
                 [
                     'id' => $invite['adultId'],
-                    'name' => 'Adult Name',
+                    'name' => 'Adult name',
                     'chosenFoodChoices' => [],
                 ],
                 [
                     'id' => $invite['childId'],
-                    'name' => 'Child Name',
+                    'name' => 'Child name',
                     'chosenFoodChoices' => [],
                 ],
                 [
                     'id' => $invite['babyId'],
-                    'name' => 'Baby Name',
+                    'name' => 'Baby name',
                     'chosenFoodChoices' => [],
                 ],
             ],
@@ -181,9 +181,24 @@ final class InviteRsvpQueryTest extends TestCase
                     InviteCode::generate(),
                     $inviteType = InviteType::Day,
                     [
-                        $adult = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Adult, GuestName::fromString('Adult Name')),
-                        $child = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Child, GuestName::fromString('Child Name')),
-                        $baby = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Baby, GuestName::fromString('Baby Name')),
+                        $adult = InvitedGuest::createForInvite(
+                            $inviteType,
+                            GuestId::generate(),
+                            GuestType::Adult,
+                            GuestName::fromString('Adult name')
+                        ),
+                        $child = InvitedGuest::createForInvite(
+                            $inviteType,
+                            GuestId::generate(),
+                            GuestType::Child,
+                            GuestName::fromString('Child name')
+                        ),
+                        $baby = InvitedGuest::createForInvite(
+                            $inviteType,
+                            GuestId::generate(),
+                            GuestType::Baby,
+                            GuestName::fromString('Baby name')
+                        ),
                     ],
                     new \DateTimeImmutable()
                 )
@@ -210,9 +225,24 @@ final class InviteRsvpQueryTest extends TestCase
                     InviteCode::generate(),
                     $inviteType = InviteType::Evening,
                     [
-                        $adult = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Adult, GuestName::fromString('Adult Name')),
-                        $child = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Child, GuestName::fromString('Child Name')),
-                        $baby = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Baby, GuestName::fromString('Baby Name')),
+                        $adult = InvitedGuest::createForInvite(
+                            $inviteType,
+                            GuestId::generate(),
+                            GuestType::Adult,
+                            GuestName::fromString('Adult name')
+                        ),
+                        $child = InvitedGuest::createForInvite(
+                            $inviteType,
+                            GuestId::generate(),
+                            GuestType::Child,
+                            GuestName::fromString('Child name')
+                        ),
+                        $baby = InvitedGuest::createForInvite(
+                            $inviteType,
+                            GuestId::generate(),
+                            GuestType::Baby,
+                            GuestName::fromString('Baby name')
+                        ),
                     ],
                     new \DateTimeImmutable()
                 )
@@ -239,9 +269,24 @@ final class InviteRsvpQueryTest extends TestCase
                     InviteCode::generate(),
                     $inviteType = InviteType::Day,
                     [
-                        $adult = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Adult, GuestName::fromString('Adult Name')),
-                        $child = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Child, GuestName::fromString('Child Name')),
-                        $baby = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Baby, GuestName::fromString('Baby Name')),
+                        $adult = InvitedGuest::createForInvite(
+                            $inviteType,
+                            GuestId::generate(),
+                            GuestType::Adult,
+                            GuestName::fromString('Adult name')
+                        ),
+                        $child = InvitedGuest::createForInvite(
+                            $inviteType,
+                            GuestId::generate(),
+                            GuestType::Child,
+                            GuestName::fromString('Child name')
+                        ),
+                        $baby = InvitedGuest::createForInvite(
+                            $inviteType,
+                            GuestId::generate(),
+                            GuestType::Baby,
+                            GuestName::fromString('Baby name')
+                        ),
                     ],
                     new \DateTimeImmutable()
                 )
@@ -295,9 +340,24 @@ final class InviteRsvpQueryTest extends TestCase
                     InviteCode::generate(),
                     $inviteType = InviteType::Evening,
                     [
-                        $adult = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Adult, GuestName::fromString('Adult Name')),
-                        $child = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Child, GuestName::fromString('Child Name')),
-                        $baby = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Baby, GuestName::fromString('Baby Name')),
+                        $adult = InvitedGuest::createForInvite(
+                            $inviteType,
+                            GuestId::generate(),
+                            GuestType::Adult,
+                            GuestName::fromString('Adult name')
+                        ),
+                        $child = InvitedGuest::createForInvite(
+                            $inviteType,
+                            GuestId::generate(),
+                            GuestType::Child,
+                            GuestName::fromString('Child name')
+                        ),
+                        $baby = InvitedGuest::createForInvite(
+                            $inviteType,
+                            GuestId::generate(),
+                            GuestType::Baby,
+                            GuestName::fromString('Baby name')
+                        ),
                     ],
                     new \DateTimeImmutable()
                 )

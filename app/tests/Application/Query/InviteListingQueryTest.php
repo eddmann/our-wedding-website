@@ -43,7 +43,7 @@ final class InviteListingQueryTest extends TestCase
                 'type' => 'evening',
                 'status' => 'pending',
                 'code' => $pendingEveningInvite['code'],
-                'invitedGuests' => ['Adult Name'],
+                'invitedGuests' => ['Adult name'],
                 'submittedAt' => null,
                 'lastAuthenticatedAt' => null,
             ],
@@ -52,7 +52,7 @@ final class InviteListingQueryTest extends TestCase
                 'type' => 'evening',
                 'status' => 'submitted',
                 'code' => $submittedEveningInvite['code'],
-                'invitedGuests' => ['Adult Name'],
+                'invitedGuests' => ['Adult name'],
                 'submittedAt' => $submittedEveningInvite['submittedAt'],
                 'lastAuthenticatedAt' => $submittedEveningInvite['authenticatedAt'],
             ],
@@ -69,7 +69,12 @@ final class InviteListingQueryTest extends TestCase
                     $inviteCode = InviteCode::generate(),
                     $inviteType = InviteType::Evening,
                     [
-                        InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Adult, GuestName::fromString('Adult Name')),
+                        InvitedGuest::createForInvite(
+                            $inviteType,
+                            GuestId::generate(),
+                            GuestType::Adult,
+                            GuestName::fromString('Adult name')
+                        ),
                     ],
                     new \DateTimeImmutable()
                 )
@@ -93,7 +98,12 @@ final class InviteListingQueryTest extends TestCase
                     $inviteCode = InviteCode::generate(),
                     $inviteType = InviteType::Evening,
                     [
-                        InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Adult, GuestName::fromString('Adult Name')),
+                        InvitedGuest::createForInvite(
+                            $inviteType,
+                            GuestId::generate(),
+                            GuestType::Adult,
+                            GuestName::fromString('Adult name')
+                        ),
                     ],
                     new \DateTimeImmutable()
                 )

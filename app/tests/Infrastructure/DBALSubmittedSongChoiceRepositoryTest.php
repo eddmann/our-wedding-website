@@ -34,15 +34,13 @@ final class DBALSubmittedSongChoiceRepositoryTest extends KernelTestCase
         $choice = new SubmittedSongChoice(
             'ARTIST_NAME',
             'TRACK_NAME',
-            $submittedAt = new \DateTimeImmutable()
+            new \DateTimeImmutable()
         );
 
         $this->repository->store($choice);
 
         self::assertEquals(
-            [
-                new SubmittedSongChoice('ARTIST_NAME', 'TRACK_NAME', $submittedAt),
-            ],
+            [$choice],
             $this->repository->all()
         );
     }

@@ -36,9 +36,9 @@ final class AuthenticateInviteCommandTest extends CommandTestCase
             new CreateInviteCommand(
                 'day',
                 [
-                    ['type' => 'adult', 'name' => 'Adult'],
-                    ['type' => 'child', 'name' => 'Child'],
-                    ['type' => 'baby', 'name' => 'Baby'],
+                    ['type' => 'adult', 'name' => 'Adult name'],
+                    ['type' => 'child', 'name' => 'Child name'],
+                    ['type' => 'baby', 'name' => 'Baby name'],
                 ]
             )
         );
@@ -53,7 +53,7 @@ final class AuthenticateInviteCommandTest extends CommandTestCase
         self::assertTrue($invite->getAggregateId()->equals($this->authenticator->getLastLoginInviteId()));
     }
 
-    public function test_it_is_unable_to_authenticate_invite_with_invalid_code(): void
+    public function test_it_fails_to_authenticate_invite_with_invalid_code(): void
     {
         $this->expectException(InviteCodeNotFound::class);
 

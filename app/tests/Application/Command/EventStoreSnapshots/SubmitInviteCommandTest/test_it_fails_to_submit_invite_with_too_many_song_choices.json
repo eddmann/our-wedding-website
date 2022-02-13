@@ -1,31 +1,31 @@
 {
-    "generated": "2021-11-25 08:29:05.462145 +0000",
+    "generated": "2022-02-13 18:52:52.774924 +0000",
     "events": [
         {
             "name": "invite.created",
             "data": {
+                "id": "cbaabeff-d067-4d88-bbf4-860b401f0b46",
                 "aggregateVersion": 0,
-                "id": "a6d007a1-ea61-42f5-a019-605daed34b89",
-                "inviteCode": "K8A3",
+                "inviteCode": "J1M5",
                 "inviteType": "evening",
                 "invitedGuests": [
                     {
-                        "id": "9f26e166-8996-45c7-913e-8af0dbf67f33",
+                        "id": "9155097e-af76-4e0b-9b03-39956fb155db",
                         "inviteType": "evening",
                         "guestType": "adult",
-                        "name": "Adult",
+                        "name": "Adult name",
                         "hasFoodChoices": false
                     }
                 ],
-                "occurredAt": "2021-11-25 08:29:05.460101 +0000"
+                "occurredAt": "2022-02-13 18:52:52.772459 +0000"
             }
         },
         {
             "name": "invite.authenticated",
             "data": {
+                "id": "cbaabeff-d067-4d88-bbf4-860b401f0b46",
                 "aggregateVersion": 1,
-                "id": "a6d007a1-ea61-42f5-a019-605daed34b89",
-                "occurredAt": "2021-11-25 08:29:05.460431 +0000"
+                "occurredAt": "2022-02-13 18:52:52.772631 +0000"
             }
         }
     ]

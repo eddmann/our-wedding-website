@@ -44,7 +44,12 @@ final class SentInviteProjectorTest extends TestCase
                     $inviteCode = InviteCode::generate(),
                     $inviteType = InviteType::Day,
                     [
-                        $guest = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Adult, GuestName::fromString('Adult Name')),
+                        $guest = InvitedGuest::createForInvite(
+                            $inviteType,
+                            GuestId::generate(),
+                            GuestType::Adult,
+                            GuestName::fromString('Adult name')
+                        ),
                     ],
                     new \DateTimeImmutable()
                 )
@@ -83,7 +88,13 @@ final class SentInviteProjectorTest extends TestCase
                     InviteCode::generate(),
                     $inviteType = InviteType::Day,
                     [
-                        $guest = InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Adult, GuestName::fromString('Adult Name')), ],
+                        $guest = InvitedGuest::createForInvite(
+                            $inviteType,
+                            GuestId::generate(),
+                            GuestType::Adult,
+                            GuestName::fromString('Adult name')
+                        ),
+                    ],
                     new \DateTimeImmutable()
                 )
             )
@@ -124,7 +135,12 @@ final class SentInviteProjectorTest extends TestCase
                     InviteCode::generate(),
                     $inviteType = InviteType::Day,
                     [
-                        InvitedGuest::createForInvite($inviteType, GuestId::generate(), GuestType::Adult, GuestName::fromString('Adult Name')),
+                        InvitedGuest::createForInvite(
+                            $inviteType,
+                            GuestId::generate(),
+                            GuestType::Adult,
+                            GuestName::fromString('Adult name')
+                        ),
                     ],
                     new \DateTimeImmutable()
                 )

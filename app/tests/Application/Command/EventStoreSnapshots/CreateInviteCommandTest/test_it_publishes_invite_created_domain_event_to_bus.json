@@ -1,37 +1,37 @@
 {
-    "generated": "2021-11-21 16:32:55.957832 +0000",
+    "generated": "2022-02-13 18:52:52.667004 +0000",
     "events": [
         {
             "name": "invite.created",
             "data": {
+                "id": "1bbdff66-cdf0-4723-a6ad-e7bad9f0459e",
                 "aggregateVersion": 0,
-                "id": "be7e20f7-491d-4b04-8a4c-9cfb940b0bf3",
-                "inviteCode": "U4Q1",
+                "inviteCode": "Q8L7",
                 "inviteType": "day",
                 "invitedGuests": [
                     {
-                        "id": "ea44536d-8075-4ba7-a691-26b49e3159b5",
+                        "id": "2e5ba17b-6060-4a02-9707-6c7830b04ed2",
                         "inviteType": "day",
                         "guestType": "adult",
-                        "name": "Adult",
+                        "name": "Adult name",
                         "hasFoodChoices": true
                     },
                     {
-                        "id": "630790b4-fb63-42f5-b94e-845c9f15e8e6",
+                        "id": "7239f617-0f25-4a78-bd6c-18d5aace198d",
                         "inviteType": "day",
                         "guestType": "child",
-                        "name": "Child",
+                        "name": "Child name",
                         "hasFoodChoices": true
                     },
                     {
-                        "id": "493f7bc8-571a-4965-912c-b16d4ffc8ecd",
+                        "id": "061e7d8d-fbd8-464c-a592-6f91b1a7333b",
                         "inviteType": "day",
                         "guestType": "baby",
-                        "name": "Baby",
+                        "name": "Baby name",
                         "hasFoodChoices": false
                     }
                 ],
-                "occurredAt": "2021-11-21 16:32:55.956044 +0000"
+                "occurredAt": "2022-02-13 18:52:52.664632 +0000"
             }
         }
     ]
