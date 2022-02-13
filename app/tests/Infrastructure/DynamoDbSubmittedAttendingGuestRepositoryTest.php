@@ -5,8 +5,6 @@ namespace App\Tests\Infrastructure;
 use App\Domain\Model\FoodChoice\FoodChoiceId;
 use App\Domain\Model\Invite\Guest\GuestId;
 use App\Domain\Model\Invite\InviteId;
-use App\Domain\Model\Invite\InviteType;
-use App\Domain\Model\Shared\GuestType;
 use App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuest;
 use App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuestRepository;
 use App\Infrastructure\DynamoDbSubmittedAttendingGuestRepository;
@@ -39,8 +37,8 @@ final class DynamoDbSubmittedAttendingGuestRepositoryTest extends KernelTestCase
         $guest = new SubmittedAttendingGuest(
             $guestId = GuestId::generate()->toString(),
             InviteId::generate()->toString(),
-            InviteType::Day->toString(),
-            GuestType::Adult->toString(),
+            'day',
+            'adult',
             'Guest name',
             [
                 'starterId' => FoodChoiceId::generate()->toString(),
@@ -62,8 +60,8 @@ final class DynamoDbSubmittedAttendingGuestRepositoryTest extends KernelTestCase
         $guest = new SubmittedAttendingGuest(
             GuestId::generate()->toString(),
             $inviteId = InviteId::generate()->toString(),
-            InviteType::Day->toString(),
-            GuestType::Adult->toString(),
+            'day',
+            'adult',
             'Guest name',
             [
                 'starterId' => FoodChoiceId::generate()->toString(),
@@ -85,8 +83,8 @@ final class DynamoDbSubmittedAttendingGuestRepositoryTest extends KernelTestCase
         $guest = new SubmittedAttendingGuest(
             GuestId::generate()->toString(),
             InviteId::generate()->toString(),
-            InviteType::Day->toString(),
-            GuestType::Adult->toString(),
+            'day',
+            'adult',
             'Guest name',
             [
                 'starterId' => FoodChoiceId::generate()->toString(),

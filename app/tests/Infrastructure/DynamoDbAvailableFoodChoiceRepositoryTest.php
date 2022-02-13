@@ -36,7 +36,7 @@ final class DynamoDbAvailableFoodChoiceRepositoryTest extends KernelTestCase
             $foodChoiceId = FoodChoiceId::generate()->toString(),
             'starter',
             'adult',
-            'Starter'
+            'Starter name'
         );
 
         $this->repository->store($choice);
@@ -49,9 +49,9 @@ final class DynamoDbAvailableFoodChoiceRepositoryTest extends KernelTestCase
 
     public function test_it_fetches_food_courses_by_guest_type(): void
     {
-        $starter = new AvailableFoodChoice(FoodChoiceId::generate()->toString(), 'starter', 'adult', 'Starter');
-        $main = new AvailableFoodChoice(FoodChoiceId::generate()->toString(), 'main', 'adult', 'Main');
-        $dessert = new AvailableFoodChoice(FoodChoiceId::generate()->toString(), 'dessert', 'adult', 'Dessert');
+        $starter = new AvailableFoodChoice(FoodChoiceId::generate()->toString(), 'starter', 'adult', 'Starter name');
+        $main = new AvailableFoodChoice(FoodChoiceId::generate()->toString(), 'main', 'adult', 'Main name');
+        $dessert = new AvailableFoodChoice(FoodChoiceId::generate()->toString(), 'dessert', 'adult', 'Dessert name');
 
         $this->repository->store($starter);
         $this->repository->store($main);
@@ -69,9 +69,9 @@ final class DynamoDbAvailableFoodChoiceRepositoryTest extends KernelTestCase
 
     public function test_it_fetches_all_food_choices(): void
     {
-        $starter = new AvailableFoodChoice(FoodChoiceId::generate()->toString(), 'starter', 'adult', 'Starter');
-        $main = new AvailableFoodChoice(FoodChoiceId::generate()->toString(), 'main', 'adult', 'Main');
-        $dessert = new AvailableFoodChoice(FoodChoiceId::generate()->toString(), 'dessert', 'adult', 'Dessert');
+        $starter = new AvailableFoodChoice(FoodChoiceId::generate()->toString(), 'starter', 'adult', 'Starter name');
+        $main = new AvailableFoodChoice(FoodChoiceId::generate()->toString(), 'main', 'adult', 'Main name');
+        $dessert = new AvailableFoodChoice(FoodChoiceId::generate()->toString(), 'dessert', 'adult', 'Dessert name');
 
         $this->repository->store($starter);
         $this->repository->store($main);
