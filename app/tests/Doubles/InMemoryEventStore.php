@@ -45,10 +45,11 @@ final class InMemoryEventStore implements EventStore, InviteCodeToIdFinder
 
     public function stream(EventStreamPointer $start, int $limit): AggregateEventStream
     {
-        $stream = \array_slice(\iterator_to_array($this->events), $start->toInt(), $limit);
+        $offset = (int) $start->toString('0');
+        $stream = \array_slice(\iterator_to_array($this->events), $offset, $limit);
 
         return new AggregateEventStream(
-            EventStreamPointer::fromInt($start->toInt() + \count($stream)),
+            EventStreamPointer::fromString((string) ($offset + \count($stream))),
             \array_reduce(
                 $stream,
                 fn (AggregateEvents $events, AggregateEvent $event) => $events->add($this->toSerializedAndBack($event)),

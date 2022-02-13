@@ -78,13 +78,15 @@ final class DBALEventStore implements EventStore
             OFFSET :offset
         ');
 
+        $offset = (int) $start->toString('0');
+
         $result = $statement->executeQuery([
             'limit' => $limit,
-            'offset' => $start->toInt(),
+            'offset' => $offset,
         ]);
 
         return new AggregateEventStream(
-            EventStreamPointer::fromInt($start->toInt() + $result->rowCount()),
+            EventStreamPointer::fromString((string) ($offset + $result->rowCount())),
             \array_reduce(
                 $result->fetchAllAssociative(),
                 static fn (AggregateEvents $events, array $event) => $events->add(AggregateEventFactory::fromSerialized($event['name'], $event['data'])),

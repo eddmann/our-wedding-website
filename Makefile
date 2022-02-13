@@ -40,15 +40,14 @@ encore: yarn ## Watches for CSS/JS changes and auto-transpiles them
 
 .PHONY: db
 db: ## (Re)creates the development database (with migrations)
-	$(APP) bin/console doctrine:database:drop --force --if-exists
-	$(APP) bin/console doctrine:database:create -n
-	$(APP) bin/console doctrine:migrations:migrate -n --allow-no-migration
+	$(APP) bin/console app:create-dynamodb-schema --force
 
 .PHONY: test-db
 test-db: ## (Re)creates the test database (with migrations)
 	$(APP) bin/console doctrine:database:drop --force --if-exists --env=test
 	$(APP) bin/console doctrine:database:create -n --env=test
 	$(APP) bin/console doctrine:migrations:migrate -n --allow-no-migration --quiet --env=test
+	$(APP) bin/console app:create-dynamodb-schema --force --env=test
 
 .PHONY: clean
 clean: ## Remove all untracked/changed files

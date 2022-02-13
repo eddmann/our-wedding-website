@@ -1,5 +1,12 @@
 parameters:
     env(AWS_REGION): eu-west-1
+    event_table_name: '%env(DYNAMODB_EVENT_TABLE)%'
+    projection_table_name: '%env(DYNAMODB_PROJECTION_TABLE)%'
+
+when@test:
+    parameters:
+        event_table_name: '%env(DYNAMODB_EVENT_TABLE)%-test'
+        projection_table_name: '%env(DYNAMODB_PROJECTION_TABLE)%-test'
 
 services:
     _defaults:
@@ -43,6 +50,29 @@ services:
             - '@async_aws.http_client'
             - '@logger'
 
+    AsyncAws\DynamoDb\DynamoDbClient:
+        public: true
+        arguments:
+            - {
+                region: '%env(AWS_REGION)%',
+                endpoint: '%env(DYNAMODB_ENDPOINT)%',
+            }
+            - ~
+            - '@async_aws.http_client'
+            - '@logger'
+
     App\Infrastructure\AwsSecretsManagerEnvVarProcessor:
         arguments:
             - '@AsyncAws\SecretsManager\SecretsManagerClient'
+
+    App\Ui\Cli\CreateDynamoDbSchemaCommand:
+        arguments:
+            $eventTableName: '%event_table_name%'
+            $projectionTableName: '%projection_table_name%'
+
+    App\Infrastructure\DynamoDbEventStore:
+        arguments:
+            $tableName: '%event_table_name%'
+
+    App\Domain\Helpers\EventStore:
+        alias: 'App\Infrastructure\DynamoDbEventStore'

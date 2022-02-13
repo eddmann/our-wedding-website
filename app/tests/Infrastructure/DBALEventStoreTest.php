@@ -66,19 +66,19 @@ final class DBALEventStoreTest extends KernelTestCase
         [,$eventsC] = $this->createInvite();
 
         $stream = $this->eventStore->stream(EventStreamPointer::beginning(), 1);
-        self::assertEquals(EventStreamPointer::fromInt(1), $stream->getNextPointer());
+        self::assertEquals(EventStreamPointer::fromString('1'), $stream->getNextPointer());
         self::assertEquals($eventsA, $stream->getEvents());
 
         $stream = $this->eventStore->stream($stream->getNextPointer(), 1);
-        self::assertEquals(EventStreamPointer::fromInt(2), $stream->getNextPointer());
+        self::assertEquals(EventStreamPointer::fromString('2'), $stream->getNextPointer());
         self::assertEquals($eventsB, $stream->getEvents());
 
         $stream = $this->eventStore->stream($stream->getNextPointer(), 1);
-        self::assertEquals(EventStreamPointer::fromInt(3), $stream->getNextPointer());
+        self::assertEquals(EventStreamPointer::fromString('3'), $stream->getNextPointer());
         self::assertEquals($eventsC, $stream->getEvents());
 
         $stream = $this->eventStore->stream($stream->getNextPointer(), 1);
-        self::assertEquals(EventStreamPointer::fromInt(3), $stream->getNextPointer());
+        self::assertEquals(EventStreamPointer::fromString('3'), $stream->getNextPointer());
         self::assertTrue($stream->getEvents()->isEmpty());
     }
 
@@ -90,7 +90,7 @@ final class DBALEventStoreTest extends KernelTestCase
 
         $stream = $this->eventStore->stream(EventStreamPointer::beginning(), 5);
 
-        self::assertEquals(EventStreamPointer::fromInt(3), $stream->getNextPointer());
+        self::assertEquals(EventStreamPointer::fromString('3'), $stream->getNextPointer());
     }
 
     /** @psalm-return array{Invite, AggregateEvents} */

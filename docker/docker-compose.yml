@@ -26,6 +26,7 @@ services:
       - ../app:/var/task
     depends_on:
       - postgres
+      - dynamodb
     networks:
       - app
     environment:
@@ -37,6 +38,11 @@ services:
       EMAIL_NOTIFIER_FROM: 'from@email.com'
       ADMIN_PASSWORD: password
       PAGE_CONTENT: '{}'
+      DYNAMODB_ENDPOINT: 'http://dynamodb:8000'
+      DYNAMODB_EVENT_TABLE: 'event-store'
+      DYNAMODB_PROJECTION_TABLE: 'projections'
+      AWS_ACCESS_KEY_ID: id
+      AWS_SECRET_ACCESS_KEY: key
 
   postgres:
     image: docker.io/postgres:10.14-alpine
@@ -52,6 +58,19 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: db
       TZ: Europe/London
+
+  dynamodb:
+    image: docker.io/amazon/dynamodb-local:1.18.0
+    container_name: our-wedding-website-dynamodb
+    ports:
+      - 8000:8000
+    command:
+      - '-jar'
+      - 'DynamoDBLocal.jar'
+      - '-inMemory'
+      - '-sharedDb'
+    networks:
+      - app
 
   mailhog:
     image: docker.io/mailhog/mailhog:v1.0.1
