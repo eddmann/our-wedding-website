@@ -1,0 +1,66 @@
+parameters:
+  paths:
+    - ./src
+    - ./tests
+
+  exclude_files:
+    - GenerateListOfMessagesCommand.php
+    - GenerateCommandDiagram.php
+
+  layers:
+    - name: Domain
+      collectors:
+        - type: className
+          regex: App\\Domain\\.*
+    - name: Application
+      collectors:
+        - type: className
+          regex: App\\Application\\.*
+    - name: Infrastructure
+      collectors:
+        - type: className
+          regex: App\\Infrastructure\\.*
+    - name: Ui
+      collectors:
+        - type: className
+          regex: App\\Ui\\.*
+    - name: Tests\Domain
+      collectors:
+        - type: className
+          regex: App\\Tests\\Domain\\.*
+    - name: Tests\Application
+      collectors:
+        - type: className
+          regex: App\\Tests\\Application\\.*
+    - name: Tests\Infrastructure
+      collectors:
+        - type: className
+          regex: App\\Tests\\Infrastructure\\.*
+    - name: Tests\Ui
+      collectors:
+        - type: className
+          regex: App\\Tests\\Ui\\.*
+
+  ruleset:
+    Domain: ~
+    Application:
+      - Domain
+    Infrastructure:
+      - Domain
+      - Application
+    Ui:
+      - Application
+      - Infrastructure
+    Tests\Domain:
+      - Domain
+    Tests\Application:
+      - Domain
+      - Application
+    Tests\Infrastructure:
+      - Domain
+      - Application
+      - Infrastructure
+    Tests\Ui:
+      - Application
+      - Infrastructure
+      - Ui
