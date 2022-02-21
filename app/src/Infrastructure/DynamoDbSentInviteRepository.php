@@ -6,6 +6,7 @@ use App\Domain\Projection\SentInvite\SentInvite;
 use App\Domain\Projection\SentInvite\SentInviteNotFound;
 use App\Domain\Projection\SentInvite\SentInviteRepository;
 use AsyncAws\DynamoDb\DynamoDbClient;
+use AsyncAws\DynamoDb\Input\GetItemInput;
 use AsyncAws\DynamoDb\Input\PutItemInput;
 use AsyncAws\DynamoDb\Input\QueryInput;
 
@@ -44,22 +45,17 @@ final class DynamoDbSentInviteRepository implements SentInviteRepository
 
     public function get(string $id): SentInvite
     {
-        $result = $this->client->query(
-            new QueryInput([
+        $result = $this->client->getItem(
+            new GetItemInput([
                 'TableName' => $this->tableName,
-                'KeyConditions' => [
-                    'PK' => [
-                        'ComparisonOperator' => 'EQ',
-                        'AttributeValueList' => [
-                            'PK' => ['S' => \sprintf('%s#id#%s', self::PK_NAMESPACE, $id)],
-                        ],
-                    ],
+                'Key' => [
+                    'PK' => ['S' => \sprintf('%s#id#%s', self::PK_NAMESPACE, $id)],
+                    'SK' => ['S' => '-'],
                 ],
-                'Limit' => 1,
             ])
         );
 
-        foreach ($result->getItems(true) as $item) {
+        if ($item = $result->getItem()) {
             return $this->toSentInvite($item);
         }
 

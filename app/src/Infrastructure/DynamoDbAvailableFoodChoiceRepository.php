@@ -6,6 +6,7 @@ use App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoice;
 use App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoiceNotFound;
 use App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoiceRepository;
 use AsyncAws\DynamoDb\DynamoDbClient;
+use AsyncAws\DynamoDb\Input\GetItemInput;
 use AsyncAws\DynamoDb\Input\PutItemInput;
 use AsyncAws\DynamoDb\Input\QueryInput;
 
@@ -42,22 +43,17 @@ final class DynamoDbAvailableFoodChoiceRepository implements AvailableFoodChoice
 
     public function get(string $id): AvailableFoodChoice
     {
-        $result = $this->client->query(
-            new QueryInput([
+        $result = $this->client->getItem(
+            new GetItemInput([
                 'TableName' => $this->tableName,
-                'KeyConditions' => [
-                    'PK' => [
-                        'ComparisonOperator' => 'EQ',
-                        'AttributeValueList' => [
-                            'PK' => ['S' => \sprintf('%s#id#%s', self::PK_NAMESPACE, $id)],
-                        ],
-                    ],
+                'Key' => [
+                    'PK' => ['S' => \sprintf('%s#id#%s', self::PK_NAMESPACE, $id)],
+                    'SK' => ['S' => '-'],
                 ],
-                'Limit' => 1,
             ])
         );
 
-        foreach ($result->getItems(true) as $item) {
+        if ($item = $result->getItem()) {
             return $this->toAvailableFoodChoice($item);
         }
 
