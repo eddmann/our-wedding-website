@@ -13,6 +13,8 @@ use App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoice;
 use App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoiceProjector;
 use App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoiceRepository;
 use App\Tests\Doubles\InMemoryAvailableFoodChoiceRepository;
+use App\Tests\Doubles\InMemoryEventStore;
+use App\Tests\Doubles\InMemoryEventStreamPointerStore;
 use PHPUnit\Framework\TestCase;
 
 final class AvailableFoodChoiceProjectorTest extends TestCase
@@ -41,7 +43,7 @@ final class AvailableFoodChoiceProjectorTest extends TestCase
                 )
             );
 
-        ($this->projector)($events);
+        $this->handle($events);
 
         self::assertEquals(
             new AvailableFoodChoice(
@@ -52,5 +54,13 @@ final class AvailableFoodChoiceProjectorTest extends TestCase
             ),
             $this->repository->get($id)
         );
+    }
+
+    private function handle(AggregateEvents $events): void
+    {
+        $eventStore = new InMemoryEventStore();
+        $eventStore->store($events);
+
+        $this->projector->handle($eventStore, new InMemoryEventStreamPointerStore());
     }
 }

@@ -5,21 +5,26 @@ namespace App\Domain\Helpers;
 /** @psalm-immutable */
 final class EventStreamPointer
 {
-    private function __construct(private int $position)
+    public function __construct(private string $position)
     {
     }
 
     public static function fromInt(int $position): self
     {
-        return new self($position);
+        return new self((string) $position);
     }
 
     public static function beginning(): self
     {
-        return new self(0);
+        return new self('00000000000000000000000000000000');
     }
 
     public function toInt(): int
+    {
+        return (int) $this->position;
+    }
+
+    public function toString(): string
     {
         return $this->position;
     }

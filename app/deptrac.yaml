@@ -6,6 +6,8 @@ parameters:
   exclude_files:
     - GenerateListOfMessagesCommand.php
     - GenerateCommandDiagram.php
+    - RebuildProjectorCommand.php
+    - HandleProjectorCommand.php
 
   layers:
     - name: Domain

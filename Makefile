@@ -43,12 +43,14 @@ db: ## (Re)creates the development database (with migrations)
 	$(APP) bin/console doctrine:database:drop --force --if-exists
 	$(APP) bin/console doctrine:database:create -n
 	$(APP) bin/console doctrine:migrations:migrate -n --allow-no-migration
+	$(COMPOSE) restart eventstore && sleep 5
 
 .PHONY: test-db
 test-db: ## (Re)creates the test database (with migrations)
 	$(APP) bin/console doctrine:database:drop --force --if-exists --env=test
 	$(APP) bin/console doctrine:database:create -n --env=test
 	$(APP) bin/console doctrine:migrations:migrate -n --allow-no-migration --quiet --env=test
+	$(COMPOSE) restart eventstore && sleep 5
 
 .PHONY: clean
 clean: ## Remove all untracked/changed files
@@ -175,6 +177,10 @@ open-web: ## Opens the website in the default browser
 .PHONY: open-mailhog
 open-mailhog: ## Opens the MailHog web interface in the default browser
 	open "http://0.0.0.0:8025"
+
+.PHONY: open-eventstore
+open-eventstore: ## Opens the EventStoreDB admin UI in the default browser
+	open "http://0.0.0.0:2113"
 
 .PHONY: psql
 psql: ## Open a Postgres client session to the development database

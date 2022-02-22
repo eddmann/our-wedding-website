@@ -5,6 +5,7 @@ namespace App\Tests\Application\Query;
 use App\Application\Query\FoodChoiceListingQuery;
 use App\Domain\Helpers\AggregateEvents;
 use App\Domain\Helpers\AggregateVersion;
+use App\Domain\Helpers\Projector;
 use App\Domain\Model\FoodChoice\Event\FoodChoiceWasCreated;
 use App\Domain\Model\FoodChoice\FoodChoiceId;
 use App\Domain\Model\FoodChoice\FoodChoiceName;
@@ -12,6 +13,8 @@ use App\Domain\Model\FoodChoice\FoodCourse;
 use App\Domain\Model\Shared\GuestType;
 use App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoiceProjector;
 use App\Tests\Doubles\InMemoryAvailableFoodChoiceRepository;
+use App\Tests\Doubles\InMemoryEventStore;
+use App\Tests\Doubles\InMemoryEventStreamPointerStore;
 use PHPUnit\Framework\TestCase;
 
 final class FoodChoiceListingQueryTest extends TestCase
@@ -72,11 +75,19 @@ final class FoodChoiceListingQueryTest extends TestCase
                 )
             );
 
-        ($this->availableFoodChoiceProjector)($events);
+        $this->handle($this->availableFoodChoiceProjector, $events);
 
         return [
             'adultMainId' => $adultMainId->toString(),
             'childMainId' => $childMainId->toString(),
         ];
+    }
+
+    private function handle(Projector $projector, AggregateEvents $events): void
+    {
+        $eventStore = new InMemoryEventStore();
+        $eventStore->store($events);
+
+        $projector->handle($eventStore, new InMemoryEventStreamPointerStore());
     }
 }
