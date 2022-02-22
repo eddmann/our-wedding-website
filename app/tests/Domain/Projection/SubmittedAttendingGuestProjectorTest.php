@@ -18,6 +18,8 @@ use App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuest;
 use App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuestProjector;
 use App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuestRepository;
 use App\Tests\Doubles\ChosenFoodChoiceValidatorStub;
+use App\Tests\Doubles\InMemoryEventStore;
+use App\Tests\Doubles\InMemoryEventStreamPointerStore;
 use App\Tests\Doubles\InMemorySubmittedAttendingGuestRepository;
 use PHPUnit\Framework\TestCase;
 
@@ -72,7 +74,7 @@ final class SubmittedAttendingGuestProjectorTest extends TestCase
                 )
             );
 
-        ($this->projector)($events);
+        $this->handle($events);
 
         self::assertEquals(
             new SubmittedAttendingGuest(
@@ -85,5 +87,13 @@ final class SubmittedAttendingGuestProjectorTest extends TestCase
             ),
             $this->repository->get($guest->getId()->toString())
         );
+    }
+
+    private function handle(AggregateEvents $events): void
+    {
+        $eventStore = new InMemoryEventStore();
+        $eventStore->store($events);
+
+        $this->projector->handle($eventStore, new InMemoryEventStreamPointerStore());
     }
 }

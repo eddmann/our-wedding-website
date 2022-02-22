@@ -19,6 +19,8 @@ use App\Domain\Projection\SentInvite\SentInvite;
 use App\Domain\Projection\SentInvite\SentInviteProjector;
 use App\Domain\Projection\SentInvite\SentInviteRepository;
 use App\Tests\Doubles\ChosenFoodChoiceValidatorStub;
+use App\Tests\Doubles\InMemoryEventStore;
+use App\Tests\Doubles\InMemoryEventStreamPointerStore;
 use App\Tests\Doubles\InMemorySentInviteRepository;
 use PHPUnit\Framework\TestCase;
 
@@ -55,7 +57,7 @@ final class SentInviteProjectorTest extends TestCase
                 )
             );
 
-        ($this->projector)($events);
+        $this->handle($events);
 
         $invite = $this->repository->get($inviteId->toString());
 
@@ -117,7 +119,7 @@ final class SentInviteProjectorTest extends TestCase
                 )
             );
 
-        ($this->projector)($events);
+        $this->handle($events);
 
         $invite = $this->repository->get($inviteId->toString());
 
@@ -153,10 +155,18 @@ final class SentInviteProjectorTest extends TestCase
                 )
             );
 
-        ($this->projector)($events);
+        $this->handle($events);
 
         $invite = $this->repository->get($inviteId->toString());
 
         self::assertEquals($authenticatedAt, $invite->getLastAuthenticatedAt());
+    }
+
+    private function handle(AggregateEvents $events): void
+    {
+        $eventStore = new InMemoryEventStore();
+        $eventStore->store($events);
+
+        $this->projector->handle($eventStore, new InMemoryEventStreamPointerStore());
     }
 }

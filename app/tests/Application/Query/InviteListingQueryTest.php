@@ -5,6 +5,7 @@ namespace App\Tests\Application\Query;
 use App\Application\Query\InviteListingQuery;
 use App\Domain\Helpers\AggregateEvents;
 use App\Domain\Helpers\AggregateVersion;
+use App\Domain\Helpers\Projector;
 use App\Domain\Model\Invite\Event\InviteWasAuthenticated;
 use App\Domain\Model\Invite\Event\InviteWasCreated;
 use App\Domain\Model\Invite\Event\InviteWasSubmitted;
@@ -16,6 +17,8 @@ use App\Domain\Model\Invite\InviteId;
 use App\Domain\Model\Invite\InviteType;
 use App\Domain\Model\Shared\GuestType;
 use App\Domain\Projection\SentInvite\SentInviteProjector;
+use App\Tests\Doubles\InMemoryEventStore;
+use App\Tests\Doubles\InMemoryEventStreamPointerStore;
 use App\Tests\Doubles\InMemorySentInviteRepository;
 use PHPUnit\Framework\TestCase;
 
@@ -80,7 +83,7 @@ final class InviteListingQueryTest extends TestCase
                 )
             );
 
-        ($this->sentInviteProjector)($events);
+        $this->handle($this->sentInviteProjector, $events);
 
         return [
             'id' => $inviteId->toString(),
@@ -125,7 +128,7 @@ final class InviteListingQueryTest extends TestCase
                 )
             );
 
-        ($this->sentInviteProjector)($events);
+        $this->handle($this->sentInviteProjector, $events);
 
         return [
             'id' => $inviteId->toString(),
@@ -133,5 +136,13 @@ final class InviteListingQueryTest extends TestCase
             'authenticatedAt' => $authenticatedAt->format('Y-m-d H:i:s'),
             'submittedAt' => $submittedAt->format('Y-m-d H:i:s'),
         ];
+    }
+
+    private function handle(Projector $projector, AggregateEvents $events): void
+    {
+        $eventStore = new InMemoryEventStore();
+        $eventStore->store($events);
+
+        $projector->handle($eventStore, new InMemoryEventStreamPointerStore());
     }
 }

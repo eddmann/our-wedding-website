@@ -2,13 +2,22 @@
 
 namespace App\Domain\Projection\AvailableFoodChoice;
 
-use App\Domain\Helpers\AggregateEventsSubscriber;
+use App\Domain\Helpers\Projector;
 use App\Domain\Model\FoodChoice\Event\FoodChoiceWasCreated;
 
-final class AvailableFoodChoiceProjector extends AggregateEventsSubscriber
+final class AvailableFoodChoiceProjector extends Projector
 {
     public function __construct(private AvailableFoodChoiceRepository $repository)
     {
+    }
+
+    public function reset(): void
+    {
+    }
+
+    public function getName(): string
+    {
+        return 'available_food_choice';
     }
 
     protected function handleFoodChoiceWasCreated(FoodChoiceWasCreated $event): void

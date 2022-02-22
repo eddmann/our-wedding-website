@@ -19,6 +19,8 @@ use App\Domain\Projection\SubmittedSongChoice\SubmittedSongChoice;
 use App\Domain\Projection\SubmittedSongChoice\SubmittedSongChoiceProjector;
 use App\Domain\Projection\SubmittedSongChoice\SubmittedSongChoiceRepository;
 use App\Tests\Doubles\ChosenFoodChoiceValidatorStub;
+use App\Tests\Doubles\InMemoryEventStore;
+use App\Tests\Doubles\InMemoryEventStreamPointerStore;
 use App\Tests\Doubles\InMemorySubmittedSongChoiceRepository;
 use PHPUnit\Framework\TestCase;
 
@@ -75,7 +77,7 @@ final class SubmittedSongChoiceProjectorTest extends TestCase
                 )
             );
 
-        ($this->projector)($events);
+        $this->handle($events);
 
         self::assertEquals(
             [
@@ -83,5 +85,13 @@ final class SubmittedSongChoiceProjectorTest extends TestCase
             ],
             $this->repository->all()
         );
+    }
+
+    private function handle(AggregateEvents $events): void
+    {
+        $eventStore = new InMemoryEventStore();
+        $eventStore->store($events);
+
+        $this->projector->handle($eventStore, new InMemoryEventStreamPointerStore());
     }
 }

@@ -5,6 +5,7 @@ namespace App\Tests\Application\Query;
 use App\Application\Query\SongChoiceListingQuery;
 use App\Domain\Helpers\AggregateEvents;
 use App\Domain\Helpers\AggregateVersion;
+use App\Domain\Helpers\Projector;
 use App\Domain\Model\FoodChoice\FoodChoiceId;
 use App\Domain\Model\Invite\Event\InviteWasCreated;
 use App\Domain\Model\Invite\Event\InviteWasSubmitted;
@@ -19,6 +20,8 @@ use App\Domain\Model\Invite\SongChoice;
 use App\Domain\Model\Shared\GuestType;
 use App\Domain\Projection\SubmittedSongChoice\SubmittedSongChoiceProjector;
 use App\Tests\Doubles\ChosenFoodChoiceValidatorStub;
+use App\Tests\Doubles\InMemoryEventStore;
+use App\Tests\Doubles\InMemoryEventStreamPointerStore;
 use App\Tests\Doubles\InMemorySubmittedSongChoiceRepository;
 use PHPUnit\Framework\TestCase;
 
@@ -74,7 +77,7 @@ final class SongChoiceListingQueryTest extends TestCase
                 )
             );
 
-        ($this->songChoiceProjector)($events);
+        $this->handle($this->songChoiceProjector, $events);
 
         self::assertEquals([
             [
@@ -83,5 +86,13 @@ final class SongChoiceListingQueryTest extends TestCase
                 'submittedAt' => $submittedAt->format('Y-m-d H:i:s'),
             ],
         ], $this->query->query());
+    }
+
+    private function handle(Projector $projector, AggregateEvents $events): void
+    {
+        $eventStore = new InMemoryEventStore();
+        $eventStore->store($events);
+
+        $projector->handle($eventStore, new InMemoryEventStreamPointerStore());
     }
 }

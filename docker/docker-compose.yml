@@ -37,6 +37,7 @@ services:
       EMAIL_NOTIFIER_FROM: 'from@email.com'
       ADMIN_PASSWORD: password
       PAGE_CONTENT: '{}'
+      EVENTSTORE_URL: 'http://eventstore:2113'
 
   postgres:
     image: docker.io/postgres:10.14-alpine
@@ -52,6 +53,22 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: db
       TZ: Europe/London
+
+  eventstore:
+    image: ghcr.io/eventstore/eventstore:21.10.1-alpine
+    container_name: our-wedding-website-eventstore
+    ports:
+      - 2113:2113
+    networks:
+      - app
+    environment:
+      - EVENTSTORE_CLUSTER_SIZE=1
+      - EVENTSTORE_RUN_PROJECTIONS=All
+      - EVENTSTORE_START_STANDARD_PROJECTIONS=true
+      - EVENTSTORE_HTTP_PORT=2113
+      - EVENTSTORE_INSECURE=true
+      - EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP=true
+      - EVENTSTORE_MEM_DB=true
 
   mailhog:
     image: docker.io/mailhog/mailhog:v1.0.1

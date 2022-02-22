@@ -5,6 +5,7 @@ namespace App\Infrastructure;
 use App\Application\Command\CommandHandler;
 use App\Domain\Helpers\AggregateEventsSubscriber;
 use App\Domain\Helpers\DomainEventSubscriber;
+use App\Domain\Helpers\Projector;
 use Bref\SymfonyBridge\BrefKernel;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -31,5 +32,9 @@ final class Kernel extends BrefKernel
         $container
             ->registerForAutoconfiguration(DomainEventSubscriber::class)
             ->addTag('messenger.message_handler', ['bus' => 'domain_event.bus']);
+
+        $container
+            ->registerForAutoconfiguration(Projector::class)
+            ->addTag('app.projector');
     }
 }

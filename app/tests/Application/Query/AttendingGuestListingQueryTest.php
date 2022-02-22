@@ -5,6 +5,7 @@ namespace App\Tests\Application\Query;
 use App\Application\Query\AttendingGuestListingQuery;
 use App\Domain\Helpers\AggregateEvents;
 use App\Domain\Helpers\AggregateVersion;
+use App\Domain\Helpers\Projector;
 use App\Domain\Model\FoodChoice\Event\FoodChoiceWasCreated;
 use App\Domain\Model\FoodChoice\FoodChoiceId;
 use App\Domain\Model\FoodChoice\FoodChoiceName;
@@ -23,6 +24,8 @@ use App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoiceProjector;
 use App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuestProjector;
 use App\Tests\Doubles\ChosenFoodChoiceValidatorStub;
 use App\Tests\Doubles\InMemoryAvailableFoodChoiceRepository;
+use App\Tests\Doubles\InMemoryEventStore;
+use App\Tests\Doubles\InMemoryEventStreamPointerStore;
 use App\Tests\Doubles\InMemorySubmittedAttendingGuestRepository;
 use PHPUnit\Framework\TestCase;
 
@@ -177,7 +180,7 @@ final class AttendingGuestListingQueryTest extends TestCase
                 )
             );
 
-        ($this->attendingGuestProjector)($events);
+        $this->handle($this->attendingGuestProjector, $events);
 
         return [
             'inviteId' => $inviteId->toString(),
@@ -233,7 +236,7 @@ final class AttendingGuestListingQueryTest extends TestCase
                 )
             );
 
-        ($this->attendingGuestProjector)($events);
+        $this->handle($this->attendingGuestProjector, $events);
 
         return [
             'inviteId' => $inviteId->toString(),
@@ -307,7 +310,7 @@ final class AttendingGuestListingQueryTest extends TestCase
                 )
             );
 
-        ($this->foodChoiceProjector)($events);
+        $this->handle($this->foodChoiceProjector, $events);
 
         return [
             'adultStarterId' => $adultStarterId->toString(),
@@ -317,5 +320,13 @@ final class AttendingGuestListingQueryTest extends TestCase
             'childMainId' => $childMainId->toString(),
             'childDessertId' => $childDessertId->toString(),
         ];
+    }
+
+    private function handle(Projector $projector, AggregateEvents $events): void
+    {
+        $eventStore = new InMemoryEventStore();
+        $eventStore->store($events);
+
+        $projector->handle($eventStore, new InMemoryEventStreamPointerStore());
     }
 }

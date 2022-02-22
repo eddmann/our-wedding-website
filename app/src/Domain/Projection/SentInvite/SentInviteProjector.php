@@ -2,13 +2,13 @@
 
 namespace App\Domain\Projection\SentInvite;
 
-use App\Domain\Helpers\AggregateEventsSubscriber;
+use App\Domain\Helpers\Projector;
 use App\Domain\Model\Invite\Event\InviteWasAuthenticated;
 use App\Domain\Model\Invite\Event\InviteWasCreated;
 use App\Domain\Model\Invite\Event\InviteWasSubmitted;
 use App\Domain\Model\Invite\Guest\InvitedGuest;
 
-final class SentInviteProjector extends AggregateEventsSubscriber
+final class SentInviteProjector extends Projector
 {
     public function __construct(private SentInviteRepository $repository)
     {
@@ -21,6 +21,15 @@ final class SentInviteProjector extends AggregateEventsSubscriber
         $invite->authenticated($event->getOccurredAt());
 
         $this->repository->store($invite);
+    }
+
+    public function reset(): void
+    {
+    }
+
+    public function getName(): string
+    {
+        return 'sent_invite';
     }
 
     protected function handleInviteWasCreated(InviteWasCreated $event): void
