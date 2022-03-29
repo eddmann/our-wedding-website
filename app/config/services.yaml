@@ -3,6 +3,7 @@ imports:
 
 parameters:
     env(AWS_REGION): eu-west-1
+    env(DYNAMODB_ENDPOINT): ~
 
 services:
     _defaults:
