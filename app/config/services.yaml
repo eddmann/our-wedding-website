@@ -43,6 +43,16 @@ services:
             - '@async_aws.http_client'
             - '@logger'
 
+    AsyncAws\DynamoDb\DynamoDbClient:
+        arguments:
+            - {
+                region: '%env(AWS_REGION)%',
+                endpoint: '%env(DYNAMODB_ENDPOINT)%',
+            }
+            - ~
+            - '@async_aws.http_client'
+            - '@logger'
+
     App\Infrastructure\AwsSecretsManagerEnvVarProcessor:
         arguments:
             - '@AsyncAws\SecretsManager\SecretsManagerClient'
