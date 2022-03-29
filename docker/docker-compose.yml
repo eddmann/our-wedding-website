@@ -37,9 +37,8 @@ services:
       EMAIL_NOTIFIER_FROM: 'from@email.com'
       ADMIN_PASSWORD: password
       PAGE_CONTENT: '{}'
-      # Desired backends
-      EVENT_STORE_BACKEND:
-      PROJECTION_BACKEND:
+      EVENT_STORE_BACKEND: # Backend used for Event Store (Postgres, DynamoDb)
+      PROJECTION_BACKEND: # Backend use for Projections (Postgres, DynamoDb)
       # Postgres-backend
       DATABASE_URL: 'postgresql://user:password@postgres:5432/db?serverVersion=10.14&charset=utf8'
       # DynamoDB-backend

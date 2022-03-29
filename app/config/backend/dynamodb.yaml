@@ -1,0 +1,30 @@
+parameters:
+    dynamodb_event_store_table: '%env(DYNAMODB_EVENT_STORE_TABLE)%'
+    dynamodb_projection_table: '%env(DYNAMODB_PROJECTION_TABLE)%'
+
+when@test:
+    parameters:
+        dynamodb_event_store_table: '%env(DYNAMODB_EVENT_STORE_TABLE)%-test'
+        dynamodb_projection_table: '%env(DYNAMODB_PROJECTION_TABLE)%-test'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        bind:
+            $tableName: '%dynamodb_projection_table%'
+
+    App\Infrastructure\DynamoDb\:
+        resource: '../../src/Infrastructure/DynamoDb/'
+
+    App\Infrastructure\DynamoDb\DynamoDbEventStore:
+        arguments:
+            $tableName: '%dynamodb_event_store_table%'
+
+    App\:
+        resource: '../../src/**/CreateDynamoDbSchemaCommand.php'
+
+    App\Ui\Cli\CreateDynamoDbSchemaCommand:
+        arguments:
+            $eventStoreTableName: '%dynamodb_event_store_table%'
+            $projectionTableName: '%dynamodb_projection_table%'
