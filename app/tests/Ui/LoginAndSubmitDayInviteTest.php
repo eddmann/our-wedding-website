@@ -5,33 +5,18 @@ namespace App\Tests\Ui;
 use App\Application\Command\CommandBus;
 use App\Application\Command\CreateFoodChoice\CreateFoodChoiceCommand;
 use App\Application\Command\CreateInvite\CreateInviteCommand;
-use Doctrine\DBAL\Connection;
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-final class LoginAndSubmitDayInviteTest extends WebTestCase
+final class LoginAndSubmitDayInviteTest extends UiTestCase
 {
-    private KernelBrowser $client;
-
-    protected function setUp(): void
+    /**
+     * @testWith ["Postgres", "Postgres"]
+     *           ["DynamoDb", "DynamoDb"]
+     *           ["Postgres", "DynamoDb"]
+     *           ["DynamoDb", "Postgres"]
+     */
+    public function test_login_and_submit_day_invite(string $eventStoreBackend, string $projectionBackend): void
     {
-        parent::setUp();
-
-        $this->client = self::createClient();
-        $this->client->disableReboot();
-
-        self::getContainer()->get(Connection::class)->beginTransaction();
-    }
-
-    protected function tearDown(): void
-    {
-        self::getContainer()->get(Connection::class)->rollBack();
-
-        parent::tearDown();
-    }
-
-    public function test_login_and_submit_day_invite(): void
-    {
+        $this->givenAppWithBackends($eventStoreBackend, $projectionBackend);
         $adultFoodChoices = $this->givenFoodChoicesAvailableForAdults();
         $childFoodChoices = $this->givenFoodChoicesAvailableForChildren();
         $invite = $this->givenDayInvitePresentForOneOfEachGuestType();

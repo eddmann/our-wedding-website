@@ -1,11 +1,4 @@
 services:
-    AsyncAws\DynamoDb\DynamoDbClient:
-        arguments:
-            - { region: '%env(AWS_REGION)%' }
-            - ~
-            - '@async_aws.http_client'
-            - '@logger'
-
     AsyncAws\DynamoDbSession\SessionHandler:
         arguments:
             - '@AsyncAws\DynamoDb\DynamoDbClient'

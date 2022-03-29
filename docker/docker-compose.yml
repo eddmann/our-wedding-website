@@ -26,17 +26,27 @@ services:
       - ../app:/var/task
     depends_on:
       - postgres
+      - dynamodb
     networks:
       - app
     environment:
       APP_ENV: dev
       APP_SECRET: secret
-      DATABASE_URL: 'postgresql://user:password@postgres:5432/db?serverVersion=10.14&charset=utf8'
       MAILER_DSN: 'smtp://mailhog:1025'
       EMAIL_NOTIFIER_TO: 'to@email.com'
       EMAIL_NOTIFIER_FROM: 'from@email.com'
       ADMIN_PASSWORD: password
       PAGE_CONTENT: '{}'
+      EVENT_STORE_BACKEND: # Backend used for Event Store (Postgres, DynamoDb)
+      PROJECTION_BACKEND: # Backend use for Projections (Postgres, DynamoDb)
+      # Postgres-backend
+      DATABASE_URL: 'postgresql://user:password@postgres:5432/db?serverVersion=10.14&charset=utf8'
+      # DynamoDB-backend
+      DYNAMODB_ENDPOINT: 'http://dynamodb:8000'
+      DYNAMODB_EVENT_STORE_TABLE: event-store
+      DYNAMODB_PROJECTION_TABLE: projections
+      AWS_ACCESS_KEY_ID: id
+      AWS_SECRET_ACCESS_KEY: key
 
   postgres:
     image: docker.io/postgres:10.14-alpine
@@ -52,6 +62,19 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: db
       TZ: Europe/London
+
+  dynamodb:
+    image: docker.io/amazon/dynamodb-local:1.18.0
+    container_name: our-wedding-website-dynamodb
+    ports:
+      - 8000:8000
+    command:
+      - '-jar'
+      - 'DynamoDBLocal.jar'
+      - '-inMemory'
+      - '-sharedDb'
+    networks:
+      - app
 
   mailhog:
     image: docker.io/mailhog/mailhog:v1.0.1

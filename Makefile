@@ -9,7 +9,14 @@ DEVELOPMENT_IMAGE := ghcr.io/eddmann/our-wedding-website:dev-7ca6fed
 ##@ Setup
 
 .PHONY: start
-start: up composer yarn db test-db ## Boots the application in development mode
+start: export EVENT_STORE_BACKEND=Postgres
+start: export PROJECTION_BACKEND=Postgres
+start: up composer yarn db test-db ## Boots the application in development mode (with Postgres ES and projections)
+
+.PHONY: start-dynamodb
+start-dynamodb: export EVENT_STORE_BACKEND=DynamoDb
+start-dynamodb: export PROJECTION_BACKEND=DynamoDb
+start-dynamodb: up composer yarn db test-db ## Boots the application in development mode (with DynamoDB ES and projections)
 
 up:
 	$(COMPOSE) build
@@ -43,12 +50,14 @@ db: ## (Re)creates the development database (with migrations)
 	$(APP) bin/console doctrine:database:drop --force --if-exists
 	$(APP) bin/console doctrine:database:create -n
 	$(APP) bin/console doctrine:migrations:migrate -n --allow-no-migration
+	$(APP) bin/console dynamodb:create-schema --force
 
 .PHONY: test-db
 test-db: ## (Re)creates the test database (with migrations)
 	$(APP) bin/console doctrine:database:drop --force --if-exists --env=test
 	$(APP) bin/console doctrine:database:create -n --env=test
 	$(APP) bin/console doctrine:migrations:migrate -n --allow-no-migration --quiet --env=test
+	$(APP) bin/console dynamodb:create-schema --force --env=test
 
 .PHONY: clean
 clean: ## Remove all untracked/changed files
