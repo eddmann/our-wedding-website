@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Tests\Infrastructure;
+namespace App\Tests\Infrastructure\Postgres;
 
 use App\Domain\Helpers\AggregateEvents;
 use App\Domain\Helpers\EventStore;
@@ -13,12 +13,12 @@ use App\Domain\Model\Invite\InviteCode;
 use App\Domain\Model\Invite\InviteId;
 use App\Domain\Model\Invite\InviteType;
 use App\Domain\Model\Shared\GuestType;
-use App\Infrastructure\DBALEventStore;
+use App\Infrastructure\Postgres\PostgresEventStore;
 use App\Tests\Doubles\AggregateEventsBusSpy;
 use Doctrine\DBAL\Connection;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-final class DBALEventStoreTest extends KernelTestCase
+final class PostgresEventStoreTest extends KernelTestCase
 {
     private EventStore $eventStore;
     private AggregateEventsBusSpy $aggregateEventsBus;
@@ -26,7 +26,7 @@ final class DBALEventStoreTest extends KernelTestCase
 
     protected function setUp(): void
     {
-        $this->eventStore = new DBALEventStore(
+        $this->eventStore = new PostgresEventStore(
             $this->connection = self::getContainer()->get(Connection::class),
             $this->aggregateEventsBus = new AggregateEventsBusSpy()
         );

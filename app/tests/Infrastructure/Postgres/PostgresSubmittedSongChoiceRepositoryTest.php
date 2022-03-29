@@ -1,21 +1,21 @@
 <?php declare(strict_types=1);
 
-namespace App\Tests\Infrastructure;
+namespace App\Tests\Infrastructure\Postgres;
 
 use App\Domain\Projection\SubmittedSongChoice\SubmittedSongChoice;
 use App\Domain\Projection\SubmittedSongChoice\SubmittedSongChoiceRepository;
-use App\Infrastructure\DBALSubmittedSongChoiceRepository;
+use App\Infrastructure\Postgres\PostgresSubmittedSongChoiceRepository;
 use Doctrine\DBAL\Connection;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-final class DBALSubmittedSongChoiceRepositoryTest extends KernelTestCase
+final class PostgresSubmittedSongChoiceRepositoryTest extends KernelTestCase
 {
     private SubmittedSongChoiceRepository $repository;
     private Connection $connection;
 
     protected function setUp(): void
     {
-        $this->repository = new DBALSubmittedSongChoiceRepository(
+        $this->repository = new PostgresSubmittedSongChoiceRepository(
             $this->connection = self::getContainer()->get(Connection::class),
         );
 

@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace App\Infrastructure;
+namespace App\Infrastructure\Postgres;
 
 use App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoice;
 use App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoiceNotFound;
 use App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoiceRepository;
 use Doctrine\DBAL\Connection;
 
-final class DBALAvailableFoodChoiceRepository implements AvailableFoodChoiceRepository
+final class PostgresAvailableFoodChoiceRepository implements AvailableFoodChoiceRepository
 {
     public function __construct(private Connection $connection)
     {

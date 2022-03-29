@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace App\Infrastructure;
+namespace App\Infrastructure\Postgres;
 
 use App\Domain\Projection\SubmittedSongChoice\SubmittedSongChoice;
 use App\Domain\Projection\SubmittedSongChoice\SubmittedSongChoiceRepository;
 use Doctrine\DBAL\Connection;
 
-final class DBALSubmittedSongChoiceRepository implements SubmittedSongChoiceRepository
+final class PostgresSubmittedSongChoiceRepository implements SubmittedSongChoiceRepository
 {
     public function __construct(private Connection $connection)
     {

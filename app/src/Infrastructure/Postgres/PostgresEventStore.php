@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Infrastructure;
+namespace App\Infrastructure\Postgres;
 
 use App\Domain\Helpers\AggregateEvent;
 use App\Domain\Helpers\AggregateEvents;
@@ -13,7 +13,7 @@ use App\Domain\Helpers\EventStreamPointer;
 use App\Domain\Model\Shared\AggregateEventFactory;
 use Doctrine\DBAL\Connection;
 
-final class DBALEventStore implements EventStore
+final class PostgresEventStore implements EventStore
 {
     public function __construct(
         private Connection $connection,

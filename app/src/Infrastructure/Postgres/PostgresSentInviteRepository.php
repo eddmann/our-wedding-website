@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace App\Infrastructure;
+namespace App\Infrastructure\Postgres;
 
 use App\Domain\Projection\SentInvite\SentInvite;
 use App\Domain\Projection\SentInvite\SentInviteNotFound;
 use App\Domain\Projection\SentInvite\SentInviteRepository;
 use Doctrine\DBAL\Connection;
 
-final class DBALSentInviteRepository implements SentInviteRepository
+final class PostgresSentInviteRepository implements SentInviteRepository
 {
     public function __construct(private Connection $connection)
     {

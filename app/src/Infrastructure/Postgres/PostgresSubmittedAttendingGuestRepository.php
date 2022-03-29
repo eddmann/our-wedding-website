@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace App\Infrastructure;
+namespace App\Infrastructure\Postgres;
 
 use App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuest;
 use App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuestNotFound;
 use App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuestRepository;
 use Doctrine\DBAL\Connection;
 
-final class DBALSubmittedAttendingGuestRepository implements SubmittedAttendingGuestRepository
+final class PostgresSubmittedAttendingGuestRepository implements SubmittedAttendingGuestRepository
 {
     public function __construct(private Connection $connection)
     {

@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace App\Infrastructure;
+namespace App\Infrastructure\Postgres;
 
 use App\Domain\Model\Invite\Guest\ChosenFoodChoices;
 use App\Domain\Model\Invite\Guest\ChosenFoodChoiceValidator;
 use App\Domain\Model\Shared\GuestType;
 use Doctrine\DBAL\Connection;
 
-final class DBALChosenFoodChoiceValidator implements ChosenFoodChoiceValidator
+final class PostgresChosenFoodChoiceValidator implements ChosenFoodChoiceValidator
 {
     public function __construct(private Connection $connection)
     {

@@ -1,24 +1,24 @@
 <?php declare(strict_types=1);
 
-namespace App\Tests\Infrastructure;
+namespace App\Tests\Infrastructure\Postgres;
 
 use App\Domain\Model\FoodChoice\FoodChoiceId;
 use App\Domain\Model\Invite\Guest\GuestId;
 use App\Domain\Model\Invite\InviteId;
 use App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuest;
 use App\Domain\Projection\SubmittedAttendingGuest\SubmittedAttendingGuestRepository;
-use App\Infrastructure\DBALSubmittedAttendingGuestRepository;
+use App\Infrastructure\Postgres\PostgresSubmittedAttendingGuestRepository;
 use Doctrine\DBAL\Connection;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-final class DBALSubmittedAttendingGuestRepositoryTest extends KernelTestCase
+final class PostgresSubmittedAttendingGuestRepositoryTest extends KernelTestCase
 {
     private SubmittedAttendingGuestRepository $repository;
     private Connection $connection;
 
     protected function setUp(): void
     {
-        $this->repository = new DBALSubmittedAttendingGuestRepository(
+        $this->repository = new PostgresSubmittedAttendingGuestRepository(
             $this->connection = self::getContainer()->get(Connection::class),
         );
 

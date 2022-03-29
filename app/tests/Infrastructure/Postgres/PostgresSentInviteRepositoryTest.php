@@ -1,23 +1,23 @@
 <?php declare(strict_types=1);
 
-namespace App\Tests\Infrastructure;
+namespace App\Tests\Infrastructure\Postgres;
 
 use App\Domain\Model\Invite\InviteCode;
 use App\Domain\Model\Invite\InviteId;
 use App\Domain\Projection\SentInvite\SentInvite;
 use App\Domain\Projection\SentInvite\SentInviteRepository;
-use App\Infrastructure\DBALSentInviteRepository;
+use App\Infrastructure\Postgres\PostgresSentInviteRepository;
 use Doctrine\DBAL\Connection;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-final class DBALSentInviteRepositoryTest extends KernelTestCase
+final class PostgresSentInviteRepositoryTest extends KernelTestCase
 {
     private SentInviteRepository $repository;
     private Connection $connection;
 
     protected function setUp(): void
     {
-        $this->repository = new DBALSentInviteRepository(
+        $this->repository = new PostgresSentInviteRepository(
             $this->connection = self::getContainer()->get(Connection::class),
         );
 

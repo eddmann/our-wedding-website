@@ -1,22 +1,22 @@
 <?php declare(strict_types=1);
 
-namespace App\Tests\Infrastructure;
+namespace App\Tests\Infrastructure\Postgres;
 
 use App\Domain\Model\FoodChoice\FoodChoiceId;
 use App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoice;
 use App\Domain\Projection\AvailableFoodChoice\AvailableFoodChoiceRepository;
-use App\Infrastructure\DBALAvailableFoodChoiceRepository;
+use App\Infrastructure\Postgres\PostgresAvailableFoodChoiceRepository;
 use Doctrine\DBAL\Connection;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-final class DBALAvailableFoodChoiceRepositoryTest extends KernelTestCase
+final class PostgresAvailableFoodChoiceRepositoryTest extends KernelTestCase
 {
     private AvailableFoodChoiceRepository $repository;
     private Connection $connection;
 
     protected function setUp(): void
     {
-        $this->repository = new DBALAvailableFoodChoiceRepository(
+        $this->repository = new PostgresAvailableFoodChoiceRepository(
             $this->connection = self::getContainer()->get(Connection::class),
         );
 

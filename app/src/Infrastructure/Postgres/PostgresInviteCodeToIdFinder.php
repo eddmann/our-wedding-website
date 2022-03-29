@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Infrastructure;
+namespace App\Infrastructure\Postgres;
 
 use App\Application\Command\AuthenticateInvite\InviteCodeNotFound;
 use App\Application\Command\AuthenticateInvite\InviteCodeToIdFinder;
@@ -8,7 +8,7 @@ use App\Domain\Model\Invite\InviteCode;
 use App\Domain\Model\Invite\InviteId;
 use Doctrine\DBAL\Connection;
 
-final class DBALInviteCodeToIdFinder implements InviteCodeToIdFinder
+final class PostgresInviteCodeToIdFinder implements InviteCodeToIdFinder
 {
     public function __construct(private Connection $connection)
     {
