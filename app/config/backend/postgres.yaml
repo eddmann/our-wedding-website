@@ -5,3 +5,5 @@ services:
 
     App\Infrastructure\Postgres\:
         resource: '../../src/Infrastructure/Postgres/'
+        exclude:
+            '../../src/Infrastructure/Postgres/Migrations'
