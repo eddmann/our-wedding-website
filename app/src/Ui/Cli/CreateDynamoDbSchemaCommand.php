@@ -52,7 +52,7 @@ final class CreateDynamoDbSchemaCommand extends Command
         $this->createProjectionTable($this->projectionTableName);
         $output->writeln("Created {$this->projectionTableName} table");
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     private function dropTable(string $tableName): void

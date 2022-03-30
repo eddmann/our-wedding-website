@@ -40,6 +40,6 @@ final class ImportInvitesCommand extends Command
             $this->bus->dispatch(new CreateInviteCommand($invite['type'], $invite['guests']));
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 }
