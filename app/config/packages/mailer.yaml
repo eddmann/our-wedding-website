@@ -1,3 +1,6 @@
+parameters:
+    env(MAILER_DSN): ''
+
 framework:
     mailer:
         dsn: '%env(secret:MAILER_DSN)%'

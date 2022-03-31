@@ -1,3 +1,6 @@
+parameters:
+    env(MESSENGER_ASYNC_TRANSPORT_DSN): ''
+
 framework:
     messenger:
         transports:

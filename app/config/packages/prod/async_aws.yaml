@@ -1,5 +1,8 @@
+parameters:
+    env(DYNAMODB_SESSIONS_TABLE): ''
+
 services:
     AsyncAws\DynamoDbSession\SessionHandler:
         arguments:
             - '@AsyncAws\DynamoDb\DynamoDbClient'
-            - table_name: '%env(SESSIONS_TABLE)%'
+            - table_name: '%env(DYNAMODB_SESSIONS_TABLE)%'
