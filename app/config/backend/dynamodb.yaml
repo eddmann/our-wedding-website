@@ -24,7 +24,7 @@ services:
             $tableName: '%dynamodb_event_store_table%'
 
     App\:
-        resource: '../../src/**/CreateDynamoDbSchemaCommand.php'
+        resource: '../../src/Ui/Cli/CreateDynamoDbSchemaCommand.php'
 
     App\Ui\Cli\CreateDynamoDbSchemaCommand:
         arguments:
