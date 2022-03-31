@@ -71,6 +71,8 @@ build: _require_ARTIFACT_PATH ## Build and package the app for deployment
 	  -v $(PWD)/app:/var/task \
 	  -v $(PWD)/app/var/cache:/tmp/cache \
 	  -e APP_ENV=prod \
+	  -e APP_SECRET= \
+	  -e ADMIN_PASSWORD= \
 	  ${DEVELOPMENT_IMAGE} \
 	  bash -c "([ -z ${GITHUB_TOKEN} ] || composer config -g github-oauth.github.com ${GITHUB_TOKEN}); \
 	           yarn && \
