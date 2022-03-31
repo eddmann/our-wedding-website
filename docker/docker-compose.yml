@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   web:
-    image: docker.io/bref/fpm-dev-gateway:1.5.1
+    image: docker.io/bref/fpm-dev-gateway:1.5.5
     container_name: our-wedding-website-web
     ports:
       - 8080:80
@@ -80,7 +80,7 @@ services:
       - app
 
   eventstoredb:
-    image: ghcr.io/eventstore/eventstore:21.10.1-alpine
+    image: ghcr.io/eventstore/eventstore:21.10.2-alpine
     container_name: our-wedding-website-eventstoredb
     ports:
       - 2113:2113
