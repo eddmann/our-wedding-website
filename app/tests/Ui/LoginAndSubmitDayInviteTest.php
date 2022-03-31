@@ -13,6 +13,8 @@ final class LoginAndSubmitDayInviteTest extends UiTestCase
      *           ["DynamoDb", "DynamoDb"]
      *           ["Postgres", "DynamoDb"]
      *           ["DynamoDb", "Postgres"]
+     *           ["EventStoreDb", "Postgres"]
+     *           ["EventStoreDb", "DynamoDb"]
      */
     public function test_login_and_submit_day_invite(string $eventStoreBackend, string $projectionBackend): void
     {

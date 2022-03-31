@@ -16,7 +16,7 @@ services:
     App\:
         resource: '../src/'
         exclude:
-            - '../src/Infrastructure/{Postgres,DynamoDb}/'
+            - '../src/Infrastructure/{Postgres,DynamoDb,EventStoreDb}/'
             - '../src/Ui/Cli/CreateDynamoDbSchemaCommand.php'
             - '../src/helpers.php'
 

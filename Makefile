@@ -9,14 +9,15 @@ DEVELOPMENT_IMAGE := ghcr.io/eddmann/our-wedding-website:dev-7ca6fed
 ##@ Setup
 
 .PHONY: start
-start: export EVENT_STORE_BACKEND=Postgres
-start: export PROJECTION_BACKEND=Postgres
 start: up composer yarn db test-db ## Boots the application in development mode (with Postgres ES and projections)
 
 .PHONY: start-dynamodb
-start-dynamodb: export EVENT_STORE_BACKEND=DynamoDb
-start-dynamodb: export PROJECTION_BACKEND=DynamoDb
-start-dynamodb: up composer yarn db test-db ## Boots the application in development mode (with DynamoDB ES and projections)
+start-dynamodb: ## Boots the application in development mode (with DynamoDB ES and projections)
+	@EVENT_STORE_BACKEND=DynamoDb PROJECTION_BACKEND=DynamoDb $(MAKE) start
+
+.PHONY: start-eventstoredb
+start-eventstoredb: ## Boots the application in development mode (with EventStoreDB ES and Postgres projections)
+	@EVENT_STORE_BACKEND=EventStoreDb PROJECTION_BACKEND=Postgres $(MAKE) start
 
 up:
 	$(COMPOSE) build
@@ -51,6 +52,7 @@ db: ## (Re)creates the development database (with migrations)
 	$(APP) bin/console doctrine:database:create -n
 	$(APP) bin/console doctrine:migrations:migrate -n --allow-no-migration
 	$(APP) bin/console dynamodb:create-schema --force
+	$(COMPOSE) restart eventstoredb && sleep 5
 
 .PHONY: test-db
 test-db: ## (Re)creates the test database (with migrations)
@@ -58,6 +60,7 @@ test-db: ## (Re)creates the test database (with migrations)
 	$(APP) bin/console doctrine:database:create -n --env=test
 	$(APP) bin/console doctrine:migrations:migrate -n --allow-no-migration --quiet --env=test
 	$(APP) bin/console dynamodb:create-schema --force --env=test
+	$(COMPOSE) restart eventstoredb && sleep 5
 
 .PHONY: clean
 clean: ## Remove all untracked/changed files
@@ -186,6 +189,10 @@ open-web: ## Opens the website in the default browser
 .PHONY: open-mailhog
 open-mailhog: ## Opens the MailHog web interface in the default browser
 	open "http://0.0.0.0:8025"
+
+.PHONY: open-eventstoredb
+open-eventstoredb: ## Opens the EventStoreDB admin UI in the default browser
+	open "http://0.0.0.0:2113"
 
 .PHONY: psql
 psql: ## Open a Postgres client session to the development database

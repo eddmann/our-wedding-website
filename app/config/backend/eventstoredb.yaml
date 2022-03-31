@@ -1,0 +1,13 @@
+parameters:
+    env(EVENTSTOREDB_URL): ''
+
+services:
+    _defaults:
+        autowire: true
+
+    App\Infrastructure\EventStoreDb\:
+        resource: '../../src/Infrastructure/EventStoreDb/'
+
+    App\Infrastructure\EventStoreDb\EventStoreDbEventStore:
+        arguments:
+            $url: '%env(EVENTSTOREDB_URL)%'
