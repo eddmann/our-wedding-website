@@ -11,10 +11,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 
 return static function (ContainerConfigurator $configurator): void {
     $configurator->import('backend/postgres.yaml');
-
-    if ($configurator->env() !== 'prod') {
-        $configurator->import('backend/dynamodb.yaml');
-    }
+    $configurator->import('backend/dynamodb.yaml');
 
     $eventStoreBackend = \getenv('EVENT_STORE_BACKEND') ?: 'Postgres';
     $projectionBackend = \getenv('PROJECTION_BACKEND') ?: 'Postgres';

@@ -1,4 +1,6 @@
 parameters:
+    env(DYNAMODB_EVENT_STORE_TABLE): ''
+    env(DYNAMODB_PROJECTION_TABLE): ''
     dynamodb_event_store_table: '%env(DYNAMODB_EVENT_STORE_TABLE)%'
     dynamodb_projection_table: '%env(DYNAMODB_PROJECTION_TABLE)%'
 
