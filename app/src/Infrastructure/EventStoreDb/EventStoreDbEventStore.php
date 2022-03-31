@@ -16,6 +16,8 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final class EventStoreDbEventStore implements EventStore
 {
+    private const BEGINNING_POINTER = '00000000000000000000000000000000';
+
     public function __construct(
         private string $url,
         private HttpClientInterface $client,
@@ -87,7 +89,7 @@ final class EventStoreDbEventStore implements EventStore
             \sprintf(
                 '%s/streams/$all/filtered/%s/forward/%s?context=streamid&type=regex&data=%s&embed=body',
                 $this->url,
-                $start->toString() ?: '00000000000000000000000000000000',
+                $start->toString() ?: self::BEGINNING_POINTER,
                 $limit,
                 $this->prefix ? "^{$this->prefix}.*$" : '^[^\$].*$'
             ),
