@@ -1,3 +1,22 @@
+parameters:
+    env(DATABASE_URL): ''
+
+doctrine:
+    dbal:
+        url: '%env(secret:DATABASE_URL)%'
+        options:
+            !php/const \PDO::ATTR_TIMEOUT: 30
+
+when@test:
+    doctrine:
+        dbal:
+            dbname: 'db_test'
+
+doctrine_migrations:
+    migrations_paths:
+        'DoctrineMigrations': '%kernel.project_dir%/src/Infrastructure/Postgres/Migrations'
+    enable_profiler: '%kernel.debug%'
+
 services:
     _defaults:
         autowire: true
