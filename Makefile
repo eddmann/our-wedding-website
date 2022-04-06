@@ -20,8 +20,7 @@ start-eventstoredb: ## Boots the application in development mode (with EventStor
 	@EVENT_STORE_BACKEND=EventStoreDb PROJECTION_BACKEND=Postgres $(MAKE) start
 
 up:
-	$(COMPOSE) build
-	$(COMPOSE) up -d
+	$(COMPOSE) up -d --build --force-recreate
 
 .PHONY: stop
 stop: ## Stop and clean-up the application (remove containers, networks, images, and volumes)
