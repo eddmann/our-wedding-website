@@ -13,7 +13,7 @@ Using PHP and the Symfony framework it highlights how such an approach can be la
 Some topics and features covered within this application are:
 
 - Use of PHP 8.1 and [Bref](https://bref.sh/) for Serverless Lambda environment.
-- Docker-based local [development environment](./docker) (inc. PostgreSQL), which replicates the intended Lambda platform.
+- Docker-based local [development environment](./docker), which replicates the intended Lambda platform.
 - GNU make used to assist in running the application locally and performing CI-based tasks.
 - CI pipeline developed using [GitHub workflows](./.github/workflows), running the provided tests and deploying the application to the given stage-environments (staging and production).
 - Implements the desired Message buses using [Symfony Messenger](https://symfony.com/doc/current/messenger.html), with asynchronous transport being handled by SQS/Lambda.
@@ -64,7 +64,7 @@ There are two Aggregates within the Domain ([FoodChoice](app/src/Domain/Model/Fo
 
 This diagram is automatically generated based on the current implementation, using [testable](app/tests/Application/Command/CommandTestCase.php) Event [snapshots](app/tests/Application/Command/EventStoreSnapshots) at the Command level.
 
-#### Commands and Domain Events
+### Commands and Domain Events
 
 Application-level Commands which are available for the _Ui_ to interact with the _Domain_ are presented below:
 
@@ -123,3 +123,47 @@ Foundational infrastructural concerns (such as networking, databases, queues etc
 
 Sharing between Terraform and Serverless Framework is unidirectional, with the application resources that Serverless Framework creates being built upon the _foundation_ that Terraform resources provision.
 Parameters, secrets and shared resources which are controlled by Terraform are accessible to this application via SSM parameters and Secrets Manager secrets; providing clear responsibility separation.
+
+### Backends
+
+The application consists of an _Event Store_ which persist aggregate events produced by invoked _Commands_.
+It also includes _Projections_ which persist _materialised views_ of these aggregate events, accessible via _Query_ services.
+These two responsibilities do not require a shared data-store, and can manage their own state as best they see fit.
+
+To highlight this, I have built several persistence implementations of both the Event Store and Projections.
+This exercises the importance of good abstraction, and the benefits of layering your application using Hexagonal Architecture (Ports and Adaptors).
+Although only one is used within the production setting (Postgres), as a local demonstration it is interesting to see the differences.
+
+#### Event Store
+
+Using the provided [Event Store](app/src/Domain/Helpers/EventStore.php) _port_ interface, there are the following implementations:
+
+- Postgres
+
+  - Stores the events in sequential order within a single-table.
+  - Ensures domain aggregate invariance, using version constraints to prevent competing client updates.
+  - Uses a transaction to ensure that all aggregate events are persisted to the event stream in one atomic operation.
+  - Using a single-table design (with a sequential ordering) allows for trivial event store streaming capabilities.
+
+- DynamoDB
+
+  - Stores the events within a single-table, with the aggregate identifier and version mapping well to DynamoDB's partition and sort keys respectively.
+  - Ensures domain aggregate invariance, using DynamoDB write constraints to prevent competing client updates.
+  - The aggregate events are currently not persisted within a single write transaction, as the underlying client (AsyncAWS) does not support this yet.
+  - The sequential ordering is carried out using the event creation time within micro-seconds.
+    Due to DynamoDB's behavioral properties, you are unable to maintain a sequential auto-incrementing identifier.
+    Although not ideal, this is the best we can attain from using such a means.
+  - Currently, a _hot partition key_ is used based on this event creation time to provide the same sequential ordering required for streaming.
+
+Future developments that I wish to consider, are to instead store the events within S3 for persistence (possibly via DynamoDB streams for durability), and then query for these using Athena when streaming operations are required.
+In doing this we would move away from the _hot key_ that has been introduced in its current form.
+
+- EventStoreDB
+
+  - Communicates with the EventStoreDB over HTTP via Atom.
+  - Separate event streams are created per aggregate, following the naming convention _#AGGREGATE_NAME#-#AGGREGATE_ID#_.
+  - Ensures domain aggregate invariance, using the event streams expected version constraints which are provided by the persistence layer.
+
+With the HTTP and Atom communication protocols being deprecated, work to replace this with a gRPC client written in PHP would need to be carried out before putting such an implementation in production.
+
+#### Projections
