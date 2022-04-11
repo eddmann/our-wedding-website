@@ -1,6 +1,6 @@
 service: our-wedding-website
 
-variablesResolutionMode: 20210326
+frameworkVersion: ^3.12.0
 
 custom:
     tags:
@@ -23,7 +23,6 @@ provider:
     deploymentBucket:
         tags: ${self:custom.tags}
         blockPublicAccess: true
-    lambdaHashingVersion: 20201221
     httpApi:
         useProviderTags: true
     iamManagedPolicies:
