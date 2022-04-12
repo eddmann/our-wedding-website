@@ -17,7 +17,7 @@ services:
       DOCUMENT_ROOT: public
 
   php:
-    image: ghcr.io/eddmann/our-wedding-website:dev-7ca6fed
+    image: ghcr.io/eddmann/our-wedding-website:dev-27e45a8
     #build:
     #  context: ../
     #  dockerfile: docker/Dockerfile
