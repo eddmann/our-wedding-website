@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4ab0536aca8ab52d60b3f9699a93fd35",
+    "content-hash": "1e54e86677b50c946ccfd47c0c273d81",
     "packages": [
         {
             "name": "async-aws/core",
@@ -560,33 +560,40 @@
         },
         {
             "name": "bref/symfony-bridge",
-            "version": "0.1.3",
+            "version": "0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brefphp/symfony-bridge.git",
-                "reference": "bd40727f942d165973898e9c9fac1a7d5412c555"
+                "reference": "448540517e67a231c8281c2ce05d5409ae1fbeb1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brefphp/symfony-bridge/zipball/bd40727f942d165973898e9c9fac1a7d5412c555",
-                "reference": "bd40727f942d165973898e9c9fac1a7d5412c555",
+                "url": "https://api.github.com/repos/brefphp/symfony-bridge/zipball/448540517e67a231c8281c2ce05d5409ae1fbeb1",
+                "reference": "448540517e67a231c8281c2ce05d5409ae1fbeb1",
                 "shasum": ""
             },
             "require": {
-                "bref/bref": "^1.0",
-                "php": ">=7.3",
-                "symfony/filesystem": "^4.4|^5.0",
-                "symfony/http-kernel": "^4.4|^5.0"
+                "bref/bref": "^1.2",
+                "php": ">=7.4",
+                "symfony/filesystem": "^5.2|^6.0",
+                "symfony/http-kernel": "^5.2|^6.0",
+                "symfony/psr-http-message-bridge": "^2.1",
+                "symfony/runtime": "^5.2|^6.0"
             },
             "require-dev": {
                 "mnapoli/hard-mode": "^0.3.0",
-                "phpunit/phpunit": "^8.0",
-                "symfony/config": "^4.4|^5.0",
-                "symfony/dependency-injection": "^4.4|^5.0",
-                "symfony/process": "^4.4|^5.0"
+                "phpstan/phpstan": "^1.3",
+                "phpunit/phpunit": "^8.5.22",
+                "symfony/config": "^5.2|^6.0",
+                "symfony/dependency-injection": "^5.2|^6.0",
+                "symfony/framework-bundle": "^5.2|^6.0",
+                "symfony/process": "^5.2|^6.0"
             },
             "type": "library",
             "autoload": {
+                "files": [
+                    "src/bootstrap.php"
+                ],
                 "psr-4": {
                     "Bref\\SymfonyBridge\\": "src/"
                 }
@@ -603,23 +610,15 @@
             ],
             "support": {
                 "issues": "https://github.com/brefphp/symfony-bridge/issues",
-                "source": "https://github.com/brefphp/symfony-bridge/tree/0.1.3"
+                "source": "https://github.com/brefphp/symfony-bridge/tree/0.2.0"
             },
             "funding": [
-                {
-                    "url": "https://github.com/Nemo64",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/Nyholm",
-                    "type": "github"
-                },
                 {
                     "url": "https://github.com/mnapoli",
                     "type": "github"
                 }
             ],
-            "time": "2021-07-16T07:23:53+00:00"
+            "time": "2022-01-11T15:13:10+00:00"
         },
         {
             "name": "bref/symfony-messenger",
@@ -5491,6 +5490,94 @@
                 }
             ],
             "time": "2022-03-30T13:40:48+00:00"
+        },
+        {
+            "name": "symfony/psr-http-message-bridge",
+            "version": "v2.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/psr-http-message-bridge.git",
+                "reference": "22b37c8a3f6b5d94e9cdbd88e1270d96e2f97b34"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/psr-http-message-bridge/zipball/22b37c8a3f6b5d94e9cdbd88e1270d96e2f97b34",
+                "reference": "22b37c8a3f6b5d94e9cdbd88e1270d96e2f97b34",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1",
+                "psr/http-message": "^1.0",
+                "symfony/http-foundation": "^4.4 || ^5.0 || ^6.0"
+            },
+            "require-dev": {
+                "nyholm/psr7": "^1.1",
+                "psr/log": "^1.1 || ^2 || ^3",
+                "symfony/browser-kit": "^4.4 || ^5.0 || ^6.0",
+                "symfony/config": "^4.4 || ^5.0 || ^6.0",
+                "symfony/event-dispatcher": "^4.4 || ^5.0 || ^6.0",
+                "symfony/framework-bundle": "^4.4 || ^5.0 || ^6.0",
+                "symfony/http-kernel": "^4.4 || ^5.0 || ^6.0",
+                "symfony/phpunit-bridge": "^5.4@dev || ^6.0"
+            },
+            "suggest": {
+                "nyholm/psr7": "For a super lightweight PSR-7/17 implementation"
+            },
+            "type": "symfony-bridge",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "2.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Bridge\\PsrHttpMessage\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "PSR HTTP message bridge",
+            "homepage": "http://symfony.com",
+            "keywords": [
+                "http",
+                "http-message",
+                "psr-17",
+                "psr-7"
+            ],
+            "support": {
+                "issues": "https://github.com/symfony/psr-http-message-bridge/issues",
+                "source": "https://github.com/symfony/psr-http-message-bridge/tree/v2.1.2"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-11-05T13:13:39+00:00"
         },
         {
             "name": "symfony/redis-messenger",
