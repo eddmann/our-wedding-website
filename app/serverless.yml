@@ -23,10 +23,10 @@ provider:
     deploymentBucket:
         tags: ${self:custom.tags}
         blockPublicAccess: true
-    httpApi:
-        useProviderTags: true
-    iamManagedPolicies:
-        - ${ssm:/our-wedding/${self:provider.stage}/apps/website/policy-arn}
+    iam:
+        role:
+            managedPolicies:
+                - ${ssm:/our-wedding/${self:provider.stage}/apps/website/policy-arn}
     environment:
         APP_ENV: prod
         APP_SECRET: 'sm:/our-wedding/${self:provider.stage}/apps/website/app-secret'
