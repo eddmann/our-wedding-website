@@ -51,10 +51,9 @@ functions:
     web:
         handler: public/index.php
         timeout: 28
+        url: true
         layers:
             - ${bref:layer.php-81-fpm}
-        events:
-            - httpApi: '*'
     worker:
         handler: bin/worker.php
         timeout: 120
