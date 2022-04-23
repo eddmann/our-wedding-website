@@ -1,0 +1,64 @@
+app:
+  image: ghcr.io/eddmann/our-wedding-website-kube:latest
+  imagePullSecret: github
+  env:
+    APP_SECRET:
+      valueFrom:
+        secretKeyRef:
+          name: app
+          key: appSecret
+    MAILER_DSN:
+      valueFrom:
+        secretKeyRef:
+          name: app
+          key: mailerDsn
+    EMAIL_NOTIFIER_TO:
+      valueFrom:
+        secretKeyRef:
+          name: app
+          key: emailNotifierTo
+    EMAIL_NOTIFIER_FROM:
+      valueFrom:
+        secretKeyRef:
+          name: app
+          key: emailNotifierFrom
+    ADMIN_PASSWORD:
+      valueFrom:
+        secretKeyRef:
+          name: app
+          key: adminPassword
+    PAGE_CONTENT:
+      valueFrom:
+        configMapKeyRef:
+          name: page-contents
+          key: contents
+    DATABASE_URL:
+      valueFrom:
+        secretKeyRef:
+          name: postgres
+          key: dsn
+    MESSENGER_ASYNC_TRANSPORT_DSN:
+      valueFrom:
+        secretKeyRef:
+          name: rabbitmq
+          key: dsn
+    REDIS_SESSION_DSN:
+      value: redis://redis:6379
+
+web:
+  replicas: 1
+  hostname: our-wedding-website.com
+
+worker:
+  replicas: 1
+
+postgres:
+  image: docker.io/postgres:10.14-alpine
+  storageClassName: local-path
+  volumeSize: 1Gi
+
+redis:
+  image: docker.io/redis:6.2.6-alpine
+
+rabbitmq:
+  image: docker.io/rabbitmq:3.9.15-alpine

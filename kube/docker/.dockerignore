@@ -1,0 +1,5 @@
+app/vendor
+app/node_modules
+app/tests
+app/php
+app/var

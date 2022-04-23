@@ -1,0 +1,4 @@
+apiVersion: v2
+name: our-wedding-website
+version: 0.0.1
+type: application
