@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migrate-db-{{ .Release.Revision }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  template:
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.app.imagePullSecret }}
+      containers:
+        - name: migrate-db
+          image: {{ .Values.app.image | quote }}
+          imagePullPolicy: Always
+          env:
+          {{- range $name, $item := .Values.app.env }}
+            - name: {{ $name }}
+              {{- $item | toYaml | nindent 14 }}
+          {{- end }}
+            - name: CONTAINER_ROLE
+              value: migrate-db
+      restartPolicy: Never
+  backoffLimit: 4

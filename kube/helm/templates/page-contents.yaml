@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: page-contents
+    namespace: {{ .Release.Namespace }}
+data:
+    contents: |-
+        {{- .Files.Get "resources/page-contents.json" | nindent 9 }}
