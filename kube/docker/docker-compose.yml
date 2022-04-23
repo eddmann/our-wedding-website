@@ -1,0 +1,99 @@
+version: '3.9'
+
+services:
+  web:
+    build:
+      context: ../../
+      dockerfile: kube/docker/Dockerfile
+      target: prod
+    container_name: our-wedding-website-web
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - rabbitmq
+      - redis
+      - migrate-db
+    networks:
+      - app
+    env_file:
+      - env
+    environment:
+      CONTAINER_ROLE: web
+
+  worker:
+    build:
+      context: ../../
+      dockerfile: kube/docker/Dockerfile
+      target: prod
+    container_name: our-wedding-website-worker
+    restart: always
+    depends_on:
+      - postgres
+      - rabbitmq
+      - redis
+      - migrate-db
+    networks:
+      - app
+    env_file:
+      - env
+    environment:
+      CONTAINER_ROLE: worker
+
+  migrate-db:
+    build:
+      context: ../../
+      dockerfile: kube/docker/Dockerfile
+      target: prod
+    container_name: our-wedding-website-migrate-db
+    depends_on:
+      - postgres
+    networks:
+      - app
+    env_file:
+      - env
+    environment:
+      CONTAINER_ROLE: migrate-db
+
+  postgres:
+    image: docker.io/postgres:10.14-alpine
+    container_name: our-wedding-website-postgres
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - app
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+      TZ: Europe/London
+
+  redis:
+    image: docker.io/redis:6.2.6-alpine
+    container_name: our-wedding-website-redis
+    networks:
+      - app
+
+  rabbitmq:
+    image: docker.io/rabbitmq:3.9.15-alpine
+    container_name: our-wedding-website-rabbitmq
+    networks:
+      - app
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+
+  mailhog:
+    image: docker.io/mailhog/mailhog:v1.0.1
+    container_name: our-wedding-website-mailhog
+    ports:
+      - "8025:8025"
+    networks:
+      - app
+
+volumes:
+  postgres:
+    driver: local
+
+networks:
+  app:

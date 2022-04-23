@@ -1,0 +1,12 @@
+{
+  supervisor {
+    php-fpm --nodaemonize --force-stderr {
+    }
+  }
+}
+
+:8080
+php_fastcgi 127.0.0.1:9000
+root * /srv/app/public
+file_server
+log
