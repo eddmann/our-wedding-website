@@ -1,16 +1,16 @@
-FROM docker.io/bref/php-81-fpm-dev:1.5.5
+FROM docker.io/bref/php-81-fpm-dev:1.7.4
 
 # PHP Tooling
-COPY --from=docker.io/jakzal/phpqa:1.68.5-php8.1-alpine \
+COPY --from=docker.io/jakzal/phpqa:1.77.1-php8.1-alpine \
   /tools/deptrac \
   /tools/php-cs-fixer \
   /tools/local-php-security-checker \
   /usr/bin/
-RUN curl -sL https://github.com/vimeo/psalm/releases/download/4.22.0/psalm.phar -o /usr/bin/psalm \
+RUN curl -sL https://github.com/vimeo/psalm/releases/download/4.26.0/psalm.phar -o /usr/bin/psalm \
  && chmod +x /usr/bin/psalm
 
 # Composer
-COPY --from=docker.io/composer:2.3.4 /usr/bin/composer /usr/bin/
+COPY --from=docker.io/composer:2.3.10 /usr/bin/composer /usr/bin/
 
 # Node/Yarn
 RUN curl -sL https://rpm.nodesource.com/setup_16.x | bash - \
@@ -18,5 +18,5 @@ RUN curl -sL https://rpm.nodesource.com/setup_16.x | bash - \
  && yum install nodejs yarn -y
 
 # Serverless
-RUN curl -sL https://github.com/serverless/serverless/releases/download/v3.12.0/serverless-linux-x64 -o /usr/bin/serverless \
+RUN curl -sL https://github.com/serverless/serverless/releases/download/v3.21.0/serverless-linux-x64 -o /usr/bin/serverless \
  && chmod +x /usr/bin/serverless
