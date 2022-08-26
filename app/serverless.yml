@@ -50,7 +50,7 @@ plugins:
 functions:
     web:
         handler: public/index.php
-        timeout: 28
+        timeout: 60
         url: true
         layers:
             - ${bref:layer.php-81-fpm}

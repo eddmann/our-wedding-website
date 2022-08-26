@@ -5,7 +5,7 @@ doctrine:
     dbal:
         url: '%env(secret:DATABASE_URL)%'
         options:
-            !php/const \PDO::ATTR_TIMEOUT: 30
+            !php/const \PDO::ATTR_TIMEOUT: 59 # 1 second less than Lambda timeout
 
 when@test:
     doctrine:
