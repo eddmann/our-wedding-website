@@ -4,8 +4,9 @@ parameters:
     - ./tests
 
   exclude_files:
-    - GenerateListOfMessagesCommand.php
-    - GenerateCommandDiagram.php
+    - Ui/Cli/Documentation/GenerateListOfMessagesCommand
+    - Ui/Cli/Documentation/GenerateCommandDiagram
+    - Ui/DomainEventSubscriber/InviteSubmittedEmailNotifier
 
   layers:
     - name: Domain

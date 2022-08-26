@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Infrastructure\DomainEventSubscribers;
+namespace App\Ui\DomainEventSubscriber;
 
 use App\Domain\Event\InviteSubmitted;
 use App\Domain\Helpers\DomainEventSubscriber;
