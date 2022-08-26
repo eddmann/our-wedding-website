@@ -40,7 +40,7 @@ final class LoginAndSubmitEveningInviteTest extends UiTestCase
             ]
         );
 
-        self::getContainer()->get(CommandBus::class)->dispatch($command);
+        self::getContainer()->get(CommandBus::class)->dispatchSync($command);
 
         return [
             'code' => $command->getCode()->toString(),

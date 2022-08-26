@@ -33,7 +33,7 @@ final class CreateNewInviteCommand extends Command
             return Command::FAILURE;
         }
 
-        $this->commandBus->dispatch($command = new CreateInviteCommand($type, $invitedGuests));
+        $this->commandBus->dispatchSync($command = new CreateInviteCommand($type, $invitedGuests));
 
         $output->writeln(\sprintf('Successfully created new invite <info>%s</info>', $command->getCode()->toString()));
 

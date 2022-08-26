@@ -30,7 +30,7 @@ final class GuestController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             try {
-                $commandBus->dispatch(new AuthenticateInviteCommand($form->get('code')->getData()));
+                $commandBus->dispatchSync(new AuthenticateInviteCommand($form->get('code')->getData()));
 
                 return $this->redirectToRoute('details');
             } catch (\Exception $exception) {
@@ -87,7 +87,7 @@ final class GuestController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             try {
-                $commandBus->dispatch($this->toSubmitInviteCommand($id, $form->getData()));
+                $commandBus->dispatchSync($this->toSubmitInviteCommand($id, $form->getData()));
 
                 return $this->redirectToRoute('rsvp');
             } catch (\Exception $exception) {

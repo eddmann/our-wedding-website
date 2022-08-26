@@ -19,7 +19,7 @@ final class CreateNewFoodChoiceCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->commandBus->dispatch(
+        $this->commandBus->dispatchSync(
             new CreateFoodChoiceCommand(
                 $this->askForGuestType($input, $output),
                 $this->askForCourse($input, $output),

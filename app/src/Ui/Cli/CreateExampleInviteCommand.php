@@ -35,7 +35,7 @@ final class CreateExampleInviteCommand extends Command
             ]
         );
 
-        $this->commandBus->dispatch($command);
+        $this->commandBus->dispatchSync($command);
 
         $output->writeln(\sprintf('Successfully created example invite <info>%s</info>', $command->getCode()->toString()));
 

@@ -37,7 +37,7 @@ final class ImportFoodChoicesCommand extends Command
         );
 
         foreach ($choices as $choice) {
-            $this->bus->dispatch(
+            $this->bus->dispatchSync(
                 new CreateFoodChoiceCommand($choice['guestType'], $choice['course'], $choice['name'])
             );
         }

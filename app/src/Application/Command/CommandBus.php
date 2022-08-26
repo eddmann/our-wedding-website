@@ -5,5 +5,8 @@ namespace App\Application\Command;
 interface CommandBus
 {
     /** @throws CommandNotRegistered */
-    public function dispatch(Command $command): void;
+    public function dispatchSync(Command $command): void;
+
+    /** @throws CommandNotRegistered */
+    public function dispatchAsync(Command $command): void;
 }

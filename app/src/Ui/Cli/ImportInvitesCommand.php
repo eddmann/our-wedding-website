@@ -37,7 +37,7 @@ final class ImportInvitesCommand extends Command
         );
 
         foreach ($invites as $invite) {
-            $this->bus->dispatch(new CreateInviteCommand($invite['type'], $invite['guests']));
+            $this->bus->dispatchSync(new CreateInviteCommand($invite['type'], $invite['guests']));
         }
 
         return Command::SUCCESS;

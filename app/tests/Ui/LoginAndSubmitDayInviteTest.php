@@ -54,7 +54,7 @@ final class LoginAndSubmitDayInviteTest extends UiTestCase
     {
         $command = new CreateFoodChoiceCommand($guestType, $course, $name);
 
-        self::getContainer()->get(CommandBus::class)->dispatch($command);
+        self::getContainer()->get(CommandBus::class)->dispatchSync($command);
 
         return $command->getId()->toString();
     }
@@ -70,7 +70,7 @@ final class LoginAndSubmitDayInviteTest extends UiTestCase
             ]
         );
 
-        self::getContainer()->get(CommandBus::class)->dispatch($command);
+        self::getContainer()->get(CommandBus::class)->dispatchSync($command);
 
         return [
             'code' => $command->getCode()->toString(),

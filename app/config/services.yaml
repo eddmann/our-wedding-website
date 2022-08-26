@@ -20,6 +20,11 @@ services:
             - '../src/Ui/Cli/CreateDynamoDbSchemaCommand.php'
             - '../src/helpers.php'
 
+    App\Framework\Messenger\SendersLocatorWithTransportNameSupport:
+        decorates: messenger.senders_locator
+        arguments:
+            - '@App\Framework\Messenger\SendersLocatorWithTransportNameSupport.inner'
+
     App\Infrastructure\SymfonyCommandBus:
         arguments: ['@command.bus']
         lazy: true
