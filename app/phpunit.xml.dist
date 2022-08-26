@@ -11,7 +11,7 @@
     <php>
         <ini name="display_errors" value="1" />
         <ini name="error_reporting" value="-1" />
-        <server name="KERNEL_CLASS" value="App\Infrastructure\Kernel" />
+        <server name="KERNEL_CLASS" value="App\Framework\Kernel" />
         <env name="APP_ENV" value="test" force="true" />
         <env name="MAILER_DSN" value="null://null" force="true" />
         <server name="SHELL_VERBOSITY" value="-1" />

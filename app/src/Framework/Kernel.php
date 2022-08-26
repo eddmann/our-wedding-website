@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Infrastructure;
+namespace App\Framework;
 
 use App\Application\Command\CommandHandler;
 use App\Domain\Helpers\AggregateEventsSubscriber;

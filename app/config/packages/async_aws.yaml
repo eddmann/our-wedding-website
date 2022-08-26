@@ -28,6 +28,6 @@ services:
             - '@async_aws.http_client'
             - '@logger'
 
-    App\Infrastructure\AwsSecretsManagerEnvVarProcessor:
+    App\Framework\AwsSecretsManagerEnvVarProcessor:
         arguments:
             - '@AsyncAws\SecretsManager\SecretsManagerClient'

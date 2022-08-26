@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use App\Infrastructure\Kernel;
+use App\Framework\Kernel;
 
 if ($_ENV['PROXY_AUTH_KEY_HEADER'] ?? false) {
     $proxyAuthKeyHeader = 'HTTP_' . \str_replace('-', '_', \mb_strtoupper($_ENV['PROXY_AUTH_KEY_HEADER']));
