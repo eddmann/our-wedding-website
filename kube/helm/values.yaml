@@ -53,7 +53,7 @@ worker:
   replicas: 1
 
 postgres:
-  image: docker.io/postgres:10.14-alpine
+  image: docker.io/postgres:10.18-alpine
   storageClassName: local-path
   volumeSize: 1Gi
 

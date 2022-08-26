@@ -56,7 +56,7 @@ services:
       CONTAINER_ROLE: migrate-db
 
   postgres:
-    image: docker.io/postgres:10.14-alpine
+    image: docker.io/postgres:10.18-alpine
     container_name: our-wedding-website-postgres
     volumes:
       - postgres:/var/lib/postgresql/data

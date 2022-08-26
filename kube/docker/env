@@ -4,6 +4,6 @@ EMAIL_NOTIFIER_TO='to@email.com'
 EMAIL_NOTIFIER_FROM='from@email.com'
 ADMIN_PASSWORD=password
 PAGE_CONTENT='{}'
-DATABASE_URL='postgresql://user:password@postgres:5432/db?serverVersion=10.14&charset=utf8'
+DATABASE_URL='postgresql://user:password@postgres:5432/db?serverVersion=10.18&charset=utf8'
 MESSENGER_ASYNC_TRANSPORT_DSN=amqp://user:password@rabbitmq:5672/%2f/async?auto_setup=true
 REDIS_SESSION_DSN=redis://redis:6379

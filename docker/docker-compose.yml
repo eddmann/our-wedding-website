@@ -41,7 +41,7 @@ services:
       EVENT_STORE_BACKEND: # Backend used for Event Store (Postgres, DynamoDb, EventStoreDb)
       PROJECTION_BACKEND: # Backend use for Projections (Postgres, DynamoDb)
       # Postgres-backend
-      DATABASE_URL: 'postgresql://user:password@postgres:5432/db?serverVersion=10.14&charset=utf8'
+      DATABASE_URL: 'postgresql://user:password@postgres:5432/db?serverVersion=10.18&charset=utf8'
       # DynamoDB-backend
       DYNAMODB_ENDPOINT: 'http://dynamodb:8000'
       DYNAMODB_EVENT_STORE_TABLE: event-store
@@ -52,7 +52,7 @@ services:
       EVENTSTOREDB_URL: 'http://eventstoredb:2113'
 
   postgres:
-    image: docker.io/postgres:10.14-alpine
+    image: docker.io/postgres:10.18-alpine
     container_name: our-wedding-website-postgres
     ports:
       - 5432:5432
