@@ -2,7 +2,7 @@
 
 Because every Wedding RSVP website needs to follow DDD, CQRS, Hexagonal Architecture, Event Sourcing, and be deployed on Lambda.
 
-🌎 Website | 🏗️ [Infrastructure](https://github.com/eddmann/our-wedding-infra)
+🌎 Website | 📷 [Gallery](https://github.com/eddmann/our-wedding-gallery) | 🏗️ [Infrastructure](https://github.com/eddmann/our-wedding-infra)
 
 ## Overview
 
