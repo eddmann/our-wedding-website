@@ -163,8 +163,8 @@ update-snapshots: ## Updates event store snapshots that are mismatches
 .PHONY: documentation
 documentation: ## (Re)generates the dynamic event diagrams and message listings
 	@echo "Generating documentation..."
-	@$(APP) bash -c "bin/console documentation:command-diagram" | $(GRAPHVIZ) > documentation/command-digram.svg
-	@$(APP) bash -c "bin/console documentation:aggregate-event-diagram" | $(GRAPHVIZ) > documentation/aggregate-event-digram.svg
+	@$(APP) bash -c "bin/console documentation:command-diagram" | $(GRAPHVIZ) > documentation/command-diagram.svg
+	@$(APP) bash -c "bin/console documentation:aggregate-event-diagram" | $(GRAPHVIZ) > documentation/aggregate-event-diagram.svg
 	@$(APP) bash -c "bin/console documentation:message-list" > documentation/message-list.txt
 
 ##@ Running Instance

@@ -60,7 +60,7 @@ The following diagram highlights how these three buses interact during a typical
 
 There are two Aggregates within the Domain ([FoodChoice](app/src/Domain/Model/FoodChoice) and [Invite](app/src/Domain/Model/Invite)), the Aggregate Event flow for both goes as follows:
 
-![](documentation/aggregate-event-digram.svg)
+![](documentation/aggregate-event-diagram.svg)
 
 This diagram is automatically generated based on the current implementation, using [testable](app/tests/Application/Command/CommandTestCase.php) Event [snapshots](app/tests/Application/Command/EventStoreSnapshots) at the Command level.
 
@@ -68,7 +68,7 @@ This diagram is automatically generated based on the current implementation, usi
 
 Application-level Commands which are available for the _Ui_ to interact with the _Domain_ are presented below:
 
-![](documentation/command-digram.svg)
+![](documentation/command-diagram.svg)
 
 Along with the Command and Command Handlers, this also deptics the associated Domain Events which are emitted.
 
