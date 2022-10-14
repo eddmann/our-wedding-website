@@ -40,6 +40,7 @@ final class AggregateEvents implements \IteratorAggregate
     }
 
     /**
+     * @psalm-suppress InvalidArgument
      * @template TReturn
      * @template TInitial
      * @psalm-param pure-callable(): TReturn $function
