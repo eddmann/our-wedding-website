@@ -31,3 +31,13 @@ services:
     App\Framework\AwsSecretsManagerEnvVarProcessor:
         arguments:
             - '@AsyncAws\SecretsManager\SecretsManagerClient'
+
+when@prod:
+    parameters:
+        env(DYNAMODB_SESSIONS_TABLE): ''
+
+    services:
+        AsyncAws\DynamoDbSession\SessionHandler:
+            arguments:
+                - '@AsyncAws\DynamoDb\DynamoDbClient'
+                - table_name: '%env(DYNAMODB_SESSIONS_TABLE)%'
